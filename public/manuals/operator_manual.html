@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DxClinic Reception & Front Desk Operator Manual — DxClinic Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --teal: #0d9488;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            font-size: 14.5px;
+        }
+
+        /* Top Action Bar (Screen Only) */
+        .top-toolbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border-bottom: 1px solid #1e293b;
+        }
+        .toolbar-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: #fff; }
+        .toolbar-brand .logo {
+            background: var(--teal);
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.1rem;
+        }
+        .toolbar-brand .title { font-weight: 800; font-size: 1rem; letter-spacing: -0.02em; }
+        .toolbar-actions { display: flex; align-items: center; gap: 0.75rem; }
+        .btn-tool {
+            background: #1e293b;
+            color: #f1f5f9;
+            border: 1px solid #334155;
+            padding: 0.45rem 0.9rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s;
+        }
+        .btn-tool:hover { background: #334155; color: #fff; }
+        .btn-tool.primary { background: var(--teal); border-color: var(--teal); color: #fff; }
+        .btn-tool.primary:hover { background: #0f766e; }
+        .doc-select {
+            background: #1e293b;
+            color: #f1f5f9;
+            border: 1px solid #334155;
+            padding: 0.45rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Container Layout */
+        .container {
+            max-width: 1040px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header Card */
+        .doc-header {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2.25rem 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .doc-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--teal), var(--primary));
+        }
+        .badge-role {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #0369a1;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.2rem 0.65rem;
+            border-radius: 9999px;
+            margin-bottom: 0.75rem;
+            border: 1px solid #bae6fd;
+        }
+        .doc-title { font-size: 2rem; font-weight: 900; letter-spacing: -0.03em; color: #0f172a; line-height: 1.25; margin-bottom: 0.5rem; }
+        .doc-sub { font-size: 1rem; color: var(--text-muted); font-weight: 500; }
+        .doc-meta { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.8rem; color: var(--text-muted); }
+        .doc-meta strong { color: var(--text-main); }
+
+        /* Document Body & Typography */
+        .doc-body {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2.5rem 3rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        h1, h2, h3, h4 { color: #0f172a; font-weight: 800; letter-spacing: -0.02em; margin-top: 2rem; margin-bottom: 0.75rem; }
+        h1 { font-size: 1.75rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.5rem; margin-top: 2.5rem; }
+        h2 { font-size: 1.4rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.4rem; }
+        h3 { font-size: 1.15rem; }
+        h4 { font-size: 1rem; }
+        p { margin-bottom: 1rem; color: #334155; }
+        ul, ol { margin-bottom: 1.25rem; padding-left: 1.75rem; color: #334155; }
+        li { margin-bottom: 0.4rem; }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        th {
+            background: #0f172a;
+            color: #f8fafc;
+            text-align: left;
+            padding: 0.75rem 1rem;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            color: #334155;
+            vertical-align: top;
+        }
+        tr:nth-child(even) td { background: #f8fafc; }
+        tr:hover td { background: #f1f5f9; }
+
+        /* Code & Pre */
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: #f1f5f9;
+            color: #0f172a;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.3rem;
+            font-size: 0.825em;
+            font-weight: 600;
+            border: 1px solid #e2e8f0;
+        }
+        pre {
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 1.25rem 1.5rem;
+            border-radius: 0.75rem;
+            overflow-x: auto;
+            margin: 1.25rem 0;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        pre code { background: transparent; color: inherit; border: none; padding: 0; font-weight: normal; }
+
+        /* Callout / Alert Boxes */
+        blockquote, .alert-box {
+            margin: 1.5rem 0;
+            padding: 1rem 1.25rem;
+            border-left: 4px solid var(--teal);
+            background: #f0fdfa;
+            border-radius: 0 0.5rem 0.5rem 0;
+            color: #134e4a;
+        }
+        blockquote p { margin: 0; color: inherit; }
+        .alert-warning { border-left-color: #f59e0b; background: #fffbeb; color: #92400e; }
+        .alert-note { border-left-color: var(--primary); background: #f0f9ff; color: #075985; }
+        .alert-important { border-left-color: #ef4444; background: #fef2f2; color: #991b1b; }
+        .alert-rule { border-left-color: #8b5cf6; background: #f5f3ff; color: #5b21b6; }
+
+        /* Badges */
+        kbd {
+            font-family: 'JetBrains Mono', monospace;
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 2px 0 #94a3b8;
+            color: #0f172a;
+            padding: 0.15rem 0.45rem;
+            border-radius: 0.3rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* Footer */
+        .doc-footer {
+            margin-top: 3rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* PRINT / PDF FORMATTING (CSS @page & @media print) */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 15mm 15mm 15mm 15mm;
+            }
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                font-size: 10pt;
+                line-height: 1.45;
+            }
+            .no-print, .top-toolbar { display: none !important; }
+            .container { max-width: 100% !important; margin: 0 !important; padding: 0 !important; }
+            .doc-header, .doc-body {
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin-bottom: 1.5rem !important;
+            }
+            .doc-header::before { display: none; }
+            .doc-title { font-size: 18pt !important; margin-bottom: 0.25rem !important; }
+            .doc-sub { font-size: 11pt !important; }
+            h1 { font-size: 14pt !important; margin-top: 1.5rem !important; page-break-after: avoid; }
+            h2 { font-size: 12pt !important; margin-top: 1.25rem !important; page-break-after: avoid; }
+            h3 { font-size: 11pt !important; margin-top: 1rem !important; page-break-after: avoid; }
+            table { page-break-inside: avoid; font-size: 8.5pt !important; }
+            th { background: #334155 !important; color: #fff !important; }
+            pre { page-break-inside: avoid; background: #f8fafc !important; color: #000 !important; border: 1px solid #cbd5e1 !important; }
+            blockquote { page-break-inside: avoid; }
+            .page-break { page-break-before: always; }
+            .avoid-break { page-break-inside: avoid; }
+            a { text-decoration: none !important; color: #000 !important; }
+            a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; color: #64748b; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Toolbar (Screen only) -->
+    <div class="top-toolbar no-print">
+        <a href="/dashboard" class="toolbar-brand">
+            <div class="logo">+</div>
+            <div class="title">DxClinic Clinical Manuals</div>
+        </a>
+        <div class="toolbar-actions">
+            <select class="doc-select" onchange="window.location.href=this.value">
+                <option value="admin_manual.html" >Admin: DxClinic Administrator & Clinical Practice Manual</option>
+<option value="admin_quick_card.html" >Quick Card: DxClinic Administrator Quick Reference Card</option>
+<option value="doctor_manual.html" >Doctor: DxClinic Attending Doctor Clinical Manual</option>
+<option value="doctor_quick_card.html" >Quick Card: DxClinic Attending Doctor Quick Reference Card</option>
+<option value="operator_manual.html" selected>Operator: DxClinic Reception & Front Desk Operator Manual</option>
+<option value="operator_quick_card.html" >Quick Card: DxClinic Reception & Front Desk Operator Quick Reference Card</option>
+<option value="superadmin_manual.html" >Superadmin: DxClinic Superadmin Fleet Platform Governance Manual</option>
+<option value="superadmin_quick_card.html" >Quick Card: DxClinic Superadmin Fleet Quick Reference Card</option>
+<option value="faq.html" >FAQ (136 Q&A): DxClinic Comprehensive FAQ Knowledge Base</option>
+
+            </select>
+            <button type="button" class="btn-tool primary" onclick="window.print()">
+                <span>🖨 Print / Save as PDF</span>
+            </button>
+            <a href="/manuals/index.html" class="btn-tool">
+                <span>📚 All Manuals Hub</span>
+            </a>
+            <a href="/dashboard" class="btn-tool">
+                <span>&larr; Back to Dashboard</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="doc-header">
+            <span class="badge-role">Operator &bull; Operator</span>
+            <h1 class="doc-title">DxClinic Reception & Front Desk Operator Manual</h1>
+            <p class="doc-sub">Patient Registration, Token Allocation, Arrival Queue Management, Cash Collection & Billing Protocols</p>
+            <div class="doc-meta">
+                <div><strong>Platform:</strong> DxClinic Practice Suite (Revision 39)</div>
+                <div><strong>Standard:</strong> NABH / ISO-Compliant OPD Workflow</div>
+                <div><strong>Published:</strong> 29 Sep 2026, 16:57 UTC</div>
+                <div><strong>Classification:</strong> Authoritative Clinical System Manual</div>
+            </div>
+        </header>
+
+        <!-- Markdown Converted Document Content -->
+        <main class="doc-body">
+            <h1>DxClinic Operator Complete Desk Operation Manual</h1>
+<p><strong>DxClinic Clinical Management System — Revision 26</strong><br />
+<em>Manual Type: Full Operator Operation Manual | Version: Revision 26 | Last Updated: September 2026 | Developer: Kundan Kumar | Copyright © 2026 DxClinic</em></p>
+<hr />
+<h2>1. System Access &amp; Reception Login</h2>
+<ol>
+<li>Open web browser (Google Chrome or modern Chromium browser).</li>
+<li>Navigate to the clinic reception portal: <code>http://192.168.1.2:8000/login</code> (or <code>http://127.0.0.1:8000/login</code>).</li>
+<li>Enter your authorized Operator email and password. Click <strong>Sign In</strong>.</li>
+<li>Open Morning or Evening Cash Session with physical drawer cash before processing patients.</li>
+</ol>
+<hr />
+<h2>2. Dedicated Operator Booking (<code>/operator/booking</code>)</h2>
+<p><em>CRITICAL SEPARATION: Reception staff MUST use <code>/operator/booking</code>. Public patient self-booking is strictly separated at <code>/book</code>.</em></p>
+<ol>
+<li>Click <strong>Operator Booking</strong> in the main navigation menu.</li>
+<li>Verify visual badge: <strong>Booking Source: Clinic Operator</strong>.</li>
+<li><strong>Patient Identification</strong>:
+<ul>
+<li><strong>Search Existing Patient</strong>: Type patient name, 10-digit mobile number, or <code>DXP-XXXXX</code> in the search box. Click the matching patient record to auto-populate.</li>
+<li><strong>Register New Patient</strong>: If the patient is not found, enter:
+<ul>
+<li><strong>Full Name</strong>: Letters and single spaces only (e.g., <code>Kundan Kumar</code> or <code>राम कुमार</code>). Digits and symbols are rejected.</li>
+<li><strong>Age</strong>: Integer from 0 (for newborns) to 130 years.</li>
+<li><strong>Gender</strong>: Select Male, Female, or Other.</li>
+<li><strong>Mobile Number</strong>: Enter 10 digits (<code>9876543210</code>), <code>+91 9876543210</code>, or <code>09876543210</code>. The system automatically normalizes it to canonical <code>+91 9876543210</code>.</li>
+<li><strong>Address &amp; City</strong>: Enter street address and dedicated city field (defaults to Varanasi).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Select Attending Doctor (Primary Filter)</strong>:
+<ul>
+<li>Single active doctor: Auto-selected.</li>
+<li>Multiple active doctors: Pre-selects configured Default Booking Doctor. Operator can choose another physician.</li>
+<li><strong>Crucial Rule</strong>: Selecting a doctor dynamically queries the server and loads ONLY the booking types explicitly mapped to that doctor with active fee configurations.</li>
+</ul>
+</li>
+<li><strong>Select Mapped Booking Type &amp; Resolved Doctor Fee</strong>:
+<ul>
+<li><code>[ ] 🏥 Clinic Consultancy — ₹600</code> (or doctor-specific rate)</li>
+<li><code>[ ] 🌐 Online Consultancy — ₹700</code> (or doctor-specific rate)</li>
+<li><code>[ ] 🚨 Emergency Consultancy — ₹1500</code> (requires active doctor emergency fee)</li>
+<li>Custom clinic offerings (e.g. <code>Home Healthcare Visit</code>) if enabled for this doctor.</li>
+<li><strong>Anti-Fallback Guard</strong>: If a booking type lacks a configured fee for this doctor, it does not appear and cannot be booked. Zero silent fallback.</li>
+</ul>
+</li>
+<li><strong>Select Date &amp; Session</strong>: Choose appointment date and Morning / Evening / Sunday session.</li>
+<li>Click <strong>[Allocate Common Queue Token]</strong>.</li>
+<li>The system assigns a unique daily queue token (<code>001</code>, <code>002</code>...) from the unified sequence. Print the token slip for the patient.</li>
+</ol>
+<hr />
+<h2>3. Public Patient Booking PWA Difference (<code>/book/{public_slug}</code>)</h2>
+<ul>
+<li>Public patients access their clinic's dedicated slug URL: <code>http://127.0.0.1:8000/book/{public_slug}</code> (or production <code>https://dxclinic.example.local/book/{public_slug}</code>, or short redirect <code>/b/{public_slug}</code>).</li>
+<li>Unselected <code>/book</code> and internal codes (<code>/book/NX0001</code>, <code>/book/1</code>) return HTTP 404 to ensure complete tenant safety and isolation.</li>
+<li>Public booking creates <code>booking_source = ONLINE</code>.</li>
+<li>Visual badge displays: <strong>Booking Source: Online Patient</strong>.</li>
+<li>No online payment gateway is used. Booking creates an appointment, token, and an <strong>UNPAID / PENDING fee obligation</strong>.</li>
+<li>Payment settlement occurs at the clinic counter or via physical UPI Soundbox.</li>
+</ul>
+<hr />
+<h2>4. Arrival Queue &amp; Vitals Recording (<code>/clinic/{public_slug}/operator/queue</code>)</h2>
+<ul>
+<li>Reception staff access the queue at <code>/clinic/{public_slug}/operator/queue</code> (or through the navbar link).</li>
+<li>The route enforces authenticated tenant scoping: accessing another clinic's queue returns HTTP 403 Forbidden, and unselected <code>/operator/queue</code> returns HTTP 404.</li>
+</ul>
+<ol>
+<li>When a patient arrives at the clinic, locate their row by token number or name.</li>
+<li>Click <strong>[Mark Arrived]</strong>. The status updates to <code>ARRIVED</code>, and a clinical Visit record is created.</li>
+<li>For physical consultations, record vital signs:
+<ul>
+<li>Weight (kg)</li>
+<li>Blood Pressure (Systolic / Diastolic mmHg)</li>
+<li>Pulse (bpm)</li>
+<li>SpO2 (%)</li>
+<li>Temperature (°F)</li>
+</ul>
+</li>
+<li>Click <strong>[Save Vitals]</strong> and <strong>Print Doctor Pad</strong> for the attending physician.</li>
+</ol>
+<hr />
+<h2>5. Consultation Fee Billing &amp; Revisit Rules (<code>/operator/consultation/{id?}</code>)</h2>
+<h3>5.1 Fee Master Rates</h3>
+<ul>
+<li>Clinic Consultancy: <strong>₹600.00</strong> (or doctor-specific rate if configured)</li>
+<li>Online Consultancy: <strong>₹700.00</strong> (or doctor-specific rate if configured)
+Fees resolve dynamically from Fee Master hierarchy (Doctor -&gt; Clinic default -&gt; System fallback). Never hardcode prices.</li>
+</ul>
+<h3>5.2 Free OPD Revisit (5-Day Rule)</h3>
+<ul>
+<li><strong>Automatic Rule</strong>: If a patient completed a qualifying physical consultation within the past <strong>5 calendar days</strong>:
+<ul>
+<li>Gross Amount: <strong>₹600.00</strong></li>
+<li>Revisit Waiver (<code>waiver_type = 'OPD_REVISIT'</code>): <strong>₹600.00</strong></li>
+<li>Net Amount: <strong>₹0.00</strong></li>
+<li>Status: <code>'WAIVED'</code></li>
+</ul>
+</li>
+<li><strong>Accounting Rule</strong>: Zero cash collection, zero UPI collection, zero bank movement. <strong>No payment record is created.</strong></li>
+</ul>
+<h3>5.3 Payment Settlement (When Net &gt; 0)</h3>
+<ul>
+<li><strong>Cash</strong>: Enter cash received, click <strong>[Collect Cash &amp; Settle]</strong>.</li>
+<li><strong>UPI Soundbox</strong>: Present QR, verify audible voice confirmation from physical Soundbox device, check <strong>[Soundbox Voice Confirmed]</strong>, and click <strong>[Settle UPI]</strong>.</li>
+<li>Print strict <strong>A5 Receipt</strong> (<code>148mm x 210mm</code>) with Patient Copy and Clinic Copy.</li>
+</ul>
+<hr />
+<h2>6. Historical Billing &amp; Management (<code>/operator/consultation</code> &amp; <code>/operator/diagnostics</code>)</h2>
+<p><em>Revision 26 introduces full historical billing management workspaces.</em></p>
+<h3>6.1 Consultation Billing Navigation Tabs</h3>
+<p>Navigate to <code>/operator/consultation</code>. Three tabs are available:</p>
+<ol>
+<li><strong>[New Consultation Billing]</strong>: Standard desk workflow for pending token settlements.</li>
+<li><strong>[Consultation Billing History]</strong>: Full historical ledger of all consultation bills.</li>
+<li><strong>[Doctor Pad History]</strong>: Historical clinical encounter repository for reprinting pre-printed doctor pads.</li>
+</ol>
+<h3>6.2 Searching &amp; Filtering Historical Consultation Bills</h3>
+<p>The <strong>Consultation Billing History</strong> tab provides multi-parameter filtering:</p>
+<ul>
+<li><strong>Date Range</strong>: Filter by Date From and Date To (defaults to today).</li>
+<li><strong>Search Patient</strong>: Filter by Patient Name, ID (<code>DXP-...</code>), or 10-digit Mobile.</li>
+<li><strong>Search Bill Number</strong>: Exact or partial match (e.g., <code>CBL-2026-...</code>).</li>
+<li><strong>Search Token</strong>: Instant lookup by daily queue token number.</li>
+<li><strong>Attending Doctor</strong>: Filter by specific physician.</li>
+<li><strong>Consultation Mode</strong>: Filter by <code>CLINIC_PHYSICAL</code> or <code>ONLINE_CONSULTANCY</code>.</li>
+<li><strong>Payment Method</strong>: Filter by <code>CASH</code> or <code>UPI</code>.</li>
+<li><strong>Status</strong>: Filter by <code>PAID</code>, <code>PENDING</code>, <code>WAIVED</code>, <code>CANCELLED</code>, or <code>REFUNDED</code>.</li>
+</ul>
+<h3>6.3 Historical Bill Detail View</h3>
+<p>Clicking <strong>[View]</strong> opens the read-only historical ledger drawer:</p>
+<ul>
+<li><strong>Original Settled Amounts</strong>: Original Gross, Original Discount, Original Waiver, Original Net, and Original Settled Payment.</li>
+<li><strong>Historical Immutability Guarantee</strong>: Original financial facts are never overwritten or altered.</li>
+<li><strong>Adjustment &amp; Refund Summary</strong>: Displays total refunds processed, remaining retained revenue, and effective status.</li>
+<li><strong>Document Reprints</strong>: Reprint Patient Receipt, Clinic Copy, or Both Copies. All reprint operations are idempotent and create zero accounting or duplicate payment records.</li>
+</ul>
+<hr />
+<h2>7. Doctor Pad History &amp; Reprinting</h2>
+<h3>7.1 Accessing Historical Doctor Pads</h3>
+<ol>
+<li>Open <code>/operator/consultation</code> and click the <strong>[Doctor Pad History]</strong> tab.</li>
+<li>Search by Patient Name/ID, Attending Doctor, or Date Range.</li>
+<li>View encounters with status indicators:
+<ul>
+<li>Patient Name, Gender, Age, City</li>
+<li>Appointment Date &amp; Token Number</li>
+<li>Attending Doctor</li>
+<li>Vitals Capture Status (<code>Recorded</code> vs <code>Pending</code>)</li>
+<li>Pad Layout Badge (<code>Pre-printed Overlay Mode</code>)</li>
+</ul>
+</li>
+</ol>
+<h3>7.2 Idempotent Reprinting</h3>
+<ul>
+<li>Click <strong>[Reprint Doctor Pad]</strong> or <strong>[View PDF]</strong>.</li>
+<li>Output strictly adheres to pre-printed stationer overlay calibration:
+<ul>
+<li>Prints: Patient Name, Age, Gender, City, Date, Token Number, and recorded Vitals.</li>
+<li>Omitted: Patient ID, barcodes, QR codes, payment details, clinic logos, or digital prescription grids.</li>
+</ul>
+</li>
+<li><strong>Strict Safety Rule</strong>: Reprinting generates <strong>zero payment records</strong>, <strong>zero accounting journals</strong>, <strong>zero refunds</strong>, and <strong>zero duplicate visits/tokens</strong>.</li>
+</ul>
+<hr />
+<h2>8. Diagnostic Billing History (<code>/operator/diagnostics</code>)</h2>
+<h3>8.1 Diagnostic Workspace Tabs</h3>
+<p>Navigate to <code>/operator/diagnostics</code>. Two tabs are available:</p>
+<ol>
+<li><strong>[New Diagnostic Billing]</strong>: Standard desk workflow for test booking, discounting, and collection.</li>
+<li><strong>[Diagnostic Billing History]</strong>: Full historical ledger of all diagnostic bills.</li>
+</ol>
+<h3>8.2 Historical Line-Item Rate Preservation</h3>
+<ul>
+<li>Click <strong>[View Details]</strong> on any historical diagnostic bill.</li>
+<li>The modal displays original line items:
+<ul>
+<li>Test / Package Name</li>
+<li>Historical Snapshot Rate (never recomputed using today's master rates)</li>
+<li>Historical Quantity &amp; Line Total</li>
+<li>Original Gross, Discount, and Net Amounts</li>
+<li>Refunded Amount &amp; Net Retained Amount</li>
+</ul>
+</li>
+<li>Action buttons allow reprinting <strong>Diagnostic Receipt</strong> and <strong>Lab Specimen Collection Slip</strong> with zero side effects.</li>
+</ul>
+<hr />
+<h2>9. Controlled Bill Modification &amp; Refund Workflow</h2>
+<h3>9.1 Financial Safety &amp; Immutability Rules</h3>
+<ul>
+<li><strong>NEVER OVERWRITE SETTLED RECORDS</strong>: Settled payments, receipts, journals, and bill values cannot be edited directly.</li>
+<li><strong>Transactional Audit Trail</strong>: All financial corrections generate new auditable records (<code>refunds</code>, <code>receipt_revisions</code>, <code>audit_logs</code>, or supplementary bills).</li>
+</ul>
+<h3>9.2 Modifying a PENDING (Unpaid) Bill</h3>
+<ul>
+<li>If a bill is still <code>PENDING</code> and has no settled payment, the operator can update line items or discounts.</li>
+<li><strong>Mandatory Reason Requirement</strong>: The operator must enter an explanation of at least <strong>10 characters</strong>. Short or generic reasons (e.g., <code>&quot;edit&quot;</code>, <code>&quot;change&quot;</code>, <code>&quot;ok&quot;</code>) are rejected server-side.</li>
+<li>Financial figures are re-calculated server-side. An audit log is recorded.</li>
+</ul>
+<h3>9.3 Doctor-Recommended Discount After Payment</h3>
+<ul>
+<li>If a physician recommends a discount after the patient has paid (e.g., ₹100 discount on a ₹600 consultation):
+<ol>
+<li>Locate the bill in <strong>Consultation Billing History</strong> and click <strong>[Modify / Refund]</strong>.</li>
+<li>Select Modification Type: <code>DISCOUNT_AFTER_SETTLEMENT</code> (or <code>PARTIAL_REFUND</code>).</li>
+<li>Enter the refund amount: <code>100.00</code>.</li>
+<li>Enter the <strong>Mandatory Reason</strong> (e.g., <code>&quot;Refund for discount given as per doctor recommendation.&quot;</code>).</li>
+<li>Select the Attending Doctor who gave the instruction.</li>
+<li>Select Refund Settlement Method (<code>CASH</code> or <code>UPI</code>).</li>
+<li><strong>Financial Result</strong>:
+<ul>
+<li>Original Bill remains ₹600.00 (immutable).</li>
+<li>Original Payment remains ₹600.00 (immutable).</li>
+<li>Refund of ₹100.00 is settled and recorded.</li>
+<li>Net Retained Revenue becomes ₹500.00.</li>
+<li>A balanced double-entry accounting reversal journal is created.</li>
+<li>A <strong>Receipt Revision</strong> record is created without mutating the original receipt.</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h3>9.4 Full Refund Workflow</h3>
+<ul>
+<li>A full refund refunds the total settled payment (<code>refund_amount = remaining refundable amount</code>).</li>
+<li>The bill status transitions to <code>REFUNDED</code> only when 100% of the settled payment is refunded.</li>
+</ul>
+<h3>9.5 Operator Role Boundaries</h3>
+<ul>
+<li><strong>Operator Can</strong>:
+<ul>
+<li>View all historical consultation and diagnostic bills.</li>
+<li>Reprint receipts, doctor pads, and lab collection slips.</li>
+<li>Submit refund / modification requests with mandatory reasons and doctor references.</li>
+<li>Perform authorized direct refunds when operating within active cash counter permissions.</li>
+</ul>
+</li>
+<li><strong>Operator Cannot</strong>:
+<ul>
+<li>Overwrite historical settled amounts directly.</li>
+<li>Bypass server-side reason validation.</li>
+<li>Over-refund beyond the original settled payment minus prior refunds.</li>
+<li>Delete audit logs or historical billing entries.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2>10. Audit Trail Inspection</h2>
+<ul>
+<li>Click <strong>[Audit Log]</strong> on any historical bill.</li>
+<li>The drawer displays the chronological timeline of all changes:
+<ul>
+<li>Timestamp &amp; Operator / Admin Name</li>
+<li>Change Category (<code>BILL_CORRECTION</code>, <code>REFUND</code>, <code>DISCOUNT_AFTER_SETTLEMENT</code>, <code>SUPPLEMENTARY_BILL</code>)</li>
+<li>Mandatory Reason Recorded</li>
+<li>Old Values vs New Values</li>
+<li>Financial Impact &amp; Linked Refund ID</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2>11. Reports Subsystem (<code>/reports/opd</code> and <code>/reports/diagnostics</code>)</h2>
+<ol>
+<li><strong>Session-wise Patient Report</strong>: Filter by Date, Doctor, and Session (Morning, Evening, Sunday).</li>
+<li><strong>Day-wise Patient Report</strong>: View chronological daily patient list.</li>
+<li><strong>Doctor-wise &amp; Combined Reports</strong>: View specific doctor's caseload or All Doctors combined.</li>
+<li><strong>Strict Format</strong>: <code>Patient ID | Patient Name | Age | Address | City | Mobile | Token | Session | Booking Source | Consultation Type | Paid Fee | Payment Mode | Doctor</code>.</li>
+<li><strong>INVARIANT</strong>: Patient reports strictly omit vitals.</li>
+<li><strong>TOTAL COLLECTION Footer</strong>: Calculates strictly from settled payments. Free revisits show ₹0.00.</li>
+<li>Export reports via View, Print, Download real PDF, or Export CSV.</li>
+</ol>
+<hr />
+<h2>12. AI Operator Assistant (RAG)</h2>
+<ol>
+<li>Click the floating chat icon in the bottom-right corner.</li>
+<li>Ask operational guidance questions:
+<ul>
+<li><em>&quot;How do I view old consultation bills?&quot;</em></li>
+<li><em>&quot;How do I process a refund recommended by a doctor?&quot;</em></li>
+<li><em>&quot;Why can't I edit a paid bill directly?&quot;</em></li>
+<li><em>&quot;What is today's cash collection?&quot;</em></li>
+</ul>
+</li>
+<li><strong>Safety Guard</strong>: The AI Assistant is strictly informational. It <strong>CANNOT execute financial modifications, process refunds, or post accounting journals</strong>. All financial operations must occur within the authenticated billing screens.</li>
+</ol>
+<h2>13. Billing History &amp; Navigation Quick Reference (Revision 27)</h2>
+<h3>13.1 Consultation Billing History Actions</h3>
+<p>In <code>/operator/consultation</code>:</p>
+<ul>
+<li>Locate the historical bill in <strong>Consultation Billing History</strong>.</li>
+<li>Action buttons appear in the sequence:
+<code>[View]  [Receipt]  [Edit]  [Pad]  [Audit]  [Refund / Adjust]</code></li>
+<li><strong>[Edit] Button</strong>: Appears immediately before <strong>[Pad]</strong>. Clicking it opens the controlled modification or refund modal.</li>
+<li><strong>[Pad] Button</strong>: Instantly reprints the patient's Doctor Pad. If the doctor has an active custom template, it renders with the new template; otherwise it uses the legacy layout.</li>
+</ul>
+<h3>13.2 Diagnostic Billing History Actions</h3>
+<p>In <code>/operator/diagnostics</code>:</p>
+<ul>
+<li>The history table features a dedicated <strong>Edit</strong> column located directly between <strong>Status</strong> and <strong>Method</strong>:
+$$\textbf{Status} \quad|\quad \textbf{Edit} \quad|\quad \textbf{Method}$$</li>
+<li>Click <strong>[Edit]</strong> to adjust pending test items or initiate an authorized refund for settled diagnostic bills.</li>
+</ul>
+<h3>13.3 Clean Left Navigation Hierarchy</h3>
+<p>The left sidebar is streamlined for daily clinical workflows:</p>
+<ol>
+<li><strong>Daily Work</strong> (Top): Dashboard, OPD Booking, OPD Queue, Patients, Consultation Billing, Diagnostic Billing, and Cash Counter.</li>
+<li><strong>Reports</strong> (Collapsible): OPD Reports, Diagnostic Reports, Financial Reconciliation, and Daily Cash Report.</li>
+<li><strong>Help &amp; Guide</strong> (Near Bottom): Collapsible group with direct links to FAQ, User Manuals, Quick Guides, and About Developer.</li>
+</ol>
+<hr />
+<h2>14. Doctor Pad Printing: Proof vs Production</h2>
+<ul>
+<li><strong>Production Mode (Standard Print)</strong>: When an operator prints a Doctor Pad via <strong>[Pad]</strong>, only dynamic clinical facts (Patient Name, Age/Sex, Vitals, Token, Date) are printed onto transparent background. This prevents double-printing when feeding physical pre-printed stationery.</li>
+<li><strong>Missing Vitals</strong>: If vitals appear blank, it signifies no vitals were measured for that encounter. The system never fabricates placeholder values.</li>
+</ul>
+<hr />
+<h2>15. Historical Doctor Pad Reprints &amp; Immutability (Revision 28)</h2>
+<ul>
+<li><strong>Exact Historical Version Reproduction</strong>: When clicking <strong>[Pad]</strong> to reprint an old consultation, DxClinic renders the document using the <strong>exact template version</strong> that was active when that encounter was committed.</li>
+<li><strong>No Impact from New Templates</strong>: Even if the doctor's active template was updated to a newer version (e.g. V2 or V3), old consultations remain completely unaffected and reprint using their original layout.</li>
+<li><strong>Archived Templates Remain Printable</strong>: Older templates that were archived remain active in read-only mode for historical reprints.</li>
+<li><strong>Legacy Records</strong>: Older visits recorded before custom templates were configured continue to print smoothly using the legacy pre-printed pad renderer.</li>
+<li><strong>Idempotency</strong>: Reprints can be performed as many times as needed with zero financial side effects.</li>
+</ul>
+<hr />
+<h2>16. Multi-Tenant Operation &amp; Public Booking Links (Revision 34 Hardening)</h2>
+<h3>16.1 Operator Authentication &amp; Clinic Context</h3>
+<ul>
+<li>Operators sign in using their <strong>Clinic ID</strong> (e.g. <code>NX0001</code>), <strong>User ID</strong> (e.g. <code>OPR0001</code>), and <strong>Password</strong>.</li>
+<li>Once signed in, all patient records, queues, appointments, doctors, and financial sessions are strictly isolated to your clinic.</li>
+<li>System security prevents any cross-clinic data leakage.</li>
+</ul>
+<h3>16.2 Clinic-Specific Public Booking &amp; QR Codes</h3>
+<ul>
+<li>Share your clinic's unique short booking URL with walk-in and online patients:
+$$\text{https://yourdomain.com/b/} \mathbf{NX0001}$$</li>
+<li>Patients scanning the clinic's QR code or visiting this link see exclusively your clinic's name, active doctors, consulting hours, and fees.</li>
+<li>Tokens issued through this link automatically appear on your <strong>OPD Queue</strong> (<code>/operator/queue</code>) in real time.</li>
+</ul>
+<h3>16.3 Mobile Number Registration Limits</h3>
+<ul>
+<li>The configured family patient limit (default 4 patients per mobile number) is strictly clinic-scoped.</li>
+<li>A family registered at another facility can independently register family members at your clinic without hitting cross-facility caps.</li>
+</ul>
+<hr />
+<h2>17. Doctor-First Booking &amp; Exact Mapped Tariff Protocols (Revision 46)</h2>
+<h3>17.1 Doctor-First Operator Workflow</h3>
+<p>When booking appointments at the Frontdesk (<code>/operator/booking</code> or modal):</p>
+<ol>
+<li><strong>Select Attending Doctor First</strong>: The operator must first select the doctor who will attend the patient.</li>
+<li><strong>Server-Side Dynamic Type Scoping</strong>: Selecting the doctor initiates a live server query that returns <strong>ONLY</strong> the booking types enabled for that doctor in <code>doctor_booking_type_availability</code>.</li>
+<li><strong>No Cross-Doctor Leakage</strong>: If Doctor A offers <em>Online Consultancy</em> but Doctor B does not, selecting Doctor B immediately removes <em>Online Consultancy</em> from the screen.</li>
+<li><strong>Exact Tariff Display</strong>: Each booking type card displays the exact fee configured in Fee Master for that doctor and type. If no fee is configured, the type is unbookable.</li>
+</ol>
+<h3>17.2 Emergency Consultancy Protocol</h3>
+<ul>
+<li>Emergency Consultancy is an extensible booking type governed by the exact same integrity rules as regular consultancy.</li>
+<li>It requires an explicit doctor-specific fee.</li>
+<li>If Doctor A charges ₹1,500 and Doctor B charges ₹1,800, selecting Doctor A will <strong>NEVER</strong> display or charge Doctor B's rate.</li>
+<li>If an emergency fee has not been configured for a doctor, emergency booking for that doctor is rejected.</li>
+</ul>
+<h3>17.3 Token Numbering &amp; Financial Immutability</h3>
+<ul>
+<li>All booking types share the unified clinic daily token sequence (e.g. 001 Clinic, 002 Emergency, 003 Online).</li>
+<li>The resolved fee is snapshotted permanently into <code>appointments.fee_amount</code> at the exact moment of booking.</li>
+<li>Subsequent changes made by administrators in Fee Master will only apply to future bookings, preserving historical bills, receipts, and accounting journals intact.</li>
+</ul>
+<hr />
+<p><em>DxClinic Platform Frontdesk &amp; Operator Manual • Revision 46 Verified • Copyright © 2026 DxClinic</em></p>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="doc-footer">
+            <p>&copy; 2026 Nexora Solutions &bull; DxClinic Platform Developed by Kundan Kumar.</p>
+            <p>Confidential & Authoritative Clinical Management Documentation. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

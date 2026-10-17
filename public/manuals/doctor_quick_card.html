@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DxClinic Attending Doctor Quick Reference Card — DxClinic Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --teal: #0d9488;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            font-size: 14.5px;
+        }
+
+        /* Top Action Bar (Screen Only) */
+        .top-toolbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border-bottom: 1px solid #1e293b;
+        }
+        .toolbar-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: #fff; }
+        .toolbar-brand .logo {
+            background: var(--teal);
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.1rem;
+        }
+        .toolbar-brand .title { font-weight: 800; font-size: 1rem; letter-spacing: -0.02em; }
+        .toolbar-actions { display: flex; align-items: center; gap: 0.75rem; }
+        .btn-tool {
+            background: #1e293b;
+            color: #f1f5f9;
+            border: 1px solid #334155;
+            padding: 0.45rem 0.9rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s;
+        }
+        .btn-tool:hover { background: #334155; color: #fff; }
+        .btn-tool.primary { background: var(--teal); border-color: var(--teal); color: #fff; }
+        .btn-tool.primary:hover { background: #0f766e; }
+        .doc-select {
+            background: #1e293b;
+            color: #f1f5f9;
+            border: 1px solid #334155;
+            padding: 0.45rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Container Layout */
+        .container {
+            max-width: 1040px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header Card */
+        .doc-header {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2.25rem 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .doc-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--teal), var(--primary));
+        }
+        .badge-role {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #0369a1;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.2rem 0.65rem;
+            border-radius: 9999px;
+            margin-bottom: 0.75rem;
+            border: 1px solid #bae6fd;
+        }
+        .doc-title { font-size: 2rem; font-weight: 900; letter-spacing: -0.03em; color: #0f172a; line-height: 1.25; margin-bottom: 0.5rem; }
+        .doc-sub { font-size: 1rem; color: var(--text-muted); font-weight: 500; }
+        .doc-meta { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.8rem; color: var(--text-muted); }
+        .doc-meta strong { color: var(--text-main); }
+
+        /* Document Body & Typography */
+        .doc-body {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2.5rem 3rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        h1, h2, h3, h4 { color: #0f172a; font-weight: 800; letter-spacing: -0.02em; margin-top: 2rem; margin-bottom: 0.75rem; }
+        h1 { font-size: 1.75rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.5rem; margin-top: 2.5rem; }
+        h2 { font-size: 1.4rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.4rem; }
+        h3 { font-size: 1.15rem; }
+        h4 { font-size: 1rem; }
+        p { margin-bottom: 1rem; color: #334155; }
+        ul, ol { margin-bottom: 1.25rem; padding-left: 1.75rem; color: #334155; }
+        li { margin-bottom: 0.4rem; }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        th {
+            background: #0f172a;
+            color: #f8fafc;
+            text-align: left;
+            padding: 0.75rem 1rem;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            color: #334155;
+            vertical-align: top;
+        }
+        tr:nth-child(even) td { background: #f8fafc; }
+        tr:hover td { background: #f1f5f9; }
+
+        /* Code & Pre */
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: #f1f5f9;
+            color: #0f172a;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.3rem;
+            font-size: 0.825em;
+            font-weight: 600;
+            border: 1px solid #e2e8f0;
+        }
+        pre {
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 1.25rem 1.5rem;
+            border-radius: 0.75rem;
+            overflow-x: auto;
+            margin: 1.25rem 0;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        pre code { background: transparent; color: inherit; border: none; padding: 0; font-weight: normal; }
+
+        /* Callout / Alert Boxes */
+        blockquote, .alert-box {
+            margin: 1.5rem 0;
+            padding: 1rem 1.25rem;
+            border-left: 4px solid var(--teal);
+            background: #f0fdfa;
+            border-radius: 0 0.5rem 0.5rem 0;
+            color: #134e4a;
+        }
+        blockquote p { margin: 0; color: inherit; }
+        .alert-warning { border-left-color: #f59e0b; background: #fffbeb; color: #92400e; }
+        .alert-note { border-left-color: var(--primary); background: #f0f9ff; color: #075985; }
+        .alert-important { border-left-color: #ef4444; background: #fef2f2; color: #991b1b; }
+        .alert-rule { border-left-color: #8b5cf6; background: #f5f3ff; color: #5b21b6; }
+
+        /* Badges */
+        kbd {
+            font-family: 'JetBrains Mono', monospace;
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 2px 0 #94a3b8;
+            color: #0f172a;
+            padding: 0.15rem 0.45rem;
+            border-radius: 0.3rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* Footer */
+        .doc-footer {
+            margin-top: 3rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* PRINT / PDF FORMATTING (CSS @page & @media print) */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 15mm 15mm 15mm 15mm;
+            }
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                font-size: 10pt;
+                line-height: 1.45;
+            }
+            .no-print, .top-toolbar { display: none !important; }
+            .container { max-width: 100% !important; margin: 0 !important; padding: 0 !important; }
+            .doc-header, .doc-body {
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin-bottom: 1.5rem !important;
+            }
+            .doc-header::before { display: none; }
+            .doc-title { font-size: 18pt !important; margin-bottom: 0.25rem !important; }
+            .doc-sub { font-size: 11pt !important; }
+            h1 { font-size: 14pt !important; margin-top: 1.5rem !important; page-break-after: avoid; }
+            h2 { font-size: 12pt !important; margin-top: 1.25rem !important; page-break-after: avoid; }
+            h3 { font-size: 11pt !important; margin-top: 1rem !important; page-break-after: avoid; }
+            table { page-break-inside: avoid; font-size: 8.5pt !important; }
+            th { background: #334155 !important; color: #fff !important; }
+            pre { page-break-inside: avoid; background: #f8fafc !important; color: #000 !important; border: 1px solid #cbd5e1 !important; }
+            blockquote { page-break-inside: avoid; }
+            .page-break { page-break-before: always; }
+            .avoid-break { page-break-inside: avoid; }
+            a { text-decoration: none !important; color: #000 !important; }
+            a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; color: #64748b; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Toolbar (Screen only) -->
+    <div class="top-toolbar no-print">
+        <a href="/dashboard" class="toolbar-brand">
+            <div class="logo">+</div>
+            <div class="title">DxClinic Clinical Manuals</div>
+        </a>
+        <div class="toolbar-actions">
+            <select class="doc-select" onchange="window.location.href=this.value">
+                <option value="admin_manual.html" >Admin: DxClinic Administrator & Clinical Practice Manual</option>
+<option value="admin_quick_card.html" >Quick Card: DxClinic Administrator Quick Reference Card</option>
+<option value="doctor_manual.html" >Doctor: DxClinic Attending Doctor Clinical Manual</option>
+<option value="doctor_quick_card.html" selected>Quick Card: DxClinic Attending Doctor Quick Reference Card</option>
+<option value="operator_manual.html" >Operator: DxClinic Reception & Front Desk Operator Manual</option>
+<option value="operator_quick_card.html" >Quick Card: DxClinic Reception & Front Desk Operator Quick Reference Card</option>
+<option value="superadmin_manual.html" >Superadmin: DxClinic Superadmin Fleet Platform Governance Manual</option>
+<option value="superadmin_quick_card.html" >Quick Card: DxClinic Superadmin Fleet Quick Reference Card</option>
+<option value="faq.html" >FAQ (136 Q&A): DxClinic Comprehensive FAQ Knowledge Base</option>
+
+            </select>
+            <button type="button" class="btn-tool primary" onclick="window.print()">
+                <span>🖨 Print / Save as PDF</span>
+            </button>
+            <a href="/manuals/index.html" class="btn-tool">
+                <span>📚 All Manuals Hub</span>
+            </a>
+            <a href="/dashboard" class="btn-tool">
+                <span>&larr; Back to Dashboard</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="doc-header">
+            <span class="badge-role">Doctor &bull; Quick Card</span>
+            <h1 class="doc-title">DxClinic Attending Doctor Quick Reference Card</h1>
+            <p class="doc-sub">Rapid Consultation Protocol, Keyboard Shortcuts, Prescription Workflow & Token Engagement</p>
+            <div class="doc-meta">
+                <div><strong>Platform:</strong> DxClinic Practice Suite (Revision 39)</div>
+                <div><strong>Standard:</strong> NABH / ISO-Compliant OPD Workflow</div>
+                <div><strong>Published:</strong> 29 Sep 2026, 16:57 UTC</div>
+                <div><strong>Classification:</strong> Authoritative Clinical System Manual</div>
+            </div>
+        </header>
+
+        <!-- Markdown Converted Document Content -->
+        <main class="doc-body">
+            <h1>DOCTOR — QUICK REFERENCE CARD</h1>
+<p><strong>DxClinic Clinical Management System — Revision 28</strong><br />
+<em>Manual Type: 1-Page Quick Reference Card | Version: Revision 28 | Developer: Kundan Kumar | Copyright © 2026 DxClinic</em></p>
+<hr />
+<h3>1. LOGIN &amp; CLINICAL QUEUE</h3>
+<ol>
+<li>Open browser: Navigate to clinic URL (e.g. <code>http://localhost:8000/login</code> or clinic local network address).</li>
+<li>Log in with Doctor credentials.</li>
+<li>Access active patient queue and chronological historical encounters via streamlined sidebar.</li>
+</ol>
+<h3>2. PATIENT CONSULTATION &amp; VITALS REVIEW</h3>
+<ol>
+<li>Select arrived patient by Token Number or Name.</li>
+<li>Review pre-recorded vital signs (Weight, BP, Pulse, SpO2, Temp, RR, RBS).</li>
+<li>Inspect longitudinal consultation history, prior prescriptions, and diagnostic reports.</li>
+</ol>
+<h3>3. DOCTOR PAD PRINTING &amp; REPRINTING</h3>
+<ol>
+<li>Click <strong>[Print Doctor Pad]</strong> or <strong>[View PDF]</strong>.</li>
+<li><strong>Stationery Overlay Mode</strong>:
+<ul>
+<li>Uses your active custom template if configured; otherwise uses verified legacy layout.</li>
+<li>Outputs: Patient Demographics, Date, Token, and Selected Vitals.</li>
+<li>Suppresses: Scanned background, clinic logos, headers, QR codes, financial details.</li>
+</ul>
+</li>
+<li><strong>Missing Vitals Guarantee</strong>: If a vital was not taken, it is left blank. No fake defaults or zeros are ever printed.</li>
+<li><strong>Reprint Safety</strong>:
+<ul>
+<li>Zero payments, zero journals, zero refunds, zero duplicate tokens/visits. 100% idempotent.</li>
+</ul>
+</li>
+<li><strong>Historical Template Immutability (Rev 28)</strong>: Reprints permanently reproduce the exact template version assigned at the visit date. Changing your active template today will never alter past patient prescription records.</li>
+</ol>
+<h3>4. RECOMMENDING A DISCOUNT OR REFUND</h3>
+<ol>
+<li>If patient is eligible for a fee reduction post-consultation:</li>
+<li>Go to Encounter -&gt; <strong>Doctor Recommendation</strong>.</li>
+<li>Select Type: <code>DISCOUNT_AFTER_SETTLEMENT</code> (or <code>FULL_REFUND</code>).</li>
+<li>Enter recommended refund amount (e.g., <code>₹100.00</code>).</li>
+<li>Enter clinical reason (e.g., <em>&quot;Patient requested discount; recommended ₹100 refund.&quot;</em>).</li>
+<li>Click <strong>[Submit Recommendation]</strong>.</li>
+<li>Desk operator/admin will execute the refund and balance the cash/UPI register.</li>
+</ol>
+<h3>5. BOUNDARY RULES &amp; CLEAN NAVIGATION</h3>
+<ul>
+<li><strong>You Can</strong>: Review history, reprint Doctor Pads, record clinical notes, submit discount recommendations.</li>
+<li><strong>You Cannot</strong>: Modify paid amounts directly, process cash/UPI refunds, activate templates, create accounting entries, or delete records.</li>
+<li><strong>Navigation</strong>: Distraction-free sidebar with Daily Work (Dashboard, Queue, Patients, Consultation) and Help &amp; Guide.</li>
+</ul>
+<hr />
+<p><em>DxClinic Revision 28 • Quick Doctor Reference • Developer: Kundan Kumar</em></p>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="doc-footer">
+            <p>&copy; 2026 Nexora Solutions &bull; DxClinic Platform Developed by Kundan Kumar.</p>
+            <p>Confidential & Authoritative Clinical Management Documentation. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

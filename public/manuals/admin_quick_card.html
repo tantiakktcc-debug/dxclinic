@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DxClinic Administrator Quick Reference Card — DxClinic Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --teal: #0d9488;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            font-size: 14.5px;
+        }
+
+        /* Top Action Bar (Screen Only) */
+        .top-toolbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border-bottom: 1px solid #1e293b;
+        }
+        .toolbar-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: #fff; }
+        .toolbar-brand .logo {
+            background: var(--teal);
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.1rem;
+        }
+        .toolbar-brand .title { font-weight: 800; font-size: 1rem; letter-spacing: -0.02em; }
+        .toolbar-actions { display: flex; align-items: center; gap: 0.75rem; }
+        .btn-tool {
+            background: #1e293b;
+            color: #f1f5f9;
+            border: 1px solid #334155;
+            padding: 0.45rem 0.9rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s;
+        }
+        .btn-tool:hover { background: #334155; color: #fff; }
+        .btn-tool.primary { background: var(--teal); border-color: var(--teal); color: #fff; }
+        .btn-tool.primary:hover { background: #0f766e; }
+        .doc-select {
+            background: #1e293b;
+            color: #f1f5f9;
+            border: 1px solid #334155;
+            padding: 0.45rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Container Layout */
+        .container {
+            max-width: 1040px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header Card */
+        .doc-header {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2.25rem 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .doc-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--teal), var(--primary));
+        }
+        .badge-role {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #0369a1;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.2rem 0.65rem;
+            border-radius: 9999px;
+            margin-bottom: 0.75rem;
+            border: 1px solid #bae6fd;
+        }
+        .doc-title { font-size: 2rem; font-weight: 900; letter-spacing: -0.03em; color: #0f172a; line-height: 1.25; margin-bottom: 0.5rem; }
+        .doc-sub { font-size: 1rem; color: var(--text-muted); font-weight: 500; }
+        .doc-meta { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.8rem; color: var(--text-muted); }
+        .doc-meta strong { color: var(--text-main); }
+
+        /* Document Body & Typography */
+        .doc-body {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2.5rem 3rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        h1, h2, h3, h4 { color: #0f172a; font-weight: 800; letter-spacing: -0.02em; margin-top: 2rem; margin-bottom: 0.75rem; }
+        h1 { font-size: 1.75rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.5rem; margin-top: 2.5rem; }
+        h2 { font-size: 1.4rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.4rem; }
+        h3 { font-size: 1.15rem; }
+        h4 { font-size: 1rem; }
+        p { margin-bottom: 1rem; color: #334155; }
+        ul, ol { margin-bottom: 1.25rem; padding-left: 1.75rem; color: #334155; }
+        li { margin-bottom: 0.4rem; }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        th {
+            background: #0f172a;
+            color: #f8fafc;
+            text-align: left;
+            padding: 0.75rem 1rem;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            color: #334155;
+            vertical-align: top;
+        }
+        tr:nth-child(even) td { background: #f8fafc; }
+        tr:hover td { background: #f1f5f9; }
+
+        /* Code & Pre */
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: #f1f5f9;
+            color: #0f172a;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.3rem;
+            font-size: 0.825em;
+            font-weight: 600;
+            border: 1px solid #e2e8f0;
+        }
+        pre {
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 1.25rem 1.5rem;
+            border-radius: 0.75rem;
+            overflow-x: auto;
+            margin: 1.25rem 0;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        pre code { background: transparent; color: inherit; border: none; padding: 0; font-weight: normal; }
+
+        /* Callout / Alert Boxes */
+        blockquote, .alert-box {
+            margin: 1.5rem 0;
+            padding: 1rem 1.25rem;
+            border-left: 4px solid var(--teal);
+            background: #f0fdfa;
+            border-radius: 0 0.5rem 0.5rem 0;
+            color: #134e4a;
+        }
+        blockquote p { margin: 0; color: inherit; }
+        .alert-warning { border-left-color: #f59e0b; background: #fffbeb; color: #92400e; }
+        .alert-note { border-left-color: var(--primary); background: #f0f9ff; color: #075985; }
+        .alert-important { border-left-color: #ef4444; background: #fef2f2; color: #991b1b; }
+        .alert-rule { border-left-color: #8b5cf6; background: #f5f3ff; color: #5b21b6; }
+
+        /* Badges */
+        kbd {
+            font-family: 'JetBrains Mono', monospace;
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 2px 0 #94a3b8;
+            color: #0f172a;
+            padding: 0.15rem 0.45rem;
+            border-radius: 0.3rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* Footer */
+        .doc-footer {
+            margin-top: 3rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* PRINT / PDF FORMATTING (CSS @page & @media print) */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 15mm 15mm 15mm 15mm;
+            }
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                font-size: 10pt;
+                line-height: 1.45;
+            }
+            .no-print, .top-toolbar { display: none !important; }
+            .container { max-width: 100% !important; margin: 0 !important; padding: 0 !important; }
+            .doc-header, .doc-body {
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin-bottom: 1.5rem !important;
+            }
+            .doc-header::before { display: none; }
+            .doc-title { font-size: 18pt !important; margin-bottom: 0.25rem !important; }
+            .doc-sub { font-size: 11pt !important; }
+            h1 { font-size: 14pt !important; margin-top: 1.5rem !important; page-break-after: avoid; }
+            h2 { font-size: 12pt !important; margin-top: 1.25rem !important; page-break-after: avoid; }
+            h3 { font-size: 11pt !important; margin-top: 1rem !important; page-break-after: avoid; }
+            table { page-break-inside: avoid; font-size: 8.5pt !important; }
+            th { background: #334155 !important; color: #fff !important; }
+            pre { page-break-inside: avoid; background: #f8fafc !important; color: #000 !important; border: 1px solid #cbd5e1 !important; }
+            blockquote { page-break-inside: avoid; }
+            .page-break { page-break-before: always; }
+            .avoid-break { page-break-inside: avoid; }
+            a { text-decoration: none !important; color: #000 !important; }
+            a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; color: #64748b; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Toolbar (Screen only) -->
+    <div class="top-toolbar no-print">
+        <a href="/dashboard" class="toolbar-brand">
+            <div class="logo">+</div>
+            <div class="title">DxClinic Clinical Manuals</div>
+        </a>
+        <div class="toolbar-actions">
+            <select class="doc-select" onchange="window.location.href=this.value">
+                <option value="admin_manual.html" >Admin: DxClinic Administrator & Clinical Practice Manual</option>
+<option value="admin_quick_card.html" selected>Quick Card: DxClinic Administrator Quick Reference Card</option>
+<option value="doctor_manual.html" >Doctor: DxClinic Attending Doctor Clinical Manual</option>
+<option value="doctor_quick_card.html" >Quick Card: DxClinic Attending Doctor Quick Reference Card</option>
+<option value="operator_manual.html" >Operator: DxClinic Reception & Front Desk Operator Manual</option>
+<option value="operator_quick_card.html" >Quick Card: DxClinic Reception & Front Desk Operator Quick Reference Card</option>
+<option value="superadmin_manual.html" >Superadmin: DxClinic Superadmin Fleet Platform Governance Manual</option>
+<option value="superadmin_quick_card.html" >Quick Card: DxClinic Superadmin Fleet Quick Reference Card</option>
+<option value="faq.html" >FAQ (136 Q&A): DxClinic Comprehensive FAQ Knowledge Base</option>
+
+            </select>
+            <button type="button" class="btn-tool primary" onclick="window.print()">
+                <span>🖨 Print / Save as PDF</span>
+            </button>
+            <a href="/manuals/index.html" class="btn-tool">
+                <span>📚 All Manuals Hub</span>
+            </a>
+            <a href="/dashboard" class="btn-tool">
+                <span>&larr; Back to Dashboard</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="doc-header">
+            <span class="badge-role">Administrator &bull; Quick Card</span>
+            <h1 class="doc-title">DxClinic Administrator Quick Reference Card</h1>
+            <p class="doc-sub">Daily Operational Protocols, Cash Reconciliation, Doctor Capacity & System Governance Checklist</p>
+            <div class="doc-meta">
+                <div><strong>Platform:</strong> DxClinic Practice Suite (Revision 39)</div>
+                <div><strong>Standard:</strong> NABH / ISO-Compliant OPD Workflow</div>
+                <div><strong>Published:</strong> 29 Sep 2026, 16:57 UTC</div>
+                <div><strong>Classification:</strong> Authoritative Clinical System Manual</div>
+            </div>
+        </header>
+
+        <!-- Markdown Converted Document Content -->
+        <main class="doc-body">
+            <h1>ADMIN — QUICK ADMINISTRATION CARD</h1>
+<p><strong>DxClinic Clinical Management System — Revision 26</strong><br />
+<em>Manual Type: 1-Page Quick Reference Card | Version: Revision 26 | Developer: Kundan Kumar | Copyright © 2026 DxClinic</em></p>
+<hr />
+<h3>1. CLINIC &amp; DOCTOR MANAGEMENT (<code>/settings/clinic-doctor</code>)</h3>
+<ol>
+<li><strong>Clinic Profile</strong>: Configure legal Clinic Name, Address, City, Phone, and Email.</li>
+<li><strong>Doctor Registry</strong>: Register attending doctors with Name, Qualification, Registration Number, Specialization, and Contact.</li>
+<li><strong>Default Booking Doctor</strong>: Designate which active doctor is auto-preselected across Operator and Public booking desks.</li>
+<li><strong>Single Doctor Auto-Selection</strong>: If only one doctor is active, system auto-selects without prompting.</li>
+</ol>
+<h3>2. FEE MASTER &amp; CONSULTATION RATES (<code>/settings/fee-master</code>)</h3>
+<ol>
+<li>Authoritative rate source for all billing operations (no hardcoded fees).</li>
+<li>Default Configuration:
+<ul>
+<li><code>CONSULTATION_PHYSICAL</code>: <strong>₹600.00</strong> (Clinic Consultancy).</li>
+<li><code>CONSULTATION_ONLINE</code>: <strong>₹700.00</strong> (Virtual Online Consultancy).</li>
+</ul>
+</li>
+<li>Changes immediately reflect in Operator Desk, Public PWA, and Consultation Invoices.</li>
+</ol>
+<h3>3. HISTORICAL BILLING &amp; FINANCIAL IMMUTABILITY</h3>
+<ol>
+<li><strong>Financial Invariant</strong>: Settled payments, receipts, journals, and bills are <strong>never overwritten or altered</strong>.</li>
+<li><strong>Consultation &amp; Diagnostic History</strong>: Full historical records accessible across all past dates with multi-parameter filtering.</li>
+<li><strong>Historical Line Items</strong>: Diagnostic rates display preserved historical snapshot prices, never recalculating from today's master.</li>
+<li><strong>Doctor Pad History</strong>: Idempotent reprinting of past clinical encounters creates zero payments, zero journals, zero refunds, and zero duplicate visits.</li>
+</ol>
+<h3>4. CONTROLLED MODIFICATIONS, REFUNDS &amp; SUPPLEMENTS</h3>
+<ol>
+<li><strong>Pending Bills</strong>: In-place edits permitted with mandatory reason ($\ge 10$ chars) and audit logging.</li>
+<li><strong>Settled Bills</strong>: Corrections occur strictly via new transactional records (<code>refunds</code>, <code>receipt_revisions</code>, or supplementary bills).</li>
+<li><strong>Doctor-Recommended Discounts</strong>: Handled as post-settlement partial refunds. Original bill remains intact; net retained amount is adjusted.</li>
+<li><strong>Diagnostic Increases</strong>: Additions generate a linked <strong>Supplementary Diagnostic Bill</strong> (<code>{bill_number}-SUPP-{n}</code>) with separate payment and receipt.</li>
+<li><strong>Refund Reversals</strong>:
+<ul>
+<li>Cash Refund: <strong>Dr Revenue (4001/4002) | Cr Cash (1001)</strong></li>
+<li>UPI Refund: <strong>Dr Revenue (4001/4002) | Cr Bank Ledger (1002)</strong></li>
+</ul>
+</li>
+</ol>
+<h3>5. USER ACCOUNTS &amp; RBAC PERMISSIONS (<code>/settings/users</code>)</h3>
+<ol>
+<li><strong>Roles</strong>:
+<ul>
+<li><code>ADMIN</code>: Unrestricted master access across clinical, financial, backup, refund approval, and settings modules.</li>
+<li><code>OPERATOR</code>: Desk registration, queue, vitals, billing, cash sessions, refund requests, and daily reports.</li>
+<li><code>DOCTOR</code>: Patient clinical encounters, doctor pad reprinting, and discount/refund recommendations.</li>
+</ul>
+</li>
+</ol>
+<h3>6. COMPREHENSIVE CLINICAL &amp; FINANCIAL REPORTING</h3>
+<ol>
+<li><strong>OPD Reports</strong> (<code>/reports/opd</code>): Session-wise, Day-wise, Doctor-wise. Format strictly omits vitals.</li>
+<li><strong>Diagnostic Reports</strong> (<code>/reports/diagnostics</code>): Itemized tests, snapshot rates, collections, and doctor breakdown.</li>
+<li><strong>Exports</strong>: View on screen, Print, Download real PDF, or Export CSV.</li>
+</ol>
+<h3>7. COMPLETE FINANCIAL RECONCILIATION (<code>/reports/reconciliation</code>)</h3>
+<ol>
+<li>Mathematical Verification:
+$$\text{Expected Cash} = \text{Opening Cash} + \text{Cash Collections} - \text{Cash Expenses} - \text{Cash Deposits} - \text{Cash Refunds Paid in Cash}$$
+$$\text{Book Bank Balance} = \text{Opening Bank} + \text{UPI Collections} + \text{Cash Deposits} - \text{Bank Expenses} - \text{Bank Refunds Paid from Bank}$$</li>
+<li>Strict double-entry equilibrium: $\sum \text{Debits} == \sum \text{Credits}$ with <strong>₹0.00 difference</strong>.</li>
+</ol>
+<h3>8. DAILY BACKUP &amp; DISASTER RECOVERY (<code>/settings/backup</code>)</h3>
+<ol>
+<li><strong>Automatic Backup</strong>: Triggered daily upon evening closing.</li>
+<li><strong>Encryption</strong>: AES-256-GCM + PBKDF2 key derivation. Proprietary <code>.ncbk</code> container.</li>
+<li><strong>Restore Safety</strong>: Pre-restore snapshot, maintenance mode, schema checksum verification, and rollback protection.</li>
+</ol>
+<h3>9. PRESCRIPTION PAD DESIGNER (<code>/settings/prescription-pad-templates</code>)</h3>
+<ol>
+<li><strong>Doctor-Specific Profiles</strong>: Distinct paper dimensions, fields, and layouts per doctor.</li>
+<li><strong>Physical Millimeter Units</strong>: Millimeter coordinates (<code>x_mm</code>, <code>y_mm</code>, <code>w_mm</code>, <code>h_mm</code>) prevent device/zoom scaling distortion.</li>
+<li><strong>Scan Upload &amp; Proofing</strong>: High-res JPG/PNG reference scan displays in Proof Mode; automatically omitted in Production print.</li>
+<li><strong>Interactive SVG Designer</strong>: 5mm/10mm grid, snap-to-grid, keyboard nudge (Arrow = 0.5mm, Shift+Arrow = 0.1mm), property editor.</li>
+<li><strong>Safe Versioning</strong>: Editing active templates creates new <code>DRAFT</code> (v2, v3); activating draft archives old version.</li>
+<li><strong>Printer Calibration</strong>: Hardware printer X/Y offsets and scaling stored per clinic without altering templates. Physical alignment is confirmed via on-site print test with margins set to None.</li>
+<li><strong>Legacy Fallback</strong>: Doctors without active new templates automatically use legacy Doctor Pad layout.</li>
+<li><strong>Historical Template Immutability (Rev 28)</strong>: When printed, the exact template version is permanently committed to the appointment. Historical reprints always reproduce the committed version even after newer drafts are activated. Referenced templates cannot be deleted (<code>RESTRICT</code>).</li>
+</ol>
+<h3>10. MULTI-TENANT LICENSING &amp; DOCTOR SEATS (REVISION 37)</h3>
+<ol>
+<li><strong>Clinic ID &amp; User ID</strong>: Clinic ID (e.g. <code>NX0001</code>) identifies the tenant; User ID (<code>ADM0001</code>) is unique per clinic.</li>
+<li><strong>License Key Permanence</strong>: License Key represents ongoing entitlement and is 100% permanent across renewals and doctor add-ons.</li>
+<li><strong>Mid-Term Doctor Add-Ons</strong>: Additional doctor seats (₹2,999/year per doctor) can be purchased mid-term via Superadmin. Existing license key remains unchanged; no activation codes or onboarding required.</li>
+<li><strong>Effective Capacity</strong>: Derived dynamically as Included Base (1) + Active Add-On Entitlements. Doctor profile creation is blocked when limit is reached.</li>
+<li><strong>Authoritative Tenant Rule</strong>: Authenticated <code>user.clinic_id</code> is the ONLY tenant context source. Headers/routes cannot override it.</li>
+<li><strong>Dedicated Public Link</strong>: Each clinic has canonical <code>/book/{clinic_code}</code> and short <code>/b/{clinic_code}</code> with absolute tenant isolation.</li>
+</ol>
+<h3>11. PAID LICENSE RENEWAL &amp; STATUS (REVISION 35 &amp; 37)</h3>
+<ol>
+<li><strong>Status View</strong>: <code>/settings/subscription</code> displays active plan, validity dates, remaining days (Asia/Kolkata IST), and doctor seat capacity.</li>
+<li><strong>External Settlement</strong>: Clinic owner pays the provider directly outside DxClinic (UPI, Bank Transfer, Cash).</li>
+<li><strong>Zero Tenant Disruption</strong>: Superadmin performs one-click renewal. Clinic admin does NOT enter new license keys, does NOT enter activation codes, does NOT re-onboard.</li>
+<li><strong>Instant Continuity</strong>: Expiry date and doctor capacity update immediately upon Superadmin payment confirmation; active mid-term doctor entitlements are reconciled without double billing.</li>
+</ol>
+<hr />
+<p><em>DxClinic Platform Architecture Verified • Revision 38 • Copyright © 2026 DxClinic</em></p>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="doc-footer">
+            <p>&copy; 2026 Nexora Solutions &bull; DxClinic Platform Developed by Kundan Kumar.</p>
+            <p>Confidential & Authoritative Clinical Management Documentation. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

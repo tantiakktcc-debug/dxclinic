@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DxClinic User Manuals & Documentation Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: #0f172a; color: #f8fafc; min-height: 100vh; padding: 2.5rem 1.5rem; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 3rem; }
+        .logo { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; background: #0d9488; color: #fff; font-size: 1.75rem; font-weight: 900; border-radius: 12px; margin-bottom: 1rem; }
+        .title { font-size: 2.25rem; font-weight: 900; letter-spacing: -0.03em; color: #ffffff; }
+        .subtitle { font-size: 1.05rem; color: #94a3b8; margin-top: 0.5rem; max-width: 650px; margin-left: auto; margin-right: auto; }
+        .actions-bar { display: flex; justify-content: center; gap: 1rem; margin-top: 1.5rem; }
+        .btn-act { background: #1e293b; color: #f1f5f9; border: 1px solid #334155; padding: 0.6rem 1.25rem; border-radius: 0.5rem; font-size: 0.85rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; }
+        .btn-act:hover { background: #334155; }
+        .btn-act.primary { background: #0d9488; border-color: #0d9488; color: #fff; }
+        .btn-act.primary:hover { background: #0f766e; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+        .hub-card { background: #131d2e; border: 1px solid #1e293b; border-radius: 1rem; padding: 1.75rem; text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: all 0.2s; position: relative; overflow: hidden; }
+        .hub-card:hover { transform: translateY(-3px); border-color: #38bdf8; box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.15); }
+        .hub-card .badge { display: inline-block; background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); font-size: 0.75rem; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 9999px; text-transform: uppercase; width: fit-content; margin-bottom: 1rem; }
+        .hub-card .title { font-size: 1.15rem; font-weight: 800; color: #ffffff; margin-bottom: 0.5rem; line-height: 1.35; }
+        .hub-card .desc { font-size: 0.85rem; color: #94a3b8; line-height: 1.5; flex: 1; margin-bottom: 1.25rem; }
+        .hub-card .link { font-size: 0.85rem; font-weight: 700; color: #38bdf8; display: inline-flex; align-items: center; gap: 0.3rem; }
+
+        .footer { text-align: center; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid #1e293b; color: #64748b; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">+</div>
+            <h1 class="title">DxClinic Documentation & Manuals Hub</h1>
+            <p class="subtitle">Complete professional role-based user manuals, 1-page quick cards, and comprehensive searchable FAQ with print and PDF optimization.</p>
+            <div class="actions-bar">
+                <a href="/dashboard" class="btn-act primary">&larr; Back to Clinic Dashboard</a>
+                <a href="/manuals/user_manual.html" class="btn-act">📖 Master Consolidated Manual</a>
+                <a href="/manuals/faq.html" class="btn-act">❓ Search 136 FAQ</a>
+            </div>
+        </header>
+
+        <div class="grid">
+                    <a href="admin_manual.html" class="hub-card">
+            <div class="badge">Admin</div>
+            <h3 class="title">DxClinic Administrator & Clinical Practice Manual</h3>
+            <p class="desc">Comprehensive Practice Management, Multi-Doctor Capacity, Financial Controls & System Governance</p>
+            <span class="link">View Manual &rarr;</span>
+        </a>        <a href="admin_quick_card.html" class="hub-card">
+            <div class="badge">Quick Card</div>
+            <h3 class="title">DxClinic Administrator Quick Reference Card</h3>
+            <p class="desc">Daily Operational Protocols, Cash Reconciliation, Doctor Capacity & System Governance Checklist</p>
+            <span class="link">View Manual &rarr;</span>
+        </a>        <a href="doctor_manual.html" class="hub-card">
+            <div class="badge">Doctor</div>
+            <h3 class="title">DxClinic Attending Doctor Clinical Manual</h3>
+            <p class="desc">OPD Patient Engagement, Prescription Generation, Diagnostic Ordering & Daily Workflow Protocol</p>
+            <span class="link">View Manual &rarr;</span>
+        </a>        <a href="doctor_quick_card.html" class="hub-card">
+            <div class="badge">Quick Card</div>
+            <h3 class="title">DxClinic Attending Doctor Quick Reference Card</h3>
+            <p class="desc">Rapid Consultation Protocol, Keyboard Shortcuts, Prescription Workflow & Token Engagement</p>
+            <span class="link">View Manual &rarr;</span>
+        </a>        <a href="operator_manual.html" class="hub-card">
+            <div class="badge">Operator</div>
+            <h3 class="title">DxClinic Reception & Front Desk Operator Manual</h3>
+            <p class="desc">Patient Registration, Token Allocation, Arrival Queue Management, Cash Collection & Billing Protocols</p>
+            <span class="link">View Manual &rarr;</span>
+        </a>        <a href="operator_quick_card.html" class="hub-card">
+            <div class="badge">Quick Card</div>
+            <h3 class="title">DxClinic Reception & Front Desk Operator Quick Reference Card</h3>
+            <p class="desc">Rapid Token Booking, Arrival Check-in, Keyboard Shortcuts & Daily Cash Counter Protocol</p>
+            <span class="link">View Manual &rarr;</span>
+        </a>        <a href="superadmin_manual.html" class="hub-card">
+            <div class="badge">Superadmin</div>
+            <h3 class="title">DxClinic Superadmin Fleet Platform Governance Manual</h3>
+            <p class="desc">Tenant Provisioning, Multi-Tenant Licensing, Doctor Seat Entitlements, Demo Control & Security Auditing</p>
+            <span class="link">View Manual &rarr;</span>
+        </a>        <a href="superadmin_quick_card.html" class="hub-card">
+            <div class="badge">Quick Card</div>
+            <h3 class="title">DxClinic Superadmin Fleet Quick Reference Card</h3>
+            <p class="desc">Tenant Provisioning, Doctor Seat Add-ons, Demo Pause/Resume & Emergency Maintenance Protocol</p>
+            <span class="link">View Manual &rarr;</span>
+        </a>        <a href="faq.html" class="hub-card">
+            <div class="badge">FAQ (136 Q&A)</div>
+            <h3 class="title">DxClinic Comprehensive FAQ Knowledge Base</h3>
+            <p class="desc">136 Authoritative Clinical, Operational, Financial, Multi-Doctor & System Governance Answers</p>
+            <span class="link">View Manual &rarr;</span>
+        </a>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2026 Nexora Solutions &bull; DxClinic Platform Developed by Kundan Kumar.</p>
+            <p>Revision 39 Operational UX Hardening &amp; Authoritative Documentation.</p>
+        </footer>
+    </div>
+</body>
+</html>

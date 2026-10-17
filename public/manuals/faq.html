@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DxClinic Comprehensive FAQ Knowledge Base — DxClinic Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --teal: #0d9488;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            font-size: 14.5px;
+        }
+
+        /* Top Action Bar (Screen Only) */
+        .top-toolbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border-bottom: 1px solid #1e293b;
+        }
+        .toolbar-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: #fff; }
+        .toolbar-brand .logo {
+            background: var(--teal);
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.1rem;
+        }
+        .toolbar-brand .title { font-weight: 800; font-size: 1rem; letter-spacing: -0.02em; }
+        .toolbar-actions { display: flex; align-items: center; gap: 0.75rem; }
+        .btn-tool {
+            background: #1e293b;
+            color: #f1f5f9;
+            border: 1px solid #334155;
+            padding: 0.45rem 0.9rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s;
+        }
+        .btn-tool:hover { background: #334155; color: #fff; }
+        .btn-tool.primary { background: var(--teal); border-color: var(--teal); color: #fff; }
+        .btn-tool.primary:hover { background: #0f766e; }
+        .doc-select {
+            background: #1e293b;
+            color: #f1f5f9;
+            border: 1px solid #334155;
+            padding: 0.45rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Container Layout */
+        .container {
+            max-width: 1040px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header Card */
+        .doc-header {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2.25rem 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .doc-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--teal), var(--primary));
+        }
+        .badge-role {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #0369a1;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.2rem 0.65rem;
+            border-radius: 9999px;
+            margin-bottom: 0.75rem;
+            border: 1px solid #bae6fd;
+        }
+        .doc-title { font-size: 2rem; font-weight: 900; letter-spacing: -0.03em; color: #0f172a; line-height: 1.25; margin-bottom: 0.5rem; }
+        .doc-sub { font-size: 1rem; color: var(--text-muted); font-weight: 500; }
+        .doc-meta { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.8rem; color: var(--text-muted); }
+        .doc-meta strong { color: var(--text-main); }
+
+        /* Document Body & Typography */
+        .doc-body {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2.5rem 3rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        h1, h2, h3, h4 { color: #0f172a; font-weight: 800; letter-spacing: -0.02em; margin-top: 2rem; margin-bottom: 0.75rem; }
+        h1 { font-size: 1.75rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.5rem; margin-top: 2.5rem; }
+        h2 { font-size: 1.4rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.4rem; }
+        h3 { font-size: 1.15rem; }
+        h4 { font-size: 1rem; }
+        p { margin-bottom: 1rem; color: #334155; }
+        ul, ol { margin-bottom: 1.25rem; padding-left: 1.75rem; color: #334155; }
+        li { margin-bottom: 0.4rem; }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        th {
+            background: #0f172a;
+            color: #f8fafc;
+            text-align: left;
+            padding: 0.75rem 1rem;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            color: #334155;
+            vertical-align: top;
+        }
+        tr:nth-child(even) td { background: #f8fafc; }
+        tr:hover td { background: #f1f5f9; }
+
+        /* Code & Pre */
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: #f1f5f9;
+            color: #0f172a;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.3rem;
+            font-size: 0.825em;
+            font-weight: 600;
+            border: 1px solid #e2e8f0;
+        }
+        pre {
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 1.25rem 1.5rem;
+            border-radius: 0.75rem;
+            overflow-x: auto;
+            margin: 1.25rem 0;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        pre code { background: transparent; color: inherit; border: none; padding: 0; font-weight: normal; }
+
+        /* Callout / Alert Boxes */
+        blockquote, .alert-box {
+            margin: 1.5rem 0;
+            padding: 1rem 1.25rem;
+            border-left: 4px solid var(--teal);
+            background: #f0fdfa;
+            border-radius: 0 0.5rem 0.5rem 0;
+            color: #134e4a;
+        }
+        blockquote p { margin: 0; color: inherit; }
+        .alert-warning { border-left-color: #f59e0b; background: #fffbeb; color: #92400e; }
+        .alert-note { border-left-color: var(--primary); background: #f0f9ff; color: #075985; }
+        .alert-important { border-left-color: #ef4444; background: #fef2f2; color: #991b1b; }
+        .alert-rule { border-left-color: #8b5cf6; background: #f5f3ff; color: #5b21b6; }
+
+        /* Badges */
+        kbd {
+            font-family: 'JetBrains Mono', monospace;
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 2px 0 #94a3b8;
+            color: #0f172a;
+            padding: 0.15rem 0.45rem;
+            border-radius: 0.3rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* Footer */
+        .doc-footer {
+            margin-top: 3rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* PRINT / PDF FORMATTING (CSS @page & @media print) */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 15mm 15mm 15mm 15mm;
+            }
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                font-size: 10pt;
+                line-height: 1.45;
+            }
+            .no-print, .top-toolbar { display: none !important; }
+            .container { max-width: 100% !important; margin: 0 !important; padding: 0 !important; }
+            .doc-header, .doc-body {
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin-bottom: 1.5rem !important;
+            }
+            .doc-header::before { display: none; }
+            .doc-title { font-size: 18pt !important; margin-bottom: 0.25rem !important; }
+            .doc-sub { font-size: 11pt !important; }
+            h1 { font-size: 14pt !important; margin-top: 1.5rem !important; page-break-after: avoid; }
+            h2 { font-size: 12pt !important; margin-top: 1.25rem !important; page-break-after: avoid; }
+            h3 { font-size: 11pt !important; margin-top: 1rem !important; page-break-after: avoid; }
+            table { page-break-inside: avoid; font-size: 8.5pt !important; }
+            th { background: #334155 !important; color: #fff !important; }
+            pre { page-break-inside: avoid; background: #f8fafc !important; color: #000 !important; border: 1px solid #cbd5e1 !important; }
+            blockquote { page-break-inside: avoid; }
+            .page-break { page-break-before: always; }
+            .avoid-break { page-break-inside: avoid; }
+            a { text-decoration: none !important; color: #000 !important; }
+            a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; color: #64748b; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Toolbar (Screen only) -->
+    <div class="top-toolbar no-print">
+        <a href="/dashboard" class="toolbar-brand">
+            <div class="logo">+</div>
+            <div class="title">DxClinic Clinical Manuals</div>
+        </a>
+        <div class="toolbar-actions">
+            <select class="doc-select" onchange="window.location.href=this.value">
+                <option value="admin_manual.html" >Admin: DxClinic Administrator & Clinical Practice Manual</option>
+<option value="admin_quick_card.html" >Quick Card: DxClinic Administrator Quick Reference Card</option>
+<option value="doctor_manual.html" >Doctor: DxClinic Attending Doctor Clinical Manual</option>
+<option value="doctor_quick_card.html" >Quick Card: DxClinic Attending Doctor Quick Reference Card</option>
+<option value="operator_manual.html" >Operator: DxClinic Reception & Front Desk Operator Manual</option>
+<option value="operator_quick_card.html" >Quick Card: DxClinic Reception & Front Desk Operator Quick Reference Card</option>
+<option value="superadmin_manual.html" >Superadmin: DxClinic Superadmin Fleet Platform Governance Manual</option>
+<option value="superadmin_quick_card.html" >Quick Card: DxClinic Superadmin Fleet Quick Reference Card</option>
+<option value="faq.html" selected>FAQ (136 Q&A): DxClinic Comprehensive FAQ Knowledge Base</option>
+
+            </select>
+            <button type="button" class="btn-tool primary" onclick="window.print()">
+                <span>🖨 Print / Save as PDF</span>
+            </button>
+            <a href="/manuals/index.html" class="btn-tool">
+                <span>📚 All Manuals Hub</span>
+            </a>
+            <a href="/dashboard" class="btn-tool">
+                <span>&larr; Back to Dashboard</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="doc-header">
+            <span class="badge-role">All Staff & Patients &bull; FAQ (136 Q&A)</span>
+            <h1 class="doc-title">DxClinic Comprehensive FAQ Knowledge Base</h1>
+            <p class="doc-sub">136 Authoritative Clinical, Operational, Financial, Multi-Doctor & System Governance Answers</p>
+            <div class="doc-meta">
+                <div><strong>Platform:</strong> DxClinic Practice Suite (Revision 39)</div>
+                <div><strong>Standard:</strong> NABH / ISO-Compliant OPD Workflow</div>
+                <div><strong>Published:</strong> 29 Sep 2026, 16:57 UTC</div>
+                <div><strong>Classification:</strong> Authoritative Clinical System Manual</div>
+            </div>
+        </header>
+
+        <!-- Markdown Converted Document Content -->
+        <main class="doc-body">
+            <h1>DxClinic Knowledge Base &amp; Frequently Asked Questions (FAQ)</h1>
+<p><strong>Version:</strong> 26.0.0<br />
+<strong>Updated:</strong> September 2026<br />
+<strong>Audience:</strong> All Users (Admin, Operator, Doctor)</p>
+<hr />
+<h3>Q1: How do I register a patient?</h3>
+<p><strong>Answer:</strong> Open <strong>Patients</strong> (<code>/patients</code>) and click <strong>+ New Patient</strong> or use the <strong>+ Walk-in / Telephonic Booking</strong> modal on the Queue page (<code>/clinic/{public_slug}/operator/queue</code>). Enter Patient Full Name (min 3 chars), Age, Sex, 10-digit Mobile Number, Address, and City. The system automatically issues a permanent Patient ID (<code>DXP-xxxxx</code>).</p>
+<h3>Q2: How do I search a patient?</h3>
+<p><strong>Answer:</strong> Use the search bar in <strong>Patients</strong> (<code>/patients</code>) or the Arrival Check-in bar on the Queue page. You can search by Patient ID (e.g., <code>DXP-00001</code>), Patient Name, Mobile Number, or City.</p>
+<h3>Q3: How do I view patient history?</h3>
+<p><strong>Answer:</strong> Navigate to <strong>Patients</strong> (<code>/patients</code>), locate the patient, and click <strong>Patient History</strong>. This opens their complete timeline including past appointments, tokens, recorded vitals, consultation bills, diagnostic bills, payment receipts, and grace consultation history. You can also click <strong>Download History PDF</strong>.</p>
+<h3>Q4: How do I edit patient details?</h3>
+<p><strong>Answer:</strong> In <strong>Patients</strong> (<code>/patients</code>), click <strong>Edit Profile</strong> on the patient's card. You can update Name, Age, Sex, Mobile, Address, and City, then click <strong>Save Changes</strong>.</p>
+<h3>Q5: How do I book an appointment?</h3>
+<p><strong>Answer:</strong> On the OPD Queue page, click <strong>+ Walk-in / Telephonic Booking</strong> (or patients use their clinic's dedicated public PWA at <code>/book/{public_slug}</code> or short link <code>/b/{public_slug}</code>). Select or enter patient details, choose Attending Doctor (or default doctor), Date, and Session (Morning/Evening). Click <strong>Confirm Booking</strong> to allocate a token.</p>
+<h3>Q6: How does token numbering work?</h3>
+<p><strong>Answer:</strong> DxClinic uses a single continuous daily sequence per clinic date (001, 002, 003...). The token number increments sequentially throughout the date. It does NOT reset between morning and evening sessions, nor does it reset per doctor.</p>
+<h3>Q7: Why is a token not reused?</h3>
+<p><strong>Answer:</strong> Tokens are immutable audit identifiers for queue transparency and patient safety. If an appointment is cancelled or marked absent, that token number is retired and never re-allocated to another patient on that day.</p>
+<h3>Q8: How do I check in?</h3>
+<p><strong>Answer:</strong> When the patient arrives at the clinic counter, enter their Token Number, Patient ID, or Mobile in the <strong>Arrival Check-in</strong> bar on the Queue screen and click <strong>Mark Arrived</strong>. This creates an active Visit record.</p>
+<h3>Q9: How do I enter vitals?</h3>
+<p><strong>Answer:</strong> On the patient's queue card, click <strong>Vitals</strong>. Fill in Weight (kg), Height (cm), BP Systolic and Diastolic (mmHg), Pulse Rate, SpO2 (%), Temperature (°F), Fever status, Respiratory Rate, and Random Blood Sugar (RBS). Click <strong>Save Vitals</strong>.</p>
+<h3>Q10: How do I collect consultation fee?</h3>
+<p><strong>Answer:</strong> Go to <strong>Consultation Billing</strong> (<code>/operator/consultation</code>), select the patient, review the fee breakdown (gross, discount, net), choose payment mode (<strong>CASH</strong> or <strong>UPI</strong>), enter the payment received, and click <strong>Settle Bill &amp; Print Receipt</strong>.</p>
+<h3>Q11: How do I record UPI?</h3>
+<p><strong>Answer:</strong> In the billing screen, select <strong>UPI</strong> as the payment method, select the destination <strong>Bank Account</strong>, have the patient scan the clinic QR code, verify the transaction via physical Soundbox audible voice announcement, enter the UPI Reference/UTR number, and click <strong>Confirm UPI Payment</strong>.</p>
+<h3>Q12: Why is Soundbox confirmation required?</h3>
+<p><strong>Answer:</strong> DxClinic operates with a strict offline/clinic-first policy without an automatic online payment gateway. To eliminate fraud, fake payment screenshots, or network dropouts, operators must receive audible Soundbox voice confirmation or direct bank SMS before marking a UPI bill settled.</p>
+<h3>Q13: How do I create diagnostic bill?</h3>
+<p><strong>Answer:</strong> Open <strong>Diagnostic Billing</strong> (<code>/operator/diagnostics</code>), select the patient, select the required tests or packages from the diagnostic tariff master, review itemized charges, select CASH or UPI, and click <strong>Settle &amp; Print Receipt</strong>.</p>
+<h3>Q14: How do I record expense?</h3>
+<p><strong>Answer:</strong> Open <strong>Cash Counter</strong> (<code>/cash/sessions</code>), switch to the <strong>Expenses</strong> tab, and click <strong>Record Expense</strong>. Select the Expense Category, enter Amount, select Payment Method (<code>CASH</code> or <code>BANK</code>), enter Payee name and notes, and click <strong>Save Expense</strong>. The system creates a balanced double-entry accounting journal.</p>
+<h3>Q15: How do I deposit cash into bank?</h3>
+<p><strong>Answer:</strong> In <strong>Cash Counter</strong> (<code>/cash/sessions</code>), click <strong>Bank Deposit</strong>. Select the destination Bank Account, enter Deposit Amount and bank reference/challan number, and click <strong>Record Bank Deposit</strong>. This posts a fund transfer entry: <code>Dr Bank</code>, <code>Cr Cash</code>. It decreases physical cash in hand without altering revenue.</p>
+<h3>Q16: How is today's cash calculated?</h3>
+<p><strong>Answer:</strong> <strong>Today's Cash Collection</strong> is strictly the SUM of all settled payments where <code>payment_method = 'CASH'</code> for the selected clinic date. It never includes UPI, pending, cancelled, or grace zero-payment visits.</p>
+<h3>Q17: How is expected closing cash calculated?</h3>
+<p><strong>Answer:</strong> Formula: <code>Expected Closing Cash = Opening Physical Cash + Cash Collections - Cash Expenses - Cash Deposits - Cash Refunds Paid in Cash</code>. UPI collections and bank movements do NOT enter this physical drawer cash formula.</p>
+<h3>Q18: How do I close morning session?</h3>
+<p><strong>Answer:</strong> In Cash Counter during an open Morning Session, perform a physical drawer count. Enter the counted amount in <strong>Physical Closing Cash</strong>. The system computes variance against Expected Closing Cash. If variance is not zero, enter a mandatory <strong>Variance Reason</strong>, then click <strong>Close Session</strong>.</p>
+<h3>Q19: How do I close evening session?</h3>
+<p><strong>Answer:</strong> Follow the same process at the end of the evening clinic. Count physical cash, enter the figure into <strong>Physical Closing Cash</strong>, review calculated variance, provide variance reason if required, and click <strong>Close Session</strong>.</p>
+<h3>Q20: How does Sunday session work?</h3>
+<p><strong>Answer:</strong> Sunday has a single configured operational session. It operates under the exact same financial rules: starting physical cash, collections, expenses, bank deposits, and closing reconciliation count.</p>
+<h3>Q21: How do I print patient receipt?</h3>
+<p><strong>Answer:</strong> From the billing confirmation screen or receipt history, click <strong>[Print Patient Copy]</strong>. This renders a single A5 page clearly marked with the <em>PATIENT COPY</em> badge.</p>
+<h3>Q22: How do I print clinic receipt?</h3>
+<p><strong>Answer:</strong> Click <strong>[Print Clinic Copy]</strong>. This renders a single A5 page clearly marked with the <em>CLINIC COPY</em> badge for clinic auditing and records.</p>
+<h3>Q23: How do I print both?</h3>
+<p><strong>Answer:</strong> Click <strong>[Print Both Copies]</strong>. This renders an A5 document with Page 1 as Patient Copy and Page 2 as Clinic Copy separated by an automatic page break.</p>
+<h3>Q24: How do I upload clinic logo?</h3>
+<p><strong>Answer:</strong> As an Administrator, open <strong>Settings -&gt; Print &amp; Branding</strong> (<code>/settings/branding</code>). Click <strong>Choose File / Browse</strong>, select a valid PNG, JPG, or JPEG image (max 2MB), configure the alignment (Left, Center, Right), and click <strong>Upload Logo</strong>. The system locks the aspect ratio to prevent stretching.</p>
+<h3>Q25: How do I add doctor?</h3>
+<p><strong>Answer:</strong> Go to <strong>Settings -&gt; Clinic &amp; Doctor</strong> (<code>/settings/clinic-doctor</code>). Under the Doctor Profiles section, click <strong>Add Doctor</strong>. Enter Full Name, Qualification, Registration Number, Specialization, and Contact Number, then click <strong>Add Doctor</strong>.</p>
+<h3>Q26: How do I change default doctor?</h3>
+<p><strong>Answer:</strong> Go to <strong>Settings -&gt; Clinic &amp; Doctor</strong> (<code>/settings/clinic-doctor</code>). In the Default Booking Doctor card, select the preferred active doctor from the dropdown and click <strong>Save Default Doctor</strong>.</p>
+<h3>Q27: How do I add operator?</h3>
+<p><strong>Answer:</strong> Go to <strong>Settings -&gt; Users &amp; Operators</strong> (<code>/settings/users</code>). Click <strong>+ Add User / Operator</strong>. Enter Name, Email (login ID), Mobile Number, Role (<code>OPERATOR</code>), and initial password. Click <strong>Create User</strong>.</p>
+<h3>Q28: How do I reset operator password?</h3>
+<p><strong>Answer:</strong> In <strong>Settings -&gt; Users &amp; Operators</strong> (<code>/settings/users</code>), locate the operator account, click <strong>Reset Password</strong>, enter the new password, and click <strong>Confirm Password Reset</strong>. An audit log entry is recorded.</p>
+<h3>Q29: How do I change my password?</h3>
+<p><strong>Answer:</strong> In the top navigation bar, click on your user profile icon/name, select <strong>Change Password</strong>, enter your current password, your new password, and confirm. Click <strong>Update Password</strong>.</p>
+<h3>Q30: How do I download booking QR?</h3>
+<p><strong>Answer:</strong> Open <strong>Settings -&gt; Online Booking / QR</strong> (<code>/settings/booking-qr</code>). Click <strong>Download PNG</strong> or <strong>Download SVG</strong> for either the Local Development URL (<code>http://127.0.0.1:8000/book/{public_slug}</code>) or Production URL (<code>https://dxclinic.example.local/book/{public_slug}</code>). You can also click <strong>Print Clinic Poster</strong> to generate an A4 counter standee with the embedded QR and short URL (<code>/b/{public_slug}</code>).</p>
+<h3>Q31: How does online booking work?</h3>
+<p><strong>Answer:</strong> Patients scan the clinic QR code or open their clinic's dedicated public slug link (<code>/book/{public_slug}</code> or <code>/b/{public_slug}</code>) on their mobile phone. Unselected <code>/book</code> or internal codes (<code>/book/NX0001</code>) return 404 to ensure complete tenant safety. Patients enter their name, age, mobile, choose an attending doctor, consultancy type, and session, and receive an instant digital token. They present this token at the clinic counter upon arrival and pay their fee in person.</p>
+<h3>Q32: Is online payment enabled?</h3>
+<p><strong>Answer:</strong> <strong>No.</strong> DxClinic intentionally does NOT support online payment gateways during booking. All fee settlements occur physically at the clinic counter via Cash or verified Soundbox UPI.</p>
+<h3>Q33: How do I backup?</h3>
+<p><strong>Answer:</strong> Go to <strong>Settings -&gt; Backup &amp; Restore</strong> (<code>/settings/backup</code>). Click <strong>Create Backup Now</strong>. Enter a strong administrative encryption password. The system compiles an encrypted <code>.ncbk</code> container containing the database dump, files, logo, and metadata with SHA-256 checksum.</p>
+<h3>Q34: How do I restore?</h3>
+<p><strong>Answer:</strong> In <strong>Settings -&gt; Backup &amp; Restore</strong>, click <strong>Restore Backup</strong>. Select the backup file or choose from backup history, enter the decryption password, and click <strong>Confirm Restore</strong>. The system automatically creates a pre-restore safety snapshot, verifies checksum integrity, restores data atomically, and rolls back if an error occurs.</p>
+<h3>Q35: What happens if backup fails?</h3>
+<p><strong>Answer:</strong> If an automatic or manual backup encounters an error, the failure is logged, a warning alert is displayed on the admin dashboard, the existing database remains untouched, and previous valid backups are preserved.</p>
+<h3>Q36: How do I generate reports?</h3>
+<p><strong>Answer:</strong> Open <strong>Reports -&gt; OPD Reports</strong> (<code>/reports/opd</code>), <strong>Diagnostic Reports</strong> (<code>/reports/diagnostics</code>), or <strong>Reconciliation</strong> (<code>/reports/reconciliation</code>). Select the required period filter: Daily, Weekly, Monthly, Quarterly, Half-Yearly, Financial Year (Apr 1 - Mar 31), or Custom Date Range. Filter by doctor or session, and export or print.</p>
+<h3>Q37: How do I book online consultancy?</h3>
+<p><strong>Answer:</strong> In either <strong>Operator Booking</strong> (<code>/operator/booking</code>) or the Public PWA (<code>/book</code>), select the consultation mode radio button: <strong>Online Consultancy — ₹700</strong>. The booking generates an appointment and token with an unpaid fee obligation. Payment is settled when the patient pays via Soundbox UPI or Cash counter.</p>
+<h3>Q38: How does the Free OPD Revisit rule work?</h3>
+<p><strong>Answer:</strong> If a patient who completed a qualifying physical OPD consultation revisits within <strong>5 calendar days</strong>, the consultation fee is <strong>₹0.00</strong>. The system automatically applies a <strong>₹600.00 Revisit Waiver</strong> (<code>OPD REVISIT FREE CONSULTANCY</code>), resulting in Net ₹0.00. No payment or collection record is created, and drawer cash is unaffected.</p>
+<h3>Q39: What is the difference between Operator Booking and Public Booking?</h3>
+<p><strong>Answer:</strong> Operator Booking (<code>/operator/booking</code>) is an authenticated desk portal used by receptionists to search existing patients or register walk-ins (<code>booking_source = CLINIC</code>). Public Booking (<code>/book</code>) is an unauthenticated PWA portal used by patients on their mobile devices (<code>booking_source = ONLINE</code>).</p>
+<h3>Q40: How does mobile number normalization work?</h3>
+<p><strong>Answer:</strong> DxClinic accepts 10 digits (<code>9876543210</code>), +91 with 10 digits (<code>+919876543210</code> or <code>+91 9876543210</code>), and 11 digits with leading zero (<code>09876543210</code>). All valid inputs are normalized automatically to canonical <code>+91 9876543210</code>. Invalid lengths or non-digit characters are rejected with clear error messages.</p>
+<h3>Q41: Why are vitals excluded from OPD Patient Reports?</h3>
+<p><strong>Answer:</strong> Per DxClinic Revision 25 architectural standards, OPD patient operational registers (<code>/reports/opd</code>) focus strictly on patient identity, token allocation, attendance, consultation mode, fee settlement, and attending doctor. Clinical vitals (BP, pulse, weight) are restricted to the confidential Doctor Pad and Patient History.</p>
+<h3>Q42: How is the Total Collection footer calculated in reports?</h3>
+<p><strong>Answer:</strong> In both OPD and Diagnostic reports, the <strong>TOTAL COLLECTION</strong> footer is computed strictly by summing actual settled payment records (<code>payments</code> table with <code>status = 'SETTLED'</code>). Unpaid bookings and ₹0 free revisits contribute ₹0.00 to collection totals, ensuring exact financial reconciliation with the cash drawer and bank ledger.</p>
+<hr />
+<h3>Q43: How do I view old consultation bills?</h3>
+<p><strong>Answer:</strong> Navigate to <strong>Consultation Billing</strong> (<code>/operator/consultation</code>) and click on the <strong>[Consultation Billing History]</strong> tab. This displays all historical consultation bills regardless of how long ago they were created.</p>
+<h3>Q44: How do I view old diagnostic bills?</h3>
+<p><strong>Answer:</strong> Open <strong>Diagnostic Billing</strong> (<code>/operator/diagnostics</code>) and click on the <strong>[Diagnostic Billing History]</strong> tab. This presents all historical diagnostic bills, line items, and payment statuses.</p>
+<h3>Q45: How do I find a bill by patient or bill number?</h3>
+<p><strong>Answer:</strong> In either Consultation Billing History or Diagnostic Billing History, use the filter inputs at the top of the table. You can search by Patient Name, Patient ID (<code>DXP-...</code>), 10-digit Mobile, Bill Number (e.g., <code>CBL-2026-...</code> or <code>DBL-2026-...</code>), Attending Doctor, or Date Range.</p>
+<h3>Q46: Can I edit a paid consultation bill?</h3>
+<p><strong>Answer:</strong> <strong>No.</strong> The original paid bill cannot be overwritten. Settled financial records (payments, receipts, journals, bill amounts) are strictly immutable. A controlled amendment, discount, or refund workflow is used, generating new audit and transactional records while the original financial history remains preserved.</p>
+<h3>Q47: How do I give a discount after the patient has already paid?</h3>
+<p><strong>Answer:</strong> Locate the bill in Consultation Billing History and click <strong>[Modify / Refund]</strong>. Select type <strong>DISCOUNT_AFTER_SETTLEMENT</strong>, specify the refund amount, enter the mandatory reason (e.g., <em>&quot;Refund for discount given as per doctor recommendation.&quot;</em>), link the doctor, and select the refund settlement method (Cash or UPI). The original bill remains intact; a refund transaction is issued, returning the discount to the patient and balancing the accounting ledger.</p>
+<h3>Q48: How do I process a partial refund?</h3>
+<p><strong>Answer:</strong> Open the bill's <strong>[Modify / Refund]</strong> modal, select <strong>PARTIAL_REFUND</strong>, enter any refund amount up to the remaining refundable amount (<code>Settled Amount - Prior Refunds</code>), enter the mandatory reason, and process. The bill status remains <code>PAID</code>, with updated retained revenue displayed clearly.</p>
+<h3>Q49: How do I process a full refund?</h3>
+<p><strong>Answer:</strong> In the <strong>[Modify / Refund]</strong> modal, enter the full remaining refundable amount. Once 100% of the settled payment is refunded, the bill status updates to <strong>REFUNDED</strong>.</p>
+<h3>Q50: What reason is required when modifying a bill?</h3>
+<p><strong>Answer:</strong> A meaningful, mandatory reason of <strong>at least 10 characters</strong> is strictly required by the server. Generic or trivial inputs such as <code>&quot;edit&quot;</code>, <code>&quot;change&quot;</code>, <code>&quot;mistake&quot;</code>, or <code>&quot;ok&quot;</code> are rejected. Example valid reasons: <em>&quot;Patient requested discount as per doctor instruction&quot;</em> or <em>&quot;Wrong test package selected by operator&quot;</em>.</p>
+<h3>Q51: What happens when a doctor recommends a discount?</h3>
+<p><strong>Answer:</strong> The attending physician submits a Doctor Recommendation with the recommended amount and rationale. This recommendation is attached to the encounter record but does NOT move money directly. The desk operator or administrator executes the financial refund through authorized billing controls.</p>
+<h3>Q52: Can an operator directly modify a settled financial record?</h3>
+<p><strong>Answer:</strong> <strong>No.</strong> Neither operators nor administrators can overwrite settled database rows in-place. Operators can initiate modification and refund requests with mandatory reasons, and execute refunds within configured desk cash limits.</p>
+<h3>Q53: Can a doctor process a refund?</h3>
+<p><strong>Answer:</strong> <strong>No.</strong> Doctors have medical authority to recommend fee reductions or waivers, but cannot directly process refunds, disburse drawer cash, alter payment records, or post accounting journals.</p>
+<h3>Q54: How do I view refund history?</h3>
+<p><strong>Answer:</strong> In the Billing History table, click <strong>[View]</strong> on any amended or refunded bill. The ledger detail modal displays the original payment, list of processed refunds with timestamps, operator names, and the remaining net retained amount.</p>
+<h3>Q55: How do I reprint an old consultation receipt?</h3>
+<p><strong>Answer:</strong> In Consultation Billing History, click <strong>[Print Receipt]</strong> (Patient Copy, Clinic Copy, or Both). Reprinting is completely idempotent and creates zero payments, zero journals, and zero duplicate receipts.</p>
+<h3>Q56: How do I reprint an old Doctor Pad?</h3>
+<p><strong>Answer:</strong> Go to <strong>Consultation Billing</strong> (<code>/operator/consultation</code>) and switch to the <strong>[Doctor Pad History]</strong> tab. Locate the patient encounter and click <strong>[Reprint Doctor Pad]</strong>. Output is calibrated for pre-printed letterheads and creates zero financial or queue records.</p>
+<h3>Q57: How do I view old diagnostic bill details?</h3>
+<p><strong>Answer:</strong> In Diagnostic Billing History, click <strong>[View Details]</strong>. A modal opens displaying itemized investigations, historical rates, historical quantities, gross, discount, refunds, and retained amounts.</p>
+<h3>Q58: Can I change old diagnostic test/package rates?</h3>
+<p><strong>Answer:</strong> <strong>No.</strong> Historical rates remain strictly preserved as snapshotted at billing time. Old bills never re-query today's master rates. Any financial adjustment is represented via an authorized refund or supplementary bill.</p>
+<h3>Q59: What happens if the corrected diagnostic bill becomes lower?</h3>
+<p><strong>Answer:</strong> If tests are removed or quantities reduced, the financial difference is disbursed as a controlled <strong>Refund</strong>, reducing revenue and crediting Cash or Bank.</p>
+<h3>Q60: What happens if the corrected diagnostic bill becomes higher?</h3>
+<p><strong>Answer:</strong> The original bill is NOT modified in-place. The additional tests are billed as a new <strong>Supplementary Diagnostic Bill</strong> (<code>{bill_number}-SUPP-{n}</code>) linked to the original bill, with its own payment settlement and receipt.</p>
+<h3>Q61: Does printing/reprinting create another payment?</h3>
+<p><strong>Answer:</strong> <strong>Never.</strong> All printing and PDF generation endpoints in DxClinic are strictly idempotent and read-only.</p>
+<h3>Q62: Does refunding a bill change the original receipt?</h3>
+<p><strong>Answer:</strong> <strong>No.</strong> The original receipt remains immutable. The system generates a <strong>Receipt Revision</strong> record in <code>receipt_revisions</code> capturing the adjustment, refund link, and reason.</p>
+<h3>Q63: Where can I see who modified a bill and why?</h3>
+<p><strong>Answer:</strong> Click <strong>[Audit Log]</strong> on any historical bill. The modal displays who requested or processed the change, exact timestamp, change category, old values, new values, financial impact, and mandatory reason.</p>
+<h3>Q64: How does refund affect cash reconciliation?</h3>
+<p><strong>Answer:</strong> Cash refunds disbursed from the desk drawer are subtracted in the reconciliation formula:<br />
+$$\text{Expected Closing Cash} = \text{Opening Cash} + \text{Cash Collections} - \text{Cash Expenses} - \text{Cash Deposits} - \text{Cash Refunds Paid in Cash}$$</p>
+<h3>Q65: How does UPI refund affect bank reconciliation?</h3>
+<p><strong>Answer:</strong> UPI refunds transferred back to the patient from clinic bank accounts reduce the book bank balance:<br />
+$$\text{Book Bank Balance} = \text{Opening Bank} + \text{UPI Collections} + \text{Cash Deposits} - \text{Bank Expenses} - \text{Bank Refunds Paid from Bank}$$</p>
+<h3>Q66: Can the RAG assistant modify or refund a bill?</h3>
+<p><strong>Answer:</strong> <strong>No.</strong> The AI Operator Assistant is strictly informational. It can explain how to request a refund or interpret billing policies, but cannot execute financial changes, post journals, or modify records.</p>
+<h3>Q67: What is the difference between an amendment, refund, discount, and supplementary bill?</h3>
+<p><strong>Answer:</strong></p>
+<ul>
+<li><strong>Amendment / Modification</strong>: Adjusting an unsettled <code>PENDING</code> bill before payment.</li>
+<li><strong>Refund</strong>: Returning money to a patient from an already settled bill via Cash or Bank transfer.</li>
+<li><strong>Discount After Settlement</strong>: A partial refund granted post-payment (e.g. per doctor's recommendation).</li>
+<li><strong>Supplementary Bill</strong>: A newly created, linked bill used when additional diagnostic tests are required after original settlement.</li>
+</ul>
+<h3>Q68: What is Prescription Pad Template Designer?</h3>
+<p><strong>Answer:</strong> It is a vector-based (SVG) design and calibration module that enables clinics to configure custom, doctor-specific prescription stationery layouts with physical millimeter-level field coordinates, dynamic data mapping, scanned reference backgrounds, and live PDF proofing.</p>
+<h3>Q69: Can each doctor have a different prescription pad?</h3>
+<p><strong>Answer:</strong> <strong>Yes.</strong> Every doctor in DxClinic can have independent prescription pad templates with distinct paper dimensions, field selections, typography, and coordinate positioning.</p>
+<h3>Q70: How do I create a prescription pad template?</h3>
+<p><strong>Answer:</strong> Navigate to <strong>Settings &gt; Prescription Pad Designer</strong>, click <strong>[New Template]</strong>, select the doctor, choose the paper size (A4, A5, Letter, Half Letter, or Custom mm), specify orientation, and click <strong>[Create &amp; Open Designer]</strong>. You can also import existing legacy settings by clicking <strong>[Import From Legacy]</strong>.</p>
+<h3>Q71: How do I upload a pad scan?</h3>
+<p><strong>Answer:</strong> In the Prescription Pad Designer, navigate to the left sidebar card <strong>Pad Scan (Reference)</strong>, select a PNG, JPG, or JPEG scan of the physical pre-printed doctor pad, and click <strong>[Upload Scan]</strong>. The scan displays as a transparent background overlay in Proof Mode.</p>
+<h3>Q72: Which paper sizes are supported?</h3>
+<p><strong>Answer:</strong> Standard paper sizes include <strong>A4 (210 × 297 mm)</strong>, <strong>A5 (148 × 210 mm)</strong>, <strong>Letter (215.9 × 279.4 mm)</strong>, <strong>Half Letter (139.7 × 215.9 mm)</strong>, and arbitrary <strong>Custom Sizes</strong> specified in millimeters.</p>
+<h3>Q73: Why are positions stored in millimeters?</h3>
+<p><strong>Answer:</strong> Millimeters correspond directly to real-world physical paper dimensions. Browser pixels change across screens, devices, and zoom levels; physical millimeter coordinates ensure 100% faithful print reproduction on physical printers regardless of screen resolution or designer zoom.</p>
+<h3>Q74: How do I drag a field?</h3>
+<p><strong>Answer:</strong> Click and hold any placed field on the canvas to drag it. Release the mouse button to set its new location. The designer converts canvas coordinates directly into physical millimeters.</p>
+<h3>Q75: How do I set X/Y manually?</h3>
+<p><strong>Answer:</strong> Click any field on the canvas to open the right-hand <strong>Properties Panel</strong>. Under <strong>Position (Millimeters)</strong>, enter numeric values for <strong>X (mm)</strong> and <strong>Y (mm)</strong>. You can also use arrow keys for 0.5 mm steps or Shift + Arrow keys for 0.1 mm precision.</p>
+<h3>Q76: How do I choose which vitals print?</h3>
+<p><strong>Answer:</strong> In the Designer's <strong>Field Toolbox</strong> under <strong>VITALS</strong>, click only the vitals you wish to place (e.g. BP, Pulse, Weight, SpO2, Temp, RBS, RR). If a doctor doesn't need certain vitals on their pad, simply do not add those fields or delete them from the canvas.</p>
+<h3>Q77: How do I create another template version?</h3>
+<p><strong>Answer:</strong> To modify an active or archived template, click <strong>[Duplicate]</strong> or <strong>[Edit (New Draft)]</strong>. This creates a new version in <code>DRAFT</code> status (e.g. v2, v3) without altering the existing active template.</p>
+<h3>Q78: What is Proof PDF?</h3>
+<p><strong>Answer:</strong> <strong>Proof PDF</strong> renders both the scanned pre-printed stationery background and the dynamic patient data. It is used on-screen and for calibration to verify alignment against physical stationery.</p>
+<h3>Q79: What is Production PDF?</h3>
+<p><strong>Answer:</strong> <strong>Production PDF</strong> renders strictly the dynamic data overlay (patient details, vitals, token, date) with a transparent background. It is sent to physical printers loaded with pre-printed clinic stationery so the scan background is never printed twice.</p>
+<h3>Q80: Why is the scan not printed in Production PDF?</h3>
+<p><strong>Answer:</strong> Physical prescription pads are already printed by commercial printing presses with clinic logos, doctor headers, watermarks, and ruled sections. Printing the scan image would waste toner, cause double-printing, and blur the physical stationery.</p>
+<h3>Q81: How do I test print?</h3>
+<p><strong>Answer:</strong> In the top toolbar of the Designer, click <strong>[Test Print ▾]</strong> and select either <strong>Production PDF (Data Only)</strong> or <strong>Proof PDF (With Scan)</strong>. The system compiles a real Dompdf document using realistic sample clinical data.</p>
+<h3>Q82: What is printer calibration?</h3>
+<p><strong>Answer:</strong> Hardware printers often have mechanical paper feed offsets (e.g. shifting print 1.5mm to the left). In <strong>Settings &gt; Prescription Pad Designer &gt; [Printer Calibration]</strong>, admins can set physical X/Y offsets and scaling factors. These offsets adjust the final print output globally without mutating individual template coordinates.</p>
+<h3>Q83: What happens when a doctor has no new template?</h3>
+<p><strong>Answer:</strong> DxClinic automatically falls back to the <strong>legacy Doctor Pad renderer</strong>. No doctor is ever left without working pad printing.</p>
+<h3>Q84: What happens to my old Doctor Pad settings?</h3>
+<p><strong>Answer:</strong> Legacy Doctor Pad coordinates, Blade layouts, and uploaded files are 100% preserved. They remain the active fallback until a new designer template is explicitly activated for that doctor.</p>
+<h3>Q85: How do I view old Consultation Bills?</h3>
+<p><strong>Answer:</strong> Navigate to <strong>Consultation Billing</strong> (<code>/operator/consultation</code>) and scroll down to the <strong>Consultation Billing History</strong> table. You can search by bill number, patient name, date range, or doctor.</p>
+<h3>Q86: How do I edit a paid Consultation Bill?</h3>
+<p><strong>Answer:</strong> In the Consultation Billing History table, click <strong>[Edit]</strong> (located immediately before the <strong>[Pad]</strong> button). A modal will open allowing controlled modifications or refund requests with a mandatory reason.</p>
+<h3>Q87: How do I edit a Diagnostic Bill?</h3>
+<p><strong>Answer:</strong> In <strong>Diagnostic Billing</strong> (<code>/operator/diagnostics</code>), locate the bill in the history table. The <strong>[Edit]</strong> button is located in its own dedicated column physically positioned between <strong>Status</strong> and <strong>Method</strong>.</p>
+<h3>Q88: Why is a paid bill not overwritten?</h3>
+<p><strong>Answer:</strong> Settled financial transactions are legally and audit-wise immutable. Modifying settled numbers in-place breaks journal ledgers, destroys audit trails, and violates accounting principles. Adjustments are handled via approved refunds, supplementary bills, and receipt revisions.</p>
+<h3>Q89: How do I request a refund?</h3>
+<p><strong>Answer:</strong> In the Edit/Modify modal of a paid bill, select <strong>Refund</strong>, enter the refund amount, specify the payment mode (Cash from drawer or Bank/UPI with bank account selection), and provide a mandatory reason.</p>
+<h3>Q90: How does doctor-recommended discount work?</h3>
+<p><strong>Answer:</strong> When a doctor recommends a post-settlement discount, the original paid bill is not reduced. Instead, a refund is issued for the discounted amount with the doctor recommendation audit trail attached.</p>
+<h3>Q91: How do I view changes/audit history?</h3>
+<p><strong>Answer:</strong> Click the <strong>[Audit]</strong> button on any billing row. A full timeline modal will show the user, timestamp, modification category, old values, new values, and reason.</p>
+<h3>Q92: Can a Doctor process a refund?</h3>
+<p><strong>Answer:</strong> <strong>No.</strong> Doctors may recommend discounts or refunds, but only authorized Admins and Operators can disburse cash or bank refunds and post accounting entries.</p>
+<h3>Q93: Can an Operator activate a prescription template?</h3>
+<p><strong>Answer:</strong> <strong>No.</strong> Template creation, design, and activation require administrative credentials (<code>ADMIN</code> role).</p>
+<h3>Q94: Which template does a historical Doctor Pad reprint use?</h3>
+<p><strong>Answer:</strong> It uses the <strong>exact template version</strong> that was committed when that Doctor Pad was generated. If an encounter was printed under Template V1, reprinting that historical encounter will ALWAYS use Template V1, even if Template V2 or V3 is currently active.</p>
+<h3>Q95: Does reprinting create another payment?</h3>
+<p><strong>Answer:</strong> <strong>Never.</strong> All pad and receipt printing endpoints in DxClinic are read-only and strictly idempotent.</p>
+<h3>Q96: Why might a vital field be blank?</h3>
+<p><strong>Answer:</strong> DxClinic strictly follows clinical truth: if a patient encounter has no vital record recorded (e.g. weight or BP was not measured), the field is left blank. The system never fabricates placeholder values or fake zeros.</p>
+<h3>Q97: How does the sidebar work?</h3>
+<p><strong>Answer:</strong> The navigation is grouped into:</p>
+<ol>
+<li><strong>Daily Work</strong> (Dashboard, Booking, Queue, Patients, Consultation, Diagnostics, Cash) — directly visible.</li>
+<li><strong>Reports</strong> — collapsible section for OPD, Diagnostic, and Financial reports.</li>
+<li><strong>Help &amp; Guide</strong> — collapsible section near the bottom for FAQ, User Manuals, and Quick Guides.</li>
+<li><strong>Settings</strong> — collapsible section at the bottom (Admin only) for clinic configuration, masters, and the Prescription Pad Designer.</li>
+</ol>
+<h3>Q98: Where are FAQ and manuals?</h3>
+<p><strong>Answer:</strong> Click <strong>Help &amp; Guide ▾</strong> in the left sidebar to access the FAQ, User Manual, and Quick Guide tabs.</p>
+<h3>Q99: Where are Settings?</h3>
+<p><strong>Answer:</strong> Settings are located at the bottom of the left sidebar under the collapsible <strong>Settings ▾</strong> group (accessible to Admins).</p>
+<h3>Q100: Does activating a new template version change old Doctor Pad reprints?</h3>
+<p><strong>Answer:</strong> <strong>No.</strong> Historical appointments retain an immutable reference to the template version in effect when printed. Activating a future version (e.g. V2 or V3) only applies to new appointments; historical reprints remain completely immutable.</p>
+<h3>Q101: What happens if an older template version is ARCHIVED?</h3>
+<p><strong>Answer:</strong> Archived template versions remain fully printable for historical records that were originally committed to them. Archival prevents assigning the template to new encounters, but preserves 100% reproducibility for historical reprints.</p>
+<h3>Q102: How are historical legacy records printed?</h3>
+<p><strong>Answer:</strong> Existing historical encounters recorded before template creation (or with no template assigned) continue to use the legacy Doctor Pad Blade renderer (<code>print.doctor-pad</code>). Legacy fallback is fully preserved and never overwritten.</p>
+<h3>Q103: Can a template version be deleted if it was used for past patient pads?</h3>
+<p><strong>Answer:</strong> <strong>No.</strong> The database enforces a foreign key <code>RESTRICT</code> constraint. Any template version referenced by historical clinical encounters cannot be deleted, protecting historical medical records.</p>
+<h3>Q104: How is physical printer calibration validated?</h3>
+<p><strong>Answer:</strong> Printer calibration (offsets in mm and scale factors) is mathematically calculated and verified during PDF generation. Physical alignment requires an on-site operational check on the clinic's physical printer hardware, ensuring &quot;Margins: None&quot; or &quot;Minimum&quot; is selected in the browser print dialog.</p>
+<h3>Q105: What is the difference between Clinic ID, User ID, License Key, and Activation Code?</h3>
+<p><strong>Answer:</strong></p>
+<ul>
+<li><strong>Clinic ID (<code>clinic_code</code>):</strong> The facility's unique tenant identifier (e.g., <code>NX0001</code>, <code>NX0002</code>).</li>
+<li><strong>User ID (<code>login_id</code>):</strong> The staff member's unique role-scoped login handle within their clinic (e.g., <code>ADM0001</code>, <code>OPR0001</code>).</li>
+<li><strong>License Key (<code>NXCL-...</code>):</strong> The cryptographically secured subscription entitlement token representing duration and doctor capacity.</li>
+<li><strong>Activation Code (<code>NXA-...</code>):</strong> A <strong>one-time, single-use</strong> security token consumed exclusively by the initial Clinic Administrator during first activation.</li>
+</ul>
+<h3>Q106: Can two different clinics have staff with the same User ID?</h3>
+<p><strong>Answer:</strong> <strong>Yes.</strong> User IDs are scoped per clinic (<code>UNIQUE(clinic_id, login_id)</code>). Different clinics can independently have an <code>OPR0001</code> or <code>ADM0001</code> without collision or cross-tenant interference.</p>
+<h3>Q107: Can request headers or URL parameters override the authenticated user's clinic?</h3>
+<p><strong>Answer:</strong> <strong>Never.</strong> Under the authoritative tenant security model, for all authenticated users (<code>ADMIN</code>, <code>OPERATOR</code>, <code>DOCTOR</code>), <code>authenticated_user.clinic_id</code> is the <strong>ONLY</strong> authoritative tenant context source. Request headers (<code>X-Clinic-ID</code>, <code>X-Clinic-Code</code>), query parameters, route parameters, and session values cannot override it; any mismatched cross-tenant tampering attempt is rejected with <strong>403 Forbidden</strong>.</p>
+<h3>Q108: How does the one-time Activation Code work?</h3>
+<p><strong>Answer:</strong> When a clinic license is first provisioned by the Superadmin, an Activation Code is generated. The initial Clinic Administrator uses this code once to activate the clinic facility and set their permanent password. Once consumed, the code hash is permanently purged and cannot be reused.</p>
+<h3>Q109: Does renewing a license require an Activation Code?</h3>
+<p><strong>Answer:</strong> <strong>No.</strong> Renewals create a new active subscription period extending the clinic's validity without requiring an activation code or interrupting normal tenant access.</p>
+<h3>Q110: How many doctors can a clinic add to their subscription?</h3>
+<p><strong>Answer:</strong> By default, standard subscriptions include <strong>1 Doctor Seat</strong>. Additional doctor seats can be purchased as add-ons for ₹2,999 / doctor / year (or the plan-configured rate). Effective capacity equals <code>included_doctor_seats + additional_doctor_seats</code>.</p>
+<h3>Q111: What happens if a clinic attempts to create a doctor beyond their licensed capacity?</h3>
+<p><strong>Answer:</strong> Creation is blocked transactionally at both the Livewire and Eloquent model layers with the exact message: <em>&quot;You have reached the maximum number of doctor seats included in your license. Please contact the application provider to purchase an additional doctor seat.&quot;</em></p>
+<h3>Q112: How can a clinic add more doctor seats?</h3>
+<p><strong>Answer:</strong> The Superadmin opens the Fleet Dashboard, clicks <strong>[+ Seats]</strong> for the clinic, enters the number of seats to purchase, and confirms. Billing is calculated on a pro-rata basis based on remaining subscription days, and the clinic can immediately register new doctor profiles.</p>
+<h3>Q113: If a doctor is deactivated or deleted, does that reduce historical subscription charges?</h3>
+<p><strong>Answer:</strong> <strong>No.</strong> Deactivating or deleting a doctor frees up real-time licensed capacity for a replacement doctor, but historical subscription records and billing ledger entries remain completely immutable.</p>
+<h3>Q114: How do public patients book appointments for a specific clinic?</h3>
+<p><strong>Answer:</strong> Each clinic has a dedicated public booking link:
+$$\text{https://yourdomain.com/b/}\mathbf{NX0001} \quad\implies\quad \text{https://yourdomain.com/book/}\mathbf{NX0001}$$
+Visiting this link exposes only that clinic's branding, active doctors, consulting modes, and fees.</p>
+<h3>Q115: What happens if an invalid clinic code is entered in the public booking URL?</h3>
+<p><strong>Answer:</strong> Requesting an unknown clinic code (e.g. <code>/book/NX9999</code> or <code>/b/NX9999</code>) safely aborts with <strong>404 Not Found</strong>. The system never falls back to arbitrary clinic data (<code>Clinic::first()</code>).</p>
+<h3>Q116: How does a clinic renew their subscription in DxClinic?</h3>
+<p><strong>Answer:</strong> The clinic owner pays the application owner/software provider outside the application (via UPI, Bank Transfer, Cheque, or Cash). Once payment is received, the Superadmin performs a one-click renewal inside the Superadmin Fleet Dashboard. The clinic's subscription becomes active immediately with zero disruption.</p>
+<h3>Q117: Does the clinic administrator have to enter a new license key or activation code when renewing?</h3>
+<p><strong>Answer:</strong> <strong>No.</strong> The clinic administrator and staff require zero actions. They do not enter a new license key, do not enter an activation code, do not undergo reactivation or onboarding, and keep their existing login credentials.</p>
+<h3>Q118: How does continuous active service extension work for active licenses?</h3>
+<p><strong>Answer:</strong> If the clinic's current license is still active with remaining days, the new renewal term begins strictly on <code>current_end_date + 1 day</code>. All remaining active days are preserved and added continuously to the new subscription period.</p>
+<h3>Q119: What happens if an expired or suspended license is renewed?</h3>
+<p><strong>Answer:</strong> If the clinic's license has lapsed into <code>EXPIRED</code> or <code>SUSPENDED</code> status, the new renewal coverage period begins on the <strong>Payment Date</strong>, immediately restoring the clinic's license status to <code>ACTIVE</code> and reopening staff access.</p>
+<h3>Q120: How are additional doctor seats billed during yearly renewal?</h3>
+<p><strong>Answer:</strong> During a Yearly renewal, the base plan includes 1 doctor seat. Any existing paid add-on seats can be renewed at the annual renewal rate (₹2,999/seat/year), and new additional doctor seats can be purchased simultaneously at the same rate.</p>
+<h3>Q121: How is accidental double-billing of doctor seats prevented?</h3>
+<p><strong>Answer:</strong> The renewal interface clearly separates:</p>
+<ul>
+<li><strong>Option A:</strong> Toggling the renewal of already-existing paid doctor seats.</li>
+<li><strong>Option B:</strong> Specifying the quantity of brand-new additional doctor seats.
+This visual and functional separation ensures existing seats are not mistakenly billed as new additions.</li>
+</ul>
+<h3>Q122: Can a revoked or cancelled license be renewed using the standard renewal form?</h3>
+<p><strong>Answer:</strong> <strong>No.</strong> A license flagged as <code>REVOKED</code> cannot be renewed through the normal one-click renewal form. The system displays an explicit warning instructing the superadmin to use the proper reinstatement process.</p>
+<h3>Q123: How does the system prevent duplicate renewals caused by accidental double-clicks?</h3>
+<p><strong>Answer:</strong> Every renewal form generates a unique cryptographic <code>idempotency_key</code>. If the Superadmin double-clicks or the browser sends duplicate requests, the system returns the existing renewal transaction safely without creating duplicate database records or double-charging.</p>
+<h3>Q124: Where can a clinic administrator view their subscription status and remaining days?</h3>
+<p><strong>Answer:</strong> Clinic Administrators can navigate to <strong>Settings ▾ → License &amp; Subscription</strong> (<code>/settings/subscription</code>). The panel displays their current plan, masked license key, start/end dates, remaining days calculated in <code>Asia/Kolkata</code> (IST) timezone, and doctor seat allocation breakdown.</p>
+<h3>Q125: Where does the Superadmin review historical renewals and payment audit trails?</h3>
+<p><strong>Answer:</strong> Fleet-wide renewal records are available at <code>/superadmin/license-history</code>, and clinic-specific historical timelines are located at <code>/superadmin/clinics/{clinic_id}/history</code>. Every entry records the exact payment method, external transaction reference (UTR/cheque), amounts, and authorizing user.</p>
+<h3>Q126: Can a clinic add another doctor during an already-active subscription period?</h3>
+<p><strong>Answer:</strong> <strong>Yes.</strong> Clinics can purchase additional doctor seats mid-term via the Superadmin Fleet Dashboard (<strong>[+ Doctor Seat]</strong>). Mid-term additions are billed separately on an annual cycle (default: ₹2,999/year per doctor). The clinic's existing permanent License Key remains 100% unchanged, no activation codes are generated, and clinic staff experience zero downtime.</p>
+<h3>Q127: How is doctor seat entitlement validity calculated?</h3>
+<p><strong>Answer:</strong> Mid-term doctor seat add-ons are valid for exactly one year (<code>valid_from = payment_date</code>, <code>valid_until = valid_from + 1 year - 1 day</code>). The parent clinic license dictates overall access: if the parent license expires or is suspended, clinic access is locked regardless of active doctor add-ons.</p>
+<h3>Q128: What is the Demo Clinic sandbox and what credentials does it use?</h3>
+<p><strong>Answer:</strong> DxClinic includes a permanent, isolated demonstration tenant (<code>democlinic</code>) with full fictional clinical data. Default credentials are <code>demoadmin</code> / <code>DemoAdmin123!</code> (Administrator), <code>demooperator</code> / <code>DemoOperator123!</code> (Desk Operator), <code>demodoctor01</code> / <code>DemoDoctor01!</code> (Dr. Amit Verma — General Medicine), and <code>demodoctor02</code> / <code>DemoDoctor02!</code> (Dr. Neha Kapoor — Family Medicine). The legacy alias <code>demodoctor</code> / <code>DemoDoctor123!</code> is preserved for backward compatibility. The Demo Clinic operates with a strict hard cap of 2 doctor seats.</p>
+<h3>Q129: What happens when the Superadmin pauses the Demo Clinic?</h3>
+<p><strong>Answer:</strong> When paused, demo staff login attempts are blocked, and the public booking PWA at <code>/book/democlinic</code> returns a clean HTTP 503 screen stating: <em>&quot;The DxClinic demonstration environment is temporarily unavailable. Please try again later.&quot;</em> Resuming demo restores full operational capability immediately.</p>
+<h3>Q130: What does [Reset Demo Data] do?</h3>
+<p><strong>Answer:</strong> Clicking <strong>[Reset Demo Data]</strong> in the Superadmin Fleet Dashboard atomically wipes transactional records (patients, visits, vitals, bills, payments, receipts) specifically for <code>democlinic</code> and re-seeds deterministic fictional clinical records. Real customer clinics are 100% untouched.</p>
+<h3>Q131: How is strict tenant isolation enforced on the public PWA?</h3>
+<p><strong>Answer:</strong> The canonical URL structure <code>/book/{clinic_code}</code> (and short alias <code>/b/{clinic_code}</code>) serves as the sole tenant authority. The backend strictly resolves all queries and writes to the identified clinic. Any attempt to override tenant context via query strings (<code>?clinic_id=...</code>), HTTP headers (<code>X-Clinic-ID</code>), or form payloads triggers an immediate <strong>403 Forbidden</strong> abort.</p>
+<h3>Q132: Why did &quot;Dr. Dr.&quot; previously appear and how is doctor naming normalized in Revision 38?</h3>
+<p><strong>Answer:</strong> &quot;Dr. Dr.&quot; appeared when database records already stored &quot;Dr. Rajesh Sharma&quot; and presentation templates prepended another &quot;Dr. &quot;. In Revision 38, doctor names are canonically stored without honorific prefixes (<code>Rajesh Sharma</code>, <code>Amit Verma</code>), and the centralized service <code>DoctorNamePresenter::format($doctor)</code> generates the single formatted string <code>Dr. Firstname Lastname</code> across all UI screens, PWA, PDFs, reports, and receipts.</p>
+<h3>Q133: What is the customer-facing terminology for clinic consultations?</h3>
+<p><strong>Answer:</strong> The customer-facing terminology is strictly <code>Clinic Consultancy</code> (alongside <code>Online Consultancy</code> and <code>Visiting Consultancy</code>). Internal enums (<code>CLINIC_PHYSICAL</code>, <code>ONLINE</code>, <code>VISITING</code>) remain unchanged to preserve database backward compatibility.</p>
+<h3>Q134: How does DxClinic guarantee consultation fee isolation between clinics?</h3>
+<p><strong>Answer:</strong> Consultation fee resolution is hierarchically scoped to the active clinic. In <code>FeeMaster::getFeeForMode()</code>, doctor-specific custom fees are validated with <code>$doctor-&gt;clinic_id === $clinicId</code>; if a doctor ID does not belong to the active clinic, their rate is rejected. Furthermore, asynchronous Livewire updates resolve public clinic context from request referrers/snapshots to prevent tenant fallback, and each clinic seeds baseline fee records (<code>doctor_id = null</code>).</p>
+<h3>Q135: How is 5-Year Plan license duration and remaining days calculated?</h3>
+<p><strong>Answer:</strong> A 5-Year subscription duration is strictly defined as 60 months (<code>duration_months = 60</code>). The license validity end date is calculated exactly 5 years from issuance in <code>Asia/Kolkata</code> (e.g. <code>2026-09-28</code> to <code>2031-09-28</code>). The remaining days counter is mathematically computed from the real <code>valid_until</code> date (~1,825–1,826 days remaining) and is never faked or derived from plan titles.</p>
+<h3>Q136: Can Demo Clinic ever exceed 2 doctor seats?</h3>
+<p><strong>Answer:</strong> No. Demo Clinic has a strict hard cap of 2 doctor seats enforced at all levels: UI, controller, service layer (<code>DemoService</code>), Eloquent model hooks (<code>Doctor::creating</code>), and database transactions. Any attempt to register a 3rd doctor is immediately rejected.</p>
+<h3>Q137: What keyboard shortcuts are available in DxClinic for fast front-desk and clinical operations?</h3>
+<p><strong>Answer:</strong> DxClinic provides a comprehensive keyboard-first operating engine across all portals:</p>
+<ul>
+<li><strong><code>F1</code> / <code>?</code></strong>: Open the interactive Keyboard Shortcuts Cheatsheet modal with live instant search.</li>
+<li><strong><code>F2</code></strong>: Quick New Patient / Walk-in Registration.</li>
+<li><strong><code>F3</code> / <code>F4</code></strong>: Instant focus on Patient Search or Existing Patient lookup.</li>
+<li><strong><code>F7</code></strong>: Print Token or Slip immediately.</li>
+<li><strong><code>F8</code></strong>: Allocate Queue Token or Confirm Appointment Booking.</li>
+<li><strong><code>F9</code></strong>: Complete Consultation &amp; Advance Queue.</li>
+<li><strong><code>Ctrl + Enter</code></strong>: Submit active form or modal dialogue.</li>
+<li><strong><code>Esc</code></strong>: Dismiss any open modal or cheatsheet dialog.</li>
+<li><strong>Navigation Shortcuts (<code>Alt + Key</code>)</strong>:
+<ul>
+<li><code>Alt + D</code>: Dashboard</li>
+<li><code>Alt + Q</code>: OPD Arrival Queue</li>
+<li><code>Alt + B</code>: New Token / Booking</li>
+<li><code>Alt + P</code>: Patient Registry</li>
+<li><code>Alt + C</code>: Consultation Billing</li>
+<li><code>Alt + O</code>: Diagnostic Billing</li>
+<li><code>Alt + T</code>: Diagnostic Tariff Master</li>
+<li><code>Alt + S</code>: Cash Sessions Drawer</li>
+<li><code>Alt + H</code>: Reports &amp; Analytics</li>
+<li><code>Alt + M</code>: User Manuals &amp; Documentation Hub</li>
+</ul>
+</li>
+</ul>
+<h3>Q138: How does the public booking PWA handle session selection when today's sessions have expired?</h3>
+<p><strong>Answer:</strong> When a patient accesses <code>/book/{clinic_code}</code> after the clinic's final daily session has concluded, the PWA intelligently auto-advances the date picker to the next available working date (tomorrow). This ensures the session selector dropdown is never rendered empty or broken. If a selected date has no active sessions, a clear informational notice is displayed, and the booking submission button is disabled defensively.</p>
+<h3>Q139: Where can operators and administrators download or print offline user manuals and quick reference cards?</h3>
+<p><strong>Answer:</strong> All operational manuals and quick reference cards are accessible via the central Documentation Hub at <code>/manuals</code>. Individual styled guides (Administrator Manual, Doctor Manual, Operator Manual, Superadmin Manual, Role Quick Cards, and Full FAQ) are formatted with print stylesheets (<code>@media print</code> and <code>@page { size: A4; margin: 15mm; }</code>) and feature a one-click <strong>[Print / Save PDF]</strong> button that produces clean, professional offline documentation without web navigation headers.</p>
+<h3>Q140: How does the local hard-drive backup facility work, and who is authorized to run it?</h3>
+<p><strong>Answer:</strong> Backups can only be generated and restored by authorized users with the <strong><code>ADMIN</code></strong> or <strong><code>SUPERADMIN</code></strong> role. Operators or unprivileged staff attempting access are strictly blocked with an HTTP 403 Forbidden error. Administrators can configure a custom destination folder on the local machine or external drive (e.g. <code>D:\Backups\DxClinic</code>), and download the resulting encrypted <code>.ncbk</code> archive directly from the browser.</p>
+<h3>Q141: What is the companion SHA-256 metadata manifest (.meta.json) generated with backups?</h3>
+<p><strong>Answer:</strong> Alongside every <code>.ncbk</code> backup archive, DxClinic atomically generates a companion JSON metadata manifest file (<code>&lt;backup_name&gt;.meta.json</code>). This manifest contains the database schema version, clinic tenant identifier, timestamp, backup file size, total table row counts, and an authoritative cryptographic SHA-256 checksum of the archive. Administrators can download this manifest independently to verify data integrity and compliance before performing cold-storage archiving or restoration.</p>
+<h3>Q142: How does DxClinic manage commercial invoicing and sales reporting without creating duplicate financial records?</h3>
+<p><strong>Answer:</strong> DxClinic operates on a strict single-source-of-truth architecture. Instead of introducing a separate, duplicate <code>platform_payments</code> table, the commercial invoicing layer derives its financial truth directly from the primary transaction records: <code>licenses</code> for initial license sales, <code>license_renewals</code> for subscription extensions, and <code>clinic_doctor_seat_addons</code> for mid-term doctor additions. The invoicing layer (<code>platform_sales_invoices</code> and <code>platform_invoice_items</code>) generates customer-facing documents referencing these primary events.</p>
+<h3>Q143: What is the authoritative commercial source of truth for each commercial transaction type?</h3>
+<p><strong>Answer:</strong></p>
+<ul>
+<li><strong>Initial License:</strong> <code>licenses</code> table (<code>paid_amount</code>, <code>payment_method</code>, <code>payment_reference</code>, <code>payment_date</code>).</li>
+<li><strong>License Renewal:</strong> <code>license_renewals</code> table (<code>net_amount</code>, <code>payment_method</code>, <code>payment_reference</code>, <code>payment_date</code>).</li>
+<li><strong>Mid-Term Doctor Add-On:</strong> <code>clinic_doctor_seat_addons</code> table (<code>price_paid</code>, <code>payment_method</code>, <code>payment_reference</code>, <code>payment_date</code>).</li>
+<li><strong>Platform Overhead Expenses:</strong> <code>platform_expenses</code> table (<code>amount</code>, <code>category</code>, <code>expense_date</code>, <code>payment_method</code>).</li>
+</ul>
+<h3>Q144: How are platform invoice numbers formatted and how is duplicate generation prevented?</h3>
+<p><strong>Answer:</strong> Platform invoices use globally unique, gap-free numbers formatted as <code>INV-YYYY-XXXXX</code> (e.g., <code>INV-2026-00001</code>), generated atomically via <code>platform_invoice_sequences</code>. Duplicate creation is blocked by a database uniqueness constraint on <code>[source_type, source_id]</code>. Rapid double-clicks by administrators or repeated reconciliations safely return the existing invoice without duplicate generation.</p>
+<h3>Q145: Can an issued platform sales invoice be edited or modified?</h3>
+<p><strong>Answer:</strong> No. Platform sales invoices are strictly immutable once issued. The system's Eloquent model hook blocks any updates to financial amounts (<code>subtotal</code>, <code>discount</code>, <code>net_amount</code>, <code>collected_amount</code>), clinic association, or source linkages. If a billing error or commercial dispute occurs, the invoice must be handled through a controlled cancellation mechanism (<code>status = 'CANCELLED'</code>), creating an auditable cancellation trail while preserving historical records intact.</p>
+<h3>Q146: What is the difference between Platform Commercial Accounting and Clinic Tenant Accounting?</h3>
+<p><strong>Answer:</strong> DxClinic enforces complete separation between the software provider's commercial accounting and customer clinics' clinical accounting:</p>
+<ul>
+<li><strong>Platform Commercial Accounting:</strong> Managed solely by the Superadmin under the <code>developer</code> guard (<code>/superadmin/*</code>). It tracks SaaS subscriptions, doctor seat additions, collections, and provider overhead expenses (<code>platform_expenses</code>).</li>
+<li><strong>Clinic Tenant Accounting:</strong> Managed by clinic staff under the <code>web</code> guard (<code>/operator/*</code>, <code>/admin/*</code>). It tracks patient consultation fees, pathology tests, medicine bills, drawer cash sessions, clinic expenses (tea, generator fuel), and double-entry journals.</li>
+<li><strong>Zero Cross-Posting:</strong> Platform expenses have NO <code>clinic_id</code>. Provider revenues and expenses never mix with clinic financial books.</li>
+</ul>
+<h3>Q147: How is Operating Profit calculated on the Superadmin Sales Dashboard?</h3>
+<p><strong>Answer:</strong> Platform operating profit is calculated using the standard accrual commercial accounting formula:</p>
+<ol>
+<li><code>Gross Sales - Discounts = Net Sales</code></li>
+<li><code>Net Sales - Refunds = Net Revenue</code></li>
+<li><code>Net Revenue - Platform Overhead Expenses = Operating Profit</code>
+All metrics can be filtered by time range (Today, Yesterday, This Week, This Month, Quarter, Half-Year, FY, Custom Range) or by clinic, sale type, and payment channel.</li>
+</ol>
+<h3>Q148: What is the difference between Collected Revenue and Operating Profit?</h3>
+<p><strong>Answer:</strong> Collected Revenue is the actual cashflow received across Cash, UPI, Bank Transfer, and Cheque channels. Operating Profit is an accounting measure of profitability: Net Revenue earned less Platform Expenses incurred during the period. A sale may be fully collected without being 100% profit (due to server hosting and operational costs), or an invoiced amount may be pending collection (outstanding).</p>
+<h3>Q149: How does the Collections Ledger work and what aggregation views are available?</h3>
+<p><strong>Answer:</strong> Accessible at <code>/superadmin/collections</code>, the Collections Ledger provides a consolidated view of all commercial receipts broken down by payment channel (Cash, UPI, Bank Transfer, Cheque). It provides four distinct viewing modes:</p>
+<ol>
+<li><strong>Individual Transactions:</strong> Detailed chronological list with payment date, clinic code, UTR reference, invoice number, and amount.</li>
+<li><strong>Daily Aggregation:</strong> Daily summary totals for each payment mode.</li>
+<li><strong>Monthly Aggregation:</strong> Calendar monthly collection totals.</li>
+<li><strong>Financial Year Totals:</strong> Indian Fiscal Year (April 1 – March 31) collection totals.</li>
+</ol>
+<h3>Q150: What is a Mid-Term Doctor Add-On invoice and does it change the clinic's permanent license key?</h3>
+<p><strong>Answer:</strong> A Mid-Term Doctor Add-On invoice is issued when a clinic purchases additional doctor capacity during an active subscription (standard default: ₹2,999/doctor/year). It references <code>clinic_doctor_seat_addons.id</code>. It does NOT renew the clinic, does NOT generate a new license key, does NOT issue activation codes, and does NOT interrupt clinic operations. The clinic's permanent license key remains 100% unchanged.</p>
+<h3>Q151: Are tenant clinic users allowed to view platform sales or invoices?</h3>
+<p><strong>Answer:</strong> No. Platform sales, invoices, collections, and platform expenses are strictly restricted to Superadmins (<code>developer</code> guard). Tenant users (whether Admin, Doctor, or Operator) attempting to access <code>/superadmin/sales</code>, <code>/superadmin/invoices</code>, <code>/superadmin/collections</code>, or <code>/superadmin/expenses</code> are immediately denied access (redirected to Superadmin login for web requests, or returned HTTP 403 Forbidden for API/JSON requests).</p>
+<h3>Q152: What is a Booking Type in DxClinic Revision 45, and how does it differ from Consultation Mode and Booking Source?</h3>
+<p><strong>Answer:</strong> DxClinic strictly separates four orthogonal operational concepts:</p>
+<ol>
+<li><strong>Booking Source:</strong> Where the appointment originated (<code>CLINIC</code> for walk-in desk, <code>ONLINE</code> for patient PWA, <code>TELEPHONIC</code> for phone bookings).</li>
+<li><strong>Consultation Mode:</strong> How the consultation is delivered (<code>CLINIC_PHYSICAL</code> in-person, <code>ONLINE</code> video/tele-consult, <code>VISITING_CONSULTANCY</code> home/field visit).</li>
+<li><strong>Booking Type:</strong> What clinical service or package the patient is booking (<code>CLINIC_CONSULTANCY</code>, <code>ONLINE_CONSULTANCY</code>, <code>EMERGENCY_CONSULTANCY</code>, or custom types like <code>Home Healthcare Visit</code>). Each booking type belongs strictly to one clinic (<code>booking_types.clinic_id</code>).</li>
+<li><strong>Fee Mapping:</strong> The explicit doctor tariff configured in Fee Master for <code>(clinic_id + doctor_id + booking_type_id)</code>.</li>
+</ol>
+<h3>Q153: How does doctor-specific booking type availability work?</h3>
+<p><strong>Answer:</strong> In <strong>Settings -&gt; Booking Types</strong> (<code>/settings/booking-types</code>), administrators can configure an availability matrix for each doctor independently. Enabling <em>Emergency Consultancy</em> or a custom type like <em>Home Healthcare Visit</em> for Dr. Rajesh Sharma does NOT enable it for Dr. Amit Verma. Each doctor maintains an independent availability roster.</p>
+<h3>Q154: Why does a booking type not appear on the Operator Desk or Public PWA for a selected doctor?</h3>
+<p><strong>Answer:</strong> Under the Revision 45 <strong>Anti-Fallback Rule</strong>, a booking type is displayed and bookable ONLY when BOTH conditions are met:</p>
+<ol>
+<li>The booking type is explicitly enabled for that doctor in <code>doctor_booking_type_availability</code>.</li>
+<li>An active tariff rate is explicitly configured for that exact doctor and booking type in <code>fee_masters</code>.
+If an administrator enables a type for a doctor but forgets to set a fee, the type is excluded from booking to prevent silent fee fallbacks or unexpected charges.</li>
+</ol>
+<h3>Q155: Can a doctor borrow another doctor's emergency fee or fallback to a generic clinic fee?</h3>
+<p><strong>Answer:</strong> No. Doctor tariffs are completely isolated. Selecting Dr. Amit Verma will never resolve Dr. Rajesh Sharma's emergency fee or a generic system fallback fee. If Dr. Amit does not have a configured fee for <em>Emergency Consultancy</em>, emergency bookings are blocked for him until configured. Explicit ₹0.00 fees are supported, but a missing fee record is never treated as zero.</p>
+<h3>Q156: What happens to historical appointment fees when an administrator modifies the Fee Master rate?</h3>
+<p><strong>Answer:</strong> Modifying a doctor's fee in Fee Master updates only new future bookings created after the change. Every appointment record permanently snapshots <code>fee_amount</code> at creation time. Historical appointments, receipts, bills, and PDF reprints remain completely unchanged.</p>
+<h3>Q157: How does Revision 46 protect clinic and doctor data integrity at the database layer?</h3>
+<p><strong>Answer:</strong> Revision 46 enforces composite unique keys (<code>id, clinic_id</code>) on parent tables <code>doctors</code> and <code>booking_types</code>, and composite foreign keys on child tables <code>doctor_booking_type_availability</code>, <code>fee_masters</code>, and <code>appointments</code>. This ensures MySQL InnoDB physically blocks any cross-clinic doctor, booking type, or fee association with SQLSTATE 23000 integrity violations, preventing corruption even if application code regresses.</p>
+<h3>Q158: How does Fee Versioning work with effective dates in Revision 46?</h3>
+<p><strong>Answer:</strong> FeeMaster uniqueness is defined as <code>UNIQUE(clinic_id, doctor_id, booking_type_id, effective_from)</code>. Different fee rates can be scheduled for different time periods (e.g. ₹600 from 2026-04-01 to 2026-09-30, and ₹700 from 2026-10-01 onwards). Bookings dynamically resolve the fee rate effective on the appointment date, while past appointments remain anchored to their historical snapshot.</p>
+<h3>Q159: What is the atomic booking transaction in Revision 46?</h3>
+<p><strong>Answer:</strong> All bookings in <code>AppointmentService::bookAppointment()</code> execute within a single authoritative <code>DB::transaction(...)</code>. The transaction locks the doctor record via <code>lockForUpdate()</code>, validates tenant ownership, checks doctor availability mapping, resolves the effective fee, derives consultation mode, allocates the queue token, and writes the appointment snapshot. If any step fails, the entire transaction rolls back completely.</p>
+<h3>Q160: Why does the system reject overlapping fee date ranges?</h3>
+<p><strong>Answer:</strong> To guarantee unambiguous fee resolution, no two active fee records for the same clinic, doctor, and booking type can have overlapping date intervals. Publishing a new open-ended fee automatically caps the previous open-ended record to end on the day before the new fee starts, preventing ambiguity in tariff calculations.</p>
+<h3>Q161: What is a clinic's public slug and why is it used instead of clinic code?</h3>
+<p><strong>Answer:</strong> In Revision 47, clinics are addressed publicly by a human-friendly <code>public_slug</code> (e.g. <code>sharmacare</code>, <code>arogya</code>, <code>democlinic</code>) stored in <code>clinics.public_slug</code> with a database unique index. Internal clinic identifiers (<code>id</code> and <code>clinic_code</code> like <code>NX0001</code>) are strictly isolated to internal administration and database keys, preventing exposure to external patients and eliminating enumeration attacks.</p>
+<h3>Q162: What happens if a patient visits <code>/book</code> without a slug, or enters an internal clinic code like <code>/book/NX0001</code>?</h3>
+<p><strong>Answer:</strong> Both requests return <strong>HTTP 404 Not Found</strong>. Unselected <code>/book</code> does not default to any clinic to prevent accidental booking into the wrong tenant. Similarly, internal clinic codes (<code>NX0001</code>, <code>1</code>) are strictly forbidden in public URLs. The booking PWA resolves only valid, registered <code>public_slug</code> values.</p>
+<h3>Q163: How does the short booking URL <code>/b/{public_slug}</code> work?</h3>
+<p><strong>Answer:</strong> The short URL <code>/b/{public_slug}</code> is designed for QR code density optimization and printed counter posters. When accessed, it immediately issues an HTTP 302 redirect to the canonical <code>/book/{public_slug}</code> URL. Unselected <code>/b</code> returns <strong>HTTP 404</strong>.</p>
+<h3>Q164: How is the Operator Arrival Queue protected against cross-clinic access in Revision 47?</h3>
+<p><strong>Answer:</strong> The operator queue is tenant-scoped at <code>/clinic/{public_slug}/operator/queue</code>. The route middleware verifies that the requested <code>public_slug</code> matches the authenticated staff member's clinic ID. If an operator from Clinic A attempts to access Clinic B's queue URL, the request is immediately rejected with <strong>HTTP 403 Forbidden</strong>. Unselected <code>/operator/queue</code> returns <strong>HTTP 404</strong>.</p>
+<h3>Q165: How does DxClinic prevent cross-tenant parameter tampering in requests?</h3>
+<p><strong>Answer:</strong> <code>EnsureTenantContext</code> middleware inspects all incoming requests for tenant override attempts. If an attacker injects query parameters (<code>?clinic_id=</code>), HTTP headers (<code>X-Clinic-ID</code>, <code>X-Tenant-ID</code>, <code>X-Clinic-Code</code>), or POST body attributes attempting to override or mismatch the authoritative session or route clinic, the request is immediately aborted with <strong>HTTP 403 Forbidden</strong>.</p>
+<hr />
+<p><em>DxClinic Platform Architecture Verified • Revision 47 • Copyright © 2026 DxClinic</em></p>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="doc-footer">
+            <p>&copy; 2026 Nexora Solutions &bull; DxClinic Platform Developed by Kundan Kumar.</p>
+            <p>Confidential & Authoritative Clinical Management Documentation. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

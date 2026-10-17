@@ -1,0 +1,29 @@
+{
+  "name": "dxclinic-whatsapp-gateway",
+  "version": "1.0.0",
+  "description": "DxClinic Baileys Development WhatsApp Gateway — Nexora Solutions",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node --experimental-vm-modules dist/index.js",
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "build:run": "tsc && node dist/index.js"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.7.16",
+    "express": "^4.21.2",
+    "pino": "^9.6.0",
+    "dotenv": "^16.4.7",
+    "axios": "^1.7.9",
+    "qrcode": "^1.5.4",
+    "p-limit": "^6.2.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.0",
+    "@types/qrcode": "^1.5.5",
+    "typescript": "^5.7.2",
+    "tsx": "^4.19.2"
+  }
+}

@@ -1,0 +1,114 @@
+# ------------------------------------------------------------------------------
+# DxClinic — Git Ignore Configuration
+# Comprehensive Security & Multi-Tenant Clean Repository Rules
+# ------------------------------------------------------------------------------
+
+# 1. Environment & Secrets
+.env
+.env.*
+!.env.example
+All System Login Credentials Exact.txt
+/auth.json
+/storage/*.key
+
+# 2. Private Tenant Inventories, Credentials, PDFs & Spreadsheets
+Credential Package*
+DXCLINIC_ACCESS_INVENTORY*
+DXCLINIC_TENANT_TEST_CREDENTIALS*
+invoice-*.pdf
+dxclinic-operator-complete-desk-operation-manual.pdf
+*.xlsx
+/mydocs/
+docs/MANUAL_TEST_CREDENTIALS.pdf
+
+# 3. Dependencies
+/node_modules/
+/vendor/
+/whatsapp-gateway/node_modules/
+
+# 4. WhatsApp Gateway Local Runtime & Secrets
+/whatsapp-gateway/.env
+/whatsapp-gateway/.env.*
+!/whatsapp-gateway/.env.example
+/whatsapp-gateway/dist/
+/whatsapp-gateway/sessions/
+
+# 5. Storage, Sessions, Caches & Uploads
+/storage/app/*
+!/storage/app/.gitignore
+!/storage/app/public/
+!/storage/app/private/
+/storage/app/public/*
+!/storage/app/public/.gitignore
+/storage/app/private/*
+!/storage/app/private/.gitignore
+/storage/framework/cache/*
+!/storage/framework/cache/.gitignore
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitignore
+/storage/framework/testing/*
+!/storage/framework/testing/.gitignore
+/storage/framework/views/*
+!/storage/framework/views/.gitignore
+/storage/logs/*
+!/storage/logs/.gitignore
+/storage/fonts/*
+!/storage/fonts/.gitignore
+/storage/pail/
+/public/storage
+/public/build/
+/public/hot
+
+# 6. Test Outputs, Playwright & Scratch Files
+/.phpunit.cache/
+/.phpunit.result.cache
+/playwright-screenshots/
+/test-results/
+/scratch/
+scratch_*
+alter.php
+check.php
+check2.php
+get_conv.php
+qc
+query
+test_about.html
+test_gw.php
+test_webhook.php
+public/template_44_forensic_visual_map.html
+
+# 7. External Installers, Binary Documents & Sample Scans
+cloudflared-windows-amd64.msi
+Here is the complete list of all.docx
+d5585403-d0e3-4f5f-aaf8-817e245cb809.jpeg
+dR aNSARI pRES pAD.jpg
+Dr Pad sample dr rajesh.jpg
+Dr Pad sample.jpg
+dxclinic logo.jpg
+
+# 8. Local Host & Windows Service Control Scripts
+start_dxclinic.bat
+stop_dxclinic.bat
+run_dxclinic.bat
+check_dxclinic_server.bat
+
+# 9. Internal Historical Sprint & Acceptance Reports
+REVISION_*.md
+POLICY_SOURCE_AUDIT.md
+DEVELOPER_CONTENT_SOURCE_AUDIT.md
+FINAL_PRODUCTION_OPERATIONAL_VERIFICATION_REPORT.md
+PRODUCTION_RELEASE_ACCEPTANCE_REPORT.md
+REAL_META_DEVELOPMENT_TEST_CHECKLIST.md
+
+# 10. IDE & OS Files
+.DS_Store
+Thumbs.db
+*.log
+/.fleet/
+/.idea/
+/.nova/
+/.vscode/
+/.zed/
+.phpactor.json
+Homestead.json
+Homestead.yaml

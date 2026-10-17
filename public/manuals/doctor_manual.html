@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DxClinic Attending Doctor Clinical Manual — DxClinic Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --teal: #0d9488;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            font-size: 14.5px;
+        }
+
+        /* Top Action Bar (Screen Only) */
+        .top-toolbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border-bottom: 1px solid #1e293b;
+        }
+        .toolbar-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: #fff; }
+        .toolbar-brand .logo {
+            background: var(--teal);
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.1rem;
+        }
+        .toolbar-brand .title { font-weight: 800; font-size: 1rem; letter-spacing: -0.02em; }
+        .toolbar-actions { display: flex; align-items: center; gap: 0.75rem; }
+        .btn-tool {
+            background: #1e293b;
+            color: #f1f5f9;
+            border: 1px solid #334155;
+            padding: 0.45rem 0.9rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s;
+        }
+        .btn-tool:hover { background: #334155; color: #fff; }
+        .btn-tool.primary { background: var(--teal); border-color: var(--teal); color: #fff; }
+        .btn-tool.primary:hover { background: #0f766e; }
+        .doc-select {
+            background: #1e293b;
+            color: #f1f5f9;
+            border: 1px solid #334155;
+            padding: 0.45rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Container Layout */
+        .container {
+            max-width: 1040px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header Card */
+        .doc-header {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2.25rem 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .doc-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--teal), var(--primary));
+        }
+        .badge-role {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #0369a1;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.2rem 0.65rem;
+            border-radius: 9999px;
+            margin-bottom: 0.75rem;
+            border: 1px solid #bae6fd;
+        }
+        .doc-title { font-size: 2rem; font-weight: 900; letter-spacing: -0.03em; color: #0f172a; line-height: 1.25; margin-bottom: 0.5rem; }
+        .doc-sub { font-size: 1rem; color: var(--text-muted); font-weight: 500; }
+        .doc-meta { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.8rem; color: var(--text-muted); }
+        .doc-meta strong { color: var(--text-main); }
+
+        /* Document Body & Typography */
+        .doc-body {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2.5rem 3rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        h1, h2, h3, h4 { color: #0f172a; font-weight: 800; letter-spacing: -0.02em; margin-top: 2rem; margin-bottom: 0.75rem; }
+        h1 { font-size: 1.75rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.5rem; margin-top: 2.5rem; }
+        h2 { font-size: 1.4rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.4rem; }
+        h3 { font-size: 1.15rem; }
+        h4 { font-size: 1rem; }
+        p { margin-bottom: 1rem; color: #334155; }
+        ul, ol { margin-bottom: 1.25rem; padding-left: 1.75rem; color: #334155; }
+        li { margin-bottom: 0.4rem; }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        th {
+            background: #0f172a;
+            color: #f8fafc;
+            text-align: left;
+            padding: 0.75rem 1rem;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            color: #334155;
+            vertical-align: top;
+        }
+        tr:nth-child(even) td { background: #f8fafc; }
+        tr:hover td { background: #f1f5f9; }
+
+        /* Code & Pre */
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: #f1f5f9;
+            color: #0f172a;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.3rem;
+            font-size: 0.825em;
+            font-weight: 600;
+            border: 1px solid #e2e8f0;
+        }
+        pre {
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 1.25rem 1.5rem;
+            border-radius: 0.75rem;
+            overflow-x: auto;
+            margin: 1.25rem 0;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        pre code { background: transparent; color: inherit; border: none; padding: 0; font-weight: normal; }
+
+        /* Callout / Alert Boxes */
+        blockquote, .alert-box {
+            margin: 1.5rem 0;
+            padding: 1rem 1.25rem;
+            border-left: 4px solid var(--teal);
+            background: #f0fdfa;
+            border-radius: 0 0.5rem 0.5rem 0;
+            color: #134e4a;
+        }
+        blockquote p { margin: 0; color: inherit; }
+        .alert-warning { border-left-color: #f59e0b; background: #fffbeb; color: #92400e; }
+        .alert-note { border-left-color: var(--primary); background: #f0f9ff; color: #075985; }
+        .alert-important { border-left-color: #ef4444; background: #fef2f2; color: #991b1b; }
+        .alert-rule { border-left-color: #8b5cf6; background: #f5f3ff; color: #5b21b6; }
+
+        /* Badges */
+        kbd {
+            font-family: 'JetBrains Mono', monospace;
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 2px 0 #94a3b8;
+            color: #0f172a;
+            padding: 0.15rem 0.45rem;
+            border-radius: 0.3rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* Footer */
+        .doc-footer {
+            margin-top: 3rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* PRINT / PDF FORMATTING (CSS @page & @media print) */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 15mm 15mm 15mm 15mm;
+            }
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                font-size: 10pt;
+                line-height: 1.45;
+            }
+            .no-print, .top-toolbar { display: none !important; }
+            .container { max-width: 100% !important; margin: 0 !important; padding: 0 !important; }
+            .doc-header, .doc-body {
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin-bottom: 1.5rem !important;
+            }
+            .doc-header::before { display: none; }
+            .doc-title { font-size: 18pt !important; margin-bottom: 0.25rem !important; }
+            .doc-sub { font-size: 11pt !important; }
+            h1 { font-size: 14pt !important; margin-top: 1.5rem !important; page-break-after: avoid; }
+            h2 { font-size: 12pt !important; margin-top: 1.25rem !important; page-break-after: avoid; }
+            h3 { font-size: 11pt !important; margin-top: 1rem !important; page-break-after: avoid; }
+            table { page-break-inside: avoid; font-size: 8.5pt !important; }
+            th { background: #334155 !important; color: #fff !important; }
+            pre { page-break-inside: avoid; background: #f8fafc !important; color: #000 !important; border: 1px solid #cbd5e1 !important; }
+            blockquote { page-break-inside: avoid; }
+            .page-break { page-break-before: always; }
+            .avoid-break { page-break-inside: avoid; }
+            a { text-decoration: none !important; color: #000 !important; }
+            a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; color: #64748b; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Toolbar (Screen only) -->
+    <div class="top-toolbar no-print">
+        <a href="/dashboard" class="toolbar-brand">
+            <div class="logo">+</div>
+            <div class="title">DxClinic Clinical Manuals</div>
+        </a>
+        <div class="toolbar-actions">
+            <select class="doc-select" onchange="window.location.href=this.value">
+                <option value="admin_manual.html" >Admin: DxClinic Administrator & Clinical Practice Manual</option>
+<option value="admin_quick_card.html" >Quick Card: DxClinic Administrator Quick Reference Card</option>
+<option value="doctor_manual.html" selected>Doctor: DxClinic Attending Doctor Clinical Manual</option>
+<option value="doctor_quick_card.html" >Quick Card: DxClinic Attending Doctor Quick Reference Card</option>
+<option value="operator_manual.html" >Operator: DxClinic Reception & Front Desk Operator Manual</option>
+<option value="operator_quick_card.html" >Quick Card: DxClinic Reception & Front Desk Operator Quick Reference Card</option>
+<option value="superadmin_manual.html" >Superadmin: DxClinic Superadmin Fleet Platform Governance Manual</option>
+<option value="superadmin_quick_card.html" >Quick Card: DxClinic Superadmin Fleet Quick Reference Card</option>
+<option value="faq.html" >FAQ (136 Q&A): DxClinic Comprehensive FAQ Knowledge Base</option>
+
+            </select>
+            <button type="button" class="btn-tool primary" onclick="window.print()">
+                <span>🖨 Print / Save as PDF</span>
+            </button>
+            <a href="/manuals/index.html" class="btn-tool">
+                <span>📚 All Manuals Hub</span>
+            </a>
+            <a href="/dashboard" class="btn-tool">
+                <span>&larr; Back to Dashboard</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="doc-header">
+            <span class="badge-role">Doctor &bull; Doctor</span>
+            <h1 class="doc-title">DxClinic Attending Doctor Clinical Manual</h1>
+            <p class="doc-sub">OPD Patient Engagement, Prescription Generation, Diagnostic Ordering & Daily Workflow Protocol</p>
+            <div class="doc-meta">
+                <div><strong>Platform:</strong> DxClinic Practice Suite (Revision 39)</div>
+                <div><strong>Standard:</strong> NABH / ISO-Compliant OPD Workflow</div>
+                <div><strong>Published:</strong> 29 Sep 2026, 16:57 UTC</div>
+                <div><strong>Classification:</strong> Authoritative Clinical System Manual</div>
+            </div>
+        </header>
+
+        <!-- Markdown Converted Document Content -->
+        <main class="doc-body">
+            <h1>DxClinic Attending Physician &amp; Doctor Operations Manual</h1>
+<p><strong>DxClinic Clinical Management System — Revision 26</strong><br />
+<em>Manual Type: Full Doctor Operation Manual | Version: Revision 26 | Last Updated: September 2026 | Developer: Kundan Kumar | Copyright © 2026 DxClinic</em></p>
+<hr />
+<h2>1. System Access &amp; Doctor Portal</h2>
+<ol>
+<li>Open web browser (Google Chrome or modern Chromium browser).</li>
+<li>Navigate to: <code>http://192.168.1.2:8000/login</code> (or <code>http://127.0.0.1:8000/login</code>).</li>
+<li>Enter your authorized Doctor email and password. Click <strong>Sign In</strong>.</li>
+<li>The doctor interface provides access to patient clinical queues, encounter history, vitals, and doctor pad reprinting.</li>
+</ol>
+<hr />
+<h2>2. Reviewing Historical Clinical Encounters</h2>
+<ol>
+<li>Navigate to the consultation encounters view or historical queue.</li>
+<li>Search patients by Name, Mobile Number, or Patient ID (<code>DXP-...</code>).</li>
+<li>Review chronological past visits, previous diagnoses, recorded vitals, and prescribed medications.</li>
+<li>Billing context is viewable in read-only mode to understand whether an encounter was Physical, Online, Waived (Revisit), or Paid.</li>
+</ol>
+<hr />
+<h2>3. Doctor Pad Viewing &amp; Idempotent Reprinting</h2>
+<ol>
+<li>Open any active or historical patient encounter.</li>
+<li>Click <strong>[Doctor Pad]</strong> or <strong>[View PDF]</strong>.</li>
+<li><strong>Pre-Printed Stationery Overlay Calibration</strong>:
+<ul>
+<li>The printed output is calibrated specifically for pre-printed letterheads.</li>
+<li>Outputs: Patient Name, Age, Gender, City, Date, Token Number, and Vitals.</li>
+<li>Suppresses: Clinic logos, doctor header text, QR codes, financial details, and digital prescription tables.</li>
+</ul>
+</li>
+<li><strong>Reprint Safety Invariant</strong>:
+<ul>
+<li>Reprinting a past Doctor Pad is strictly <strong>idempotent</strong>.</li>
+<li>It creates <strong>zero payment records</strong>, <strong>zero accounting journals</strong>, <strong>zero refunds</strong>, <strong>zero tokens</strong>, and <strong>zero duplicate visits</strong>.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>4. Clinical Data Correction Rules</h2>
+<ol>
+<li>If vital signs or clinical notes require correction post-consultation:
+<ul>
+<li>Corrections must be entered through the audited clinical correction workflow.</li>
+<li>The system preserves original values and records timestamp, reason, and physician attribution in <code>audit_logs</code>.</li>
+<li>Never attempt to delete historical encounters.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>5. Doctor Recommendation for Discount or Refund</h2>
+<p>Physicians frequently encounter situations where a patient should receive a courtesy discount or refund (e.g., poor financial situation, simplified second opinion, or test package adjustment).</p>
+<h3>5.1 The Doctor Recommendation Principle</h3>
+<ul>
+<li><strong>Doctors Recommend; Billing Staff Settles</strong>: Doctors have full medical authority to recommend financial adjustments, but <strong>MUST NOT directly manipulate accounting ledgers, cash sessions, or bank accounts</strong>.</li>
+<li>All financial settlement remains with authorized desk operators and administrators.</li>
+</ul>
+<h3>5.2 Submitting a Recommendation</h3>
+<ol>
+<li>Within the patient encounter, locate the <strong>Doctor Recommendation</strong> section.</li>
+<li>Select Recommendation Type:
+<ul>
+<li><code>DISCOUNT_AFTER_SETTLEMENT</code>: Partial discount on fee already paid.</li>
+<li><code>FULL_REFUND</code>: Complete fee waiver/refund.</li>
+<li><code>PACKAGE_ADJUSTMENT</code>: Diagnostic investigation adjustment.</li>
+</ul>
+</li>
+<li>Enter Recommended Amount (e.g., <code>₹100.00</code>).</li>
+<li>Enter Clinical / Operational Reason (e.g., <em>&quot;Patient requested simplified consultation; recommended ₹100 discount.&quot;</em>).</li>
+<li>Submit recommendation.</li>
+</ol>
+<h3>5.3 What Happens Next</h3>
+<ul>
+<li>The recommendation is immediately attached to the bill record with your doctor ID and timestamp.</li>
+<li>The desk operator or administrator inspects the recommendation in their billing history.</li>
+<li>Authorized billing staff executes the actual refund via Cash or UPI and balances the accounting journal.</li>
+</ul>
+<hr />
+<h2>6. Doctor Role Boundary Matrix</h2>
+<table>
+<thead>
+<tr>
+<th align="left">Action / Capability</th>
+<th align="center">Doctor Allowed?</th>
+<th align="left">Rationale / Workflow</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">View patient clinical history &amp; vitals</td>
+<td align="center"><strong>YES</strong></td>
+<td align="left">Core clinical duty</td>
+</tr>
+<tr>
+<td align="left">View historical consultation encounters</td>
+<td align="center"><strong>YES</strong></td>
+<td align="left">Essential for longitudinal patient care</td>
+</tr>
+<tr>
+<td align="left">Reprint historical Doctor Pads</td>
+<td align="center"><strong>YES</strong></td>
+<td align="left">Idempotent PDF reprint without financial side effects</td>
+</tr>
+<tr>
+<td align="left">Submit discount / refund recommendation</td>
+<td align="center"><strong>YES</strong></td>
+<td align="left">Authoritative medical recommendation</td>
+</tr>
+<tr>
+<td align="left">Directly modify settled bill financial values</td>
+<td align="center"><strong>NO</strong></td>
+<td align="left">Settled bills are immutable; avoids financial fraud</td>
+</tr>
+<tr>
+<td align="left">Directly settle cash or UPI refunds</td>
+<td align="center"><strong>NO</strong></td>
+<td align="left">Financial movement strictly managed by cash counter</td>
+</tr>
+<tr>
+<td align="left">Post double-entry accounting journals</td>
+<td align="center"><strong>NO</strong></td>
+<td align="left">Restricted to authorized accounting subsystem</td>
+</tr>
+<tr>
+<td align="left">Delete past patient or encounter records</td>
+<td align="center"><strong>NO</strong></td>
+<td align="left">Complete preservation of clinical and audit history</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>7. Identifying Amended &amp; Refunded Records</h2>
+<ul>
+<li>In the patient encounter history, billing records display clear badges:
+<ul>
+<li><code>PAID</code>: Original payment settled, no adjustments.</li>
+<li><code>PARTIALLY REFUNDED</code>: Doctor-recommended discount processed; shows original paid fee, refunded amount, and net retained.</li>
+<li><code>REFUNDED</code>: Full consultation fee returned to patient.</li>
+<li><code>WAIVED</code>: 5-day free OPD revisit applied automatically.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2>8. Doctor Pad Custom Stationery &amp; Reprints (Revision 27)</h2>
+<h3>8.1 Tailored Prescription Stationery</h3>
+<p>DxClinic supports personalized prescription pad layouts per doctor:</p>
+<ul>
+<li><strong>Configured Fields</strong>: Each doctor can have different printed fields (e.g. some doctors print Height/Weight/BMI, while others print BP, Pulse, SpO2, and RBS).</li>
+<li><strong>Physical Millimeter Precision</strong>: Placed elements print exactly where configured for your clinic's stationery.</li>
+<li><strong>Active Template</strong>: When you or the front desk print your Doctor Pad, the system uses your currently active custom template. If no custom template has been activated, it seamlessly uses the verified legacy layout.</li>
+</ul>
+<h3>8.2 Vital Rendering Guarantee</h3>
+<ul>
+<li><strong>Clinical Authenticity</strong>: If vitals were recorded during nurse triage or intake, they render accurately on your pad.</li>
+<li><strong>No False Data</strong>: If a vital (such as Weight or RBS) was not measured, it is left blank. DxClinic never outputs fake defaults.</li>
+</ul>
+<h3>8.3 Historical Template Immutability (Revision 28)</h3>
+<ul>
+<li><strong>Exact Historical Appearance</strong>: When an old consultation is reprinted or reviewed, DxClinic guarantees that the prescription pad appears exactly as it was originally printed on that visit date.</li>
+<li><strong>Future Changes Protected</strong>: Updating or activating a new prescription pad template design today will never alter or distort the layout of past historical patient prescriptions. Archived older templates remain permanently reproducible.</li>
+</ul>
+<hr />
+<h2>9. Doctor Navigation &amp; Role Boundaries</h2>
+<ul>
+<li><strong>Daily Work Sidebar</strong>: Doctors have a focused, distraction-free sidebar displaying <strong>Dashboard</strong>, <strong>OPD Queue</strong>, <strong>Patients</strong>, and <strong>Consultation Billing</strong>.</li>
+<li><strong>Help &amp; Guide</strong>: Direct access to clinical FAQ and manuals near the bottom.</li>
+<li><strong>Financial Authorization Boundary</strong>: Doctors can recommend discounts and refunds, but financial disbursements and accounting journal entries can only be posted by administrative or cash desk personnel.</li>
+</ul>
+<hr />
+<h2>10. Multi-Tenant Practice &amp; Doctor Seat Entitlement (Revision 34 Hardening)</h2>
+<h3>10.1 Doctor Sign-In &amp; Practice Isolation</h3>
+<ul>
+<li>Doctors log in using <strong>Clinic ID</strong> (e.g., <code>NX0001</code>), <strong>User ID</strong> (e.g., <code>DOC0001</code>), and <strong>Password</strong>.</li>
+<li>The OPD Queue, Patient History, and Consultation Desk strictly reflect your clinic's patient roster.</li>
+<li>Cross-clinic access is physically prohibited at the platform level.</li>
+</ul>
+<h3>10.2 Doctor Seat Licensing Model</h3>
+<ul>
+<li>Each clinic facility operates with a licensed doctor seat capacity.</li>
+<li>The base clinic subscription includes <strong>1 Doctor Seat</strong>. Additional doctor seats can be added by the Clinic Administrator through the application provider.</li>
+<li>Deactivating a doctor frees up licensed capacity for another doctor without affecting past patient records.</li>
+</ul>
+<h3>10.3 Direct Patient Booking</h3>
+<ul>
+<li>Patients can book appointments with you through your clinic's dedicated public link:
+$$\text{https://yourdomain.com/b/} \mathbf{NX0001}$$</li>
+<li>Patients selecting your name will have their tokens automatically queued for your physical OPD or visiting session.</li>
+</ul>
+<hr />
+<h2>11. Doctor Name Presentation &amp; Consultancy Modes (Revision 38)</h2>
+<h3>11.1 Standardized Doctor Name Presentation</h3>
+<ul>
+<li>Doctor profiles store clean canonical names in the system (<code>Rajesh Sharma</code>, <code>Amit Verma</code>).</li>
+<li>The system automatically applies the professional title via <code>DoctorNamePresenter::format()</code> across all clinical pads, patient receipts, reports, and public booking screens, rendering cleanly as <code>Dr. Firstname Lastname</code> without duplicate prefixes (no &quot;Dr. Dr.&quot;).</li>
+</ul>
+<h3>11.2 Standardized Consultancy Terminology</h3>
+<ul>
+<li>Clinical appointments are categorized as:
+<ul>
+<li><code>Clinic Consultancy</code> (In-person outpatient consultation)</li>
+<li><code>Online Consultancy</code> (Virtual telemedicine consultation)</li>
+<li><code>Visiting Consultancy</code> (Home / field consultation)</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2>12. Doctor-Specific Booking Types &amp; Tariff Mapping (Revision 45)</h2>
+<h3>12.1 Independent Doctor Availability Matrix</h3>
+<ul>
+<li>Your clinical practice has its own distinct booking type configuration.</li>
+<li>The administrator maps specific booking types (e.g. <em>Clinic Consultancy</em>, <em>Online Consultancy</em>, <em>Emergency Consultancy</em>, <em>Home Healthcare Visit</em>) specifically to your doctor profile.</li>
+<li>Another doctor in the same clinic (or another clinic) maintains a completely separate booking type matrix.</li>
+<li>When an operator or patient selects your name, only the services explicitly enabled for you appear on the booking screen.</li>
+</ul>
+<h3>12.2 Doctor-Specific Tariffs &amp; Anti-Fallback Protection</h3>
+<ul>
+<li>Your fees are configured independently in Fee Master for each enabled booking type (e.g., Dr. Rajesh Sharma: Clinic = ₹600, Online = ₹700, Emergency = ₹1500).</li>
+<li>The system enforces a strict <strong>Anti-Fallback Rule</strong>: If an administrator enables a booking type for your profile but does not set an active fee, that booking type is automatically excluded from booking. The system never silently borrows another doctor's rate or uses a generic fallback price.</li>
+<li>Explicit ₹0.00 fees are supported where intended. Missing fee != zero fee.</li>
+<li>When fees are updated, all past consultation bills and appointment records retain their original historical financial snapshots permanently.</li>
+</ul>
+<hr />
+<p><em>DxClinic Platform Architecture Verified • Revision 45 Complete • Copyright © 2026 DxClinic</em></p>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="doc-footer">
+            <p>&copy; 2026 Nexora Solutions &bull; DxClinic Platform Developed by Kundan Kumar.</p>
+            <p>Confidential & Authoritative Clinical Management Documentation. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

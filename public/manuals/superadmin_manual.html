@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DxClinic Superadmin Fleet Platform Governance Manual — DxClinic Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --teal: #0d9488;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            font-size: 14.5px;
+        }
+
+        /* Top Action Bar (Screen Only) */
+        .top-toolbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border-bottom: 1px solid #1e293b;
+        }
+        .toolbar-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: #fff; }
+        .toolbar-brand .logo {
+            background: var(--teal);
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.1rem;
+        }
+        .toolbar-brand .title { font-weight: 800; font-size: 1rem; letter-spacing: -0.02em; }
+        .toolbar-actions { display: flex; align-items: center; gap: 0.75rem; }
+        .btn-tool {
+            background: #1e293b;
+            color: #f1f5f9;
+            border: 1px solid #334155;
+            padding: 0.45rem 0.9rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s;
+        }
+        .btn-tool:hover { background: #334155; color: #fff; }
+        .btn-tool.primary { background: var(--teal); border-color: var(--teal); color: #fff; }
+        .btn-tool.primary:hover { background: #0f766e; }
+        .doc-select {
+            background: #1e293b;
+            color: #f1f5f9;
+            border: 1px solid #334155;
+            padding: 0.45rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Container Layout */
+        .container {
+            max-width: 1040px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header Card */
+        .doc-header {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2.25rem 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .doc-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--teal), var(--primary));
+        }
+        .badge-role {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #0369a1;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.2rem 0.65rem;
+            border-radius: 9999px;
+            margin-bottom: 0.75rem;
+            border: 1px solid #bae6fd;
+        }
+        .doc-title { font-size: 2rem; font-weight: 900; letter-spacing: -0.03em; color: #0f172a; line-height: 1.25; margin-bottom: 0.5rem; }
+        .doc-sub { font-size: 1rem; color: var(--text-muted); font-weight: 500; }
+        .doc-meta { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.8rem; color: var(--text-muted); }
+        .doc-meta strong { color: var(--text-main); }
+
+        /* Document Body & Typography */
+        .doc-body {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2.5rem 3rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        h1, h2, h3, h4 { color: #0f172a; font-weight: 800; letter-spacing: -0.02em; margin-top: 2rem; margin-bottom: 0.75rem; }
+        h1 { font-size: 1.75rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.5rem; margin-top: 2.5rem; }
+        h2 { font-size: 1.4rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.4rem; }
+        h3 { font-size: 1.15rem; }
+        h4 { font-size: 1rem; }
+        p { margin-bottom: 1rem; color: #334155; }
+        ul, ol { margin-bottom: 1.25rem; padding-left: 1.75rem; color: #334155; }
+        li { margin-bottom: 0.4rem; }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        th {
+            background: #0f172a;
+            color: #f8fafc;
+            text-align: left;
+            padding: 0.75rem 1rem;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            color: #334155;
+            vertical-align: top;
+        }
+        tr:nth-child(even) td { background: #f8fafc; }
+        tr:hover td { background: #f1f5f9; }
+
+        /* Code & Pre */
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: #f1f5f9;
+            color: #0f172a;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.3rem;
+            font-size: 0.825em;
+            font-weight: 600;
+            border: 1px solid #e2e8f0;
+        }
+        pre {
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 1.25rem 1.5rem;
+            border-radius: 0.75rem;
+            overflow-x: auto;
+            margin: 1.25rem 0;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        pre code { background: transparent; color: inherit; border: none; padding: 0; font-weight: normal; }
+
+        /* Callout / Alert Boxes */
+        blockquote, .alert-box {
+            margin: 1.5rem 0;
+            padding: 1rem 1.25rem;
+            border-left: 4px solid var(--teal);
+            background: #f0fdfa;
+            border-radius: 0 0.5rem 0.5rem 0;
+            color: #134e4a;
+        }
+        blockquote p { margin: 0; color: inherit; }
+        .alert-warning { border-left-color: #f59e0b; background: #fffbeb; color: #92400e; }
+        .alert-note { border-left-color: var(--primary); background: #f0f9ff; color: #075985; }
+        .alert-important { border-left-color: #ef4444; background: #fef2f2; color: #991b1b; }
+        .alert-rule { border-left-color: #8b5cf6; background: #f5f3ff; color: #5b21b6; }
+
+        /* Badges */
+        kbd {
+            font-family: 'JetBrains Mono', monospace;
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 2px 0 #94a3b8;
+            color: #0f172a;
+            padding: 0.15rem 0.45rem;
+            border-radius: 0.3rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* Footer */
+        .doc-footer {
+            margin-top: 3rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* PRINT / PDF FORMATTING (CSS @page & @media print) */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 15mm 15mm 15mm 15mm;
+            }
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                font-size: 10pt;
+                line-height: 1.45;
+            }
+            .no-print, .top-toolbar { display: none !important; }
+            .container { max-width: 100% !important; margin: 0 !important; padding: 0 !important; }
+            .doc-header, .doc-body {
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin-bottom: 1.5rem !important;
+            }
+            .doc-header::before { display: none; }
+            .doc-title { font-size: 18pt !important; margin-bottom: 0.25rem !important; }
+            .doc-sub { font-size: 11pt !important; }
+            h1 { font-size: 14pt !important; margin-top: 1.5rem !important; page-break-after: avoid; }
+            h2 { font-size: 12pt !important; margin-top: 1.25rem !important; page-break-after: avoid; }
+            h3 { font-size: 11pt !important; margin-top: 1rem !important; page-break-after: avoid; }
+            table { page-break-inside: avoid; font-size: 8.5pt !important; }
+            th { background: #334155 !important; color: #fff !important; }
+            pre { page-break-inside: avoid; background: #f8fafc !important; color: #000 !important; border: 1px solid #cbd5e1 !important; }
+            blockquote { page-break-inside: avoid; }
+            .page-break { page-break-before: always; }
+            .avoid-break { page-break-inside: avoid; }
+            a { text-decoration: none !important; color: #000 !important; }
+            a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; color: #64748b; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Toolbar (Screen only) -->
+    <div class="top-toolbar no-print">
+        <a href="/dashboard" class="toolbar-brand">
+            <div class="logo">+</div>
+            <div class="title">DxClinic Clinical Manuals</div>
+        </a>
+        <div class="toolbar-actions">
+            <select class="doc-select" onchange="window.location.href=this.value">
+                <option value="admin_manual.html" >Admin: DxClinic Administrator & Clinical Practice Manual</option>
+<option value="admin_quick_card.html" >Quick Card: DxClinic Administrator Quick Reference Card</option>
+<option value="doctor_manual.html" >Doctor: DxClinic Attending Doctor Clinical Manual</option>
+<option value="doctor_quick_card.html" >Quick Card: DxClinic Attending Doctor Quick Reference Card</option>
+<option value="operator_manual.html" >Operator: DxClinic Reception & Front Desk Operator Manual</option>
+<option value="operator_quick_card.html" >Quick Card: DxClinic Reception & Front Desk Operator Quick Reference Card</option>
+<option value="superadmin_manual.html" selected>Superadmin: DxClinic Superadmin Fleet Platform Governance Manual</option>
+<option value="superadmin_quick_card.html" >Quick Card: DxClinic Superadmin Fleet Quick Reference Card</option>
+<option value="faq.html" >FAQ (136 Q&A): DxClinic Comprehensive FAQ Knowledge Base</option>
+
+            </select>
+            <button type="button" class="btn-tool primary" onclick="window.print()">
+                <span>🖨 Print / Save as PDF</span>
+            </button>
+            <a href="/manuals/index.html" class="btn-tool">
+                <span>📚 All Manuals Hub</span>
+            </a>
+            <a href="/dashboard" class="btn-tool">
+                <span>&larr; Back to Dashboard</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="doc-header">
+            <span class="badge-role">Superadmin &bull; Superadmin</span>
+            <h1 class="doc-title">DxClinic Superadmin Fleet Platform Governance Manual</h1>
+            <p class="doc-sub">Tenant Provisioning, Multi-Tenant Licensing, Doctor Seat Entitlements, Demo Control & Security Auditing</p>
+            <div class="doc-meta">
+                <div><strong>Platform:</strong> DxClinic Practice Suite (Revision 39)</div>
+                <div><strong>Standard:</strong> NABH / ISO-Compliant OPD Workflow</div>
+                <div><strong>Published:</strong> 29 Sep 2026, 16:57 UTC</div>
+                <div><strong>Classification:</strong> Authoritative Clinical System Manual</div>
+            </div>
+        </header>
+
+        <!-- Markdown Converted Document Content -->
+        <main class="doc-body">
+            <h1>DxClinic Superadmin Fleet Control Manual</h1>
+<h2>1. Overview &amp; Platform Architecture</h2>
+<p>The Superadmin subsystem operates on a dedicated authentication guard (<code>developer</code>) completely separated from tenant clinics. Superadmins have fleet-wide administrative oversight to provision clinics, issue licenses, expand doctor capacities, configure subscription pricing, manage lifecycle events, and audit operations across all tenant clinics.</p>
+<pre><code>                    SUPERADMIN
+                         |
+                  Platform Layer
+                         |
+              Subscription / License
+                         |
+                  Clinic NX0001 / NX0002 ...
+                         |
+        +----------------+----------------+
+        |                |                |
+      Users            Doctors         Patients
+        |                |                |
+     Admin            Fees/Schedule   Appointments
+     Operator         Consult Types  Visits
+     Doctor           Templates      Billing
+</code></pre>
+<hr />
+<h2>2. Superadmin Authentication &amp; Guard Isolation</h2>
+<ul>
+<li><strong>URL:</strong> <code>/superadmin/login</code></li>
+<li><strong>Guard:</strong> <code>developer</code> (maps to <code>developer_users</code> table).</li>
+<li><strong>Isolation:</strong> Normal tenant staff (<code>web</code> guard) attempting to access <code>/superadmin/*</code> are strictly blocked and redirected to the login gate. Superadmins are NOT bound to tenant context.</li>
+</ul>
+<hr />
+<h2>3. Fleet Dashboard Overview (<code>/superadmin/dashboard</code>)</h2>
+<p>The fleet dashboard provides real-time operational telemetry across all clinics:</p>
+<ul>
+<li><strong>Total Clinics:</strong> Active count of registered facilities.</li>
+<li><strong>Active Licenses:</strong> Clinics with valid, active entitlements.</li>
+<li><strong>Pending Activation:</strong> Newly provisioned clinics that have not yet consumed their activation code.</li>
+<li><strong>Expired Licenses:</strong> Clinics whose subscription term has elapsed.</li>
+<li><strong>Suspended Licenses:</strong> Clinics temporarily disabled by administrative action.</li>
+<li><strong>Platform Net Billed:</strong> Cumulative subscription revenue.</li>
+<li><strong>Doctor Capacity Metrics:</strong> Displaying used vs total allowed doctor seats, included seats, and paid add-on seats.</li>
+</ul>
+<hr />
+<h2>4. Issuing a New Clinic License (<code>/superadmin/licenses/issue</code>)</h2>
+<p>When provisioning a new clinic:</p>
+<ol>
+<li><strong>Clinic Facility Information:</strong> Name, city, phone, email, address, advance booking window, family mobile limit (default 4).</li>
+<li><strong>Initial Administrator Account:</strong> Full name, email, mobile. Login ID is automatically assigned (<code>ADM0001</code>).</li>
+<li><strong>Subscription Entitlement &amp; Seats:</strong>
+<ul>
+<li><strong>Plan:</strong> Select term (e.g. Monthly, Quarterly, Half-Yearly, Yearly, 3 Years, 5 Years).</li>
+<li><strong>Included Doctor Seats:</strong> Default = 1 seat.</li>
+<li><strong>Additional Doctor Seats:</strong> Paid add-on seats.</li>
+<li><strong>Additional Doctor Fee:</strong> Default = ₹2,999.00 / doctor / year (server-authoritative, configurable).</li>
+<li><strong>Discount Amount:</strong> Optional billing reduction.</li>
+<li><strong>Start Date:</strong> Automatically defaults to today or custom date.</li>
+</ul>
+</li>
+<li><strong>Automated Provisioning:</strong>
+<ul>
+<li>Next sequential Clinic ID is assigned atomically (e.g., <code>NX0002</code>).</li>
+<li>Secure License Key (<code>NXCL-XXXX-XXXX-XXXX-XXXX</code>) and one-time Activation Code (<code>NXA-XXXX-XXXX</code>) are generated.</li>
+<li>Initial Admin account is created with <code>must_change_password = true</code>.</li>
+<li>Onboarding Credential Package is produced for printing or secure handover.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>5. Mid-Term Doctor Seat Add-On Licensing (Revision 37)</h2>
+<p>Each clinic operates under an entitlement-based doctor capacity:
+$$\text{Total Doctor Capacity} = \text{Base Included Seats (1)} + \sum \text{Active Doctor Seat Add-On Entitlements}$$</p>
+<h3>5.1 Purchasing Additional Doctor Seats Mid-Term</h3>
+<p>Clinics with an active license may purchase additional doctor seats during an ongoing subscription period:</p>
+<ul>
+<li><strong>This is NOT a license renewal:</strong> No new <code>licenses</code> record is created, and parent license expiration dates remain unchanged.</li>
+<li><strong>Permanent License Key Unchanged:</strong> The clinic's existing permanent license key remains 100% unchanged.</li>
+<li><strong>No Activation / Onboarding:</strong> No activation codes are generated, and clinic staff experience zero operational disruption.</li>
+<li><strong>Yearly Billing Only:</strong> Doctor add-ons are billed separately on an annual cycle (default: ₹2,999/year per doctor).</li>
+<li><strong>Entitlement Validity:</strong> Exactly one year (<code>valid_from = payment_date</code>, <code>valid_until = valid_from + 1 year - 1 day</code>).</li>
+<li><strong>Parent License Dependency:</strong> When the parent clinic license expires or is suspended, the clinic is locked regardless of active doctor add-ons. Doctor add-ons do not grant standalone clinic access.</li>
+</ul>
+<h3>5.2 Superadmin Workflow</h3>
+<ol>
+<li>Click <strong>[+ Doctor Seat]</strong> on the clinic's row in the Fleet Dashboard.</li>
+<li>The modal displays:
+<ul>
+<li>Clinic ID &amp; Clinic Name</li>
+<li>Current Plan &amp; License Valid Until</li>
+<li>Base Included Seats &amp; Active Paid Add-on Seats</li>
+<li>Current Effective Doctor Capacity</li>
+</ul>
+</li>
+<li>Enter <strong>Number of Additional Doctors</strong> (price updates dynamically: $N \times ₹2,999/\text{year}$).</li>
+<li>Select <strong>Payment Method</strong> (<code>UPI</code>, <code>BANK_TRANSFER</code>, <code>CASH</code>, <code>CHEQUE</code>, <code>OTHER</code>), provide Payment Reference (UTR), Payment Date, and optional audit notes.</li>
+<li>Click <strong>[Confirm Payment &amp; Add Doctor Seat]</strong>.</li>
+<li>The action is atomic and idempotent. Capacity expands immediately, and a durable entitlement is saved in <code>clinic_doctor_seat_addons</code>.</li>
+</ol>
+<hr />
+<h2>6. Superadmin One-Click Paid License Renewal (<code>/superadmin/clinics/{id}/renew</code>)</h2>
+<p>Revision 35 introduces the frozen business workflow for paid license renewals:</p>
+<h3>6.1 Business Workflow</h3>
+<ol>
+<li>The clinic owner pays the software provider directly outside DxClinic (Cash, UPI, NEFT/RTGS Bank Transfer, Cheque, or Other).</li>
+<li>After payment is received and confirmed, <strong>ONLY the Superadmin</strong> performs the renewal inside DxClinic.</li>
+<li>The clinic administrator and staff require <strong>ZERO ACTIONS</strong>:
+<ul>
+<li>No new license key</li>
+<li>No activation code</li>
+<li>No reactivation wizard</li>
+<li>No re-onboarding</li>
+<li>No credential changes</li>
+</ul>
+</li>
+<li>Subscription status becomes <code>ACTIVE</code> immediately upon Superadmin confirmation.</li>
+</ol>
+<h3>6.2 Search &amp; Fleet Discovery</h3>
+<p>Superadmins can quickly find any clinic using the normalized search bar:</p>
+<ul>
+<li>By <strong>Clinic ID</strong> (e.g. <code>NX0001</code>, <code>NX0002</code>)</li>
+<li>By <strong>Clinic Facility Name</strong> (e.g. <code>Sharma Care Clinic</code>)</li>
+<li>By <strong>Registered Mobile / Phone</strong> (e.g. <code>9876543210</code>)</li>
+<li>By <strong>Clinic Owner / Administrator Name</strong> (e.g. <code>Clinic Admin</code>, <code>Dr. Rajesh Sharma</code>)</li>
+</ul>
+<h3>6.3 Dedicated Renewal Screen (<code>/superadmin/clinics/{id}/renew</code>)</h3>
+<p>Clicking <strong>[Renew License]</strong> on any clinic row opens the dedicated renewal screen displaying:</p>
+<ul>
+<li>Current Plan, Valid From, Valid Until, and remaining days calculated in authoritative <code>Asia/Kolkata</code> (IST) timezone.</li>
+<li>Current doctor capacity: base included seat (1), currently paid additional seats, and actively assigned doctors.</li>
+</ul>
+<h3>6.4 Renewal Plan &amp; Term Coverage</h3>
+<p>Superadmins select the purchased renewal term:</p>
+<ul>
+<li><strong>Quarterly Plan:</strong> 3 Months coverage</li>
+<li><strong>Half-Yearly Plan:</strong> 6 Months coverage</li>
+<li><strong>Yearly Plan:</strong> 12 Months coverage</li>
+<li><strong>3-Year Plan:</strong> 36 Months coverage</li>
+<li><strong>5-Year Plan:</strong> 60 Months coverage
+<em>(Trial plans are strictly excluded from renewals).</em></li>
+</ul>
+<h3>6.5 Continuous Active Service vs. Lapsed Renewal Date Logic</h3>
+<p>The system enforces strict business date calculations:</p>
+<ul>
+<li><strong>Active License Extension:</strong> If the current license is active with remaining days, the new period begins strictly on <code>existing_end_date + 1 day</code> (<code>start_date = current_end_date + 1</code>), preserving all unused days.</li>
+<li><strong>Expired or Suspended License Renewal:</strong> If the license has expired or is currently suspended, the new period begins on the <strong>Payment Date</strong> (<code>start_date = payment_date</code>), restoring the clinic immediately to <code>ACTIVE</code> status.</li>
+</ul>
+<h3>6.6 Reconciliation with Active Mid-Term Add-Ons (Revision 37)</h3>
+<p>To prevent accidental double-billing of mid-term doctor seats during renewal:</p>
+<ul>
+<li>The renewal engine automatically detects active doctor add-ons whose validity extends into the new license period.</li>
+<li>Active mid-term entitlements are credited toward total capacity without incurring double renewal charges.</li>
+</ul>
+<h3>6.7 Idempotency &amp; Payment Confirmation</h3>
+<ul>
+<li><strong>Double-Click Protection:</strong> Every renewal form generates a cryptographically random <code>idempotency_key</code> stored in a hidden field. Submitting twice or clicking rapidly returns the existing transaction safely without double-charging or creating duplicate license periods.</li>
+<li><strong>Payment Verification:</strong> Superadmin records Payment Method (<code>CASH</code>, <code>UPI</code>, <code>BANK_TRANSFER</code>, <code>CHEQUE</code>, <code>OTHER</code>), External Payment Reference (UTR / Cheque #), Payment Date, and optional administrative notes.</li>
+<li><strong>Revoked License Protection:</strong> Revoked or cancelled licenses cannot be renewed through the standard workflow and present an explicit warning banner directing superadmins to reinstatement procedures.</li>
+</ul>
+<hr />
+<h2>7. Fleet Auditable Renewal History (<code>/superadmin/license-history</code>)</h2>
+<p>Every paid renewal generates an immutable record in the <code>license_renewals</code> table and an entry in <code>license_events</code>:</p>
+<ul>
+<li>Full financial breakdown: Base fee, Doctor seat renewal fee, New doctor seat fee, Discount, and Net Paid.</li>
+<li>Complete coverage period: Previous expiry date, New expiry date, and Total duration months.</li>
+<li>Payment audit trail: Payment method, Reference UTR, Payment date, and Superadmin user ID who authorized the renewal.</li>
+<li>Clinic-specific historical timeline view is accessible at <code>/superadmin/clinics/{id}/history</code>.</li>
+</ul>
+<hr />
+<h2>8. Permanent Demo Tenant Management (Revision 37 &amp; 38)</h2>
+<p>DxClinic provides a permanent, isolated demonstration clinic (<code>democlinic</code>) designed for prospect evaluations, walk-throughs, and public testing without polluting customer data.</p>
+<h3>8.1 Demo Clinic Specifications</h3>
+<ul>
+<li><strong>Clinic ID:</strong> <code>democlinic</code></li>
+<li><strong>Clinic Name:</strong> <code>Demo Clinic</code></li>
+<li><strong>Doctor Hardcap:</strong> Strictly 2 Doctor seats. Additional seats cannot be purchased via UI or API.</li>
+<li><strong>Public Booking PWA:</strong> <code>https://dxclinic.example.local/book/democlinic</code> (or <code>/b/democlinic</code>).</li>
+<li><strong>Initial Credentials:</strong>
+<ul>
+<li><strong>Admin:</strong> <code>demoadmin</code> / <code>DemoAdmin123!</code></li>
+<li><strong>Operator:</strong> <code>demooperator</code> / <code>DemoOperator123!</code></li>
+<li><strong>Doctor 1:</strong> <code>demodoctor01</code> / <code>DemoDoctor01!</code> (Dr. Amit Verma — General Medicine)</li>
+<li><strong>Doctor 2:</strong> <code>demodoctor02</code> / <code>DemoDoctor02!</code> (Dr. Neha Kapoor — Family Medicine)</li>
+<li><em>Note: <code>demodoctor</code> / <code>DemoDoctor123!</code> is preserved as a backward-compatible alias for Doctor 1.</em></li>
+</ul>
+</li>
+</ul>
+<h3>8.2 Demo Controls on Fleet Dashboard</h3>
+<ul>
+<li><strong>[Pause Demo]:</strong> Temporarily halts the demonstration environment.
+<ul>
+<li>Staff logins are blocked.</li>
+<li>Public PWA returns a friendly HTTP 503 screen (<em>&quot;The DxClinic demonstration environment is temporarily unavailable. Please try again later.&quot;</em>).</li>
+</ul>
+</li>
+<li><strong>[Resume Demo]:</strong> Restores full access to staff logins and public booking.</li>
+<li><strong>[Reset Demo Data]:</strong> Atomically wipes transactional data in <code>democlinic</code> and re-seeds the deterministic fictional clinical dataset (patients, appointments, vitals, bills, payments). Real customer clinics are 100% untouched.</li>
+</ul>
+<hr />
+<h2>9. Revision 38 Platform Hardening &amp; Multi-Tenant Data Isolation</h2>
+<ul>
+<li><strong>Global Doctor Name Normalization:</strong> Centralized presenter <code>DoctorNamePresenter::format()</code> normalizes doctor names without duplicate prefixes like &quot;Dr. Dr.&quot;. Database stores clean canonical names (<code>Rajesh Sharma</code>, <code>Amit Verma</code>).</li>
+<li><strong>Standardized Consultancy Terminology:</strong> Customer-facing terminology is strictly <code>Clinic Consultancy</code>, <code>Online Consultancy</code>, and <code>Visiting Consultancy</code>. Internal enums (<code>CLINIC_PHYSICAL</code>, <code>ONLINE</code>, <code>VISITING</code>) remain unchanged for database stability.</li>
+<li><strong>Strict Clinic-Scoped Fee Resolution:</strong> Fee queries are verified against the active clinic. Doctor-specific overrides only apply if the doctor belongs to the target clinic (<code>$doctor-&gt;clinic_id === $clinicId</code>).</li>
+<li><strong>5-Year Plan License Date Rule:</strong> 5-Year plans are strictly defined as 60 months (<code>duration_months = 60</code>). Expiration and remaining days are calculated mathematically against the real <code>valid_until</code> date in <code>Asia/Kolkata</code> (producing ~1,825–1,826 days remaining from issuance, zero faking).</li>
+</ul>
+<hr />
+<h2>10. Platform Sales, Invoicing &amp; Commercial Accounting (Revision 42)</h2>
+<h3>10.1 Commercial Architecture &amp; Single Source of Truth</h3>
+<p>Revision 42 establishes a comprehensive commercial invoicing and financial analytics engine. The platform strictly enforces a <strong>single source of truth</strong> architecture to prevent duplicate financial records:</p>
+<ul>
+<li><strong>Initial License Sales:</strong> Authoritative truth in <code>licenses</code> (<code>paid_amount</code>, <code>payment_method</code>, <code>payment_reference</code>, <code>payment_date</code>).</li>
+<li><strong>License Renewals:</strong> Authoritative truth in <code>license_renewals</code> (<code>net_amount</code>, <code>payment_method</code>, <code>payment_reference</code>, <code>payment_date</code>).</li>
+<li><strong>Mid-Term Doctor Add-Ons:</strong> Authoritative truth in <code>clinic_doctor_seat_addons</code> (<code>price_paid</code>, <code>payment_method</code>, <code>payment_reference</code>, <code>payment_date</code>).</li>
+<li><strong>Platform Overhead Expenses:</strong> Authoritative truth in <code>platform_expenses</code> (<code>amount</code>, <code>category</code>, <code>expense_date</code>, <code>payment_method</code>).</li>
+</ul>
+<p><strong>Strict Rule:</strong> No duplicate <code>platform_payments</code> table exists. All reporting derives directly from these primary commercial event tables.</p>
+<h3>10.2 Sales Analytics Dashboard (<code>/superadmin/sales</code>)</h3>
+<p>The executive sales dashboard tracks commercial performance across all clinics:</p>
+<ul>
+<li><strong>Financial KPIs:</strong>
+<ul>
+<li><strong>Total Sales (Gross):</strong> Cumulative gross billed value of base licenses and doctor capacity expansions.</li>
+<li><strong>Net Sales:</strong> Gross sales minus commercial discounts.</li>
+<li><strong>Collected Revenue:</strong> Total funds received and verified via Cash, UPI, Bank Transfer, or Cheque.</li>
+<li><strong>Outstanding Balance:</strong> Billed net amounts pending payment settlement.</li>
+<li><strong>Refunds:</strong> Total issued credit adjustments.</li>
+<li><strong>Platform Expenses:</strong> Operational overhead costs (cloud servers, SMS gateways, maintenance).</li>
+<li><strong>Operating Profit:</strong> Mathematically computed as $\text{Operating Profit} = (\text{Net Sales} - \text{Refunds}) - \text{Platform Expenses}$.</li>
+</ul>
+</li>
+<li><strong>Time Window Filters:</strong> <code>Today</code>, <code>Yesterday</code>, <code>This Week</code>, <code>This Month</code>, <code>Quarter</code>, <code>Half-Year</code>, <code>Financial Year</code> (FY April 1 - March 31), and <code>Custom Range</code>.</li>
+<li><strong>Faceted Filtering:</strong> Real-time filtering by Clinic, License ID, Sale Type (<code>INITIAL_LICENSE</code>, <code>LICENSE_RENEWAL</code>, <code>DOCTOR_ADDON</code>), Payment Method (<code>CASH</code>, <code>UPI</code>, <code>BANK_TRANSFER</code>, <code>CHEQUE</code>), and Payment Status (<code>PAID</code>, <code>PARTIAL</code>, <code>UNPAID</code>).</li>
+</ul>
+<h3>10.3 Invoicing Subsystem (<code>/superadmin/invoices</code>)</h3>
+<ul>
+<li><strong>Sequential Invoicing:</strong> Every commercial event is assigned an atomic, gap-free invoice number: <code>INV-YYYY-XXXXX</code> (e.g., <code>INV-2026-00001</code>).</li>
+<li><strong>Idempotency Protection:</strong> Enforced by database constraint <code>UNIQUE(source_type, source_id)</code>. Rapid Superadmin clicks or automated reconciliations will never produce duplicate invoice records.</li>
+<li><strong>Invoice Immutability:</strong> Once issued, invoice financials, clinic ownership, and source linkages are permanently locked. Changes require a formal cancellation note (<code>status = 'CANCELLED'</code>).</li>
+<li><strong>Document Actions:</strong>
+<ul>
+<li><strong>View Detail (<code>/superadmin/invoices/{id}</code>):</strong> Displays itemized line items (Base Plan, Additional Doctor Seats, Discounts, Net Amount) and masked license key (<code>NXCL-••••-••••-••••-••••</code>).</li>
+<li><strong>Print Invoice (<code>/superadmin/invoices/{id}/print</code>):</strong> High-resolution clean printer template with hospital/clinic details and QR verification.</li>
+<li><strong>Download PDF (<code>/superadmin/invoices/{id}/pdf</code>):</strong> Streamed vector PDF attachment for accounting archive.</li>
+</ul>
+</li>
+</ul>
+<h3>10.4 Collections Ledger (<code>/superadmin/collections</code>)</h3>
+<p>Provides visibility into commercial cash inflows across four viewing modes:</p>
+<ol>
+<li><strong>Individual Transactions:</strong> Complete journal showing UTR/Cheque references, clinic codes, payment modes, and dates.</li>
+<li><strong>Daily Aggregation:</strong> Grouped daily totals across Cash, UPI, Bank Transfers, and Cheques.</li>
+<li><strong>Monthly Aggregation:</strong> Calendar monthly breakdowns.</li>
+<li><strong>Financial Year Totals:</strong> Indian Fiscal Year aggregate reporting.</li>
+</ol>
+<h3>10.5 Per-Clinic Commercial History (<code>/superadmin/clinics/{clinic}/sales</code>)</h3>
+<p>Provides a permanent, chronological billing ledger for each clinic:</p>
+<ul>
+<li><strong>Stable License Identity:</strong> Anchored to the clinic's permanent license key (<code>NXCL-••••-••••-••••-••••</code>).</li>
+<li><strong>Full Historical Ledger:</strong> Shows initial license purchase, subsequent renewals, mid-term doctor seat expansions, invoice numbers, collected payments, discounts, and outstanding balances.</li>
+</ul>
+<h3>10.6 Platform Expenses Management (<code>/superadmin/expenses</code>)</h3>
+<p>Allows Superadmins to record provider operational overhead:</p>
+<ul>
+<li><strong>Categories:</strong> <code>INFRASTRUCTURE</code>, <code>SOFTWARE_LICENSE</code>, <code>OFFICE_RENT</code>, <code>SALARIES</code>, <code>MARKETING</code>, <code>HARDWARE</code>, <code>UTILITIES</code>, <code>MISCELLANEOUS</code>.</li>
+<li><strong>Provider-Level Isolation:</strong> Platform expenses contain <strong>strictly NO clinic_id</strong>. They represent provider overhead and are completely separated from clinic operational expenses.</li>
+</ul>
+<h3>10.7 Separation Between Platform and Clinic Accounting</h3>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Platform Commercial Accounting</th>
+<th>Clinic Tenant Operational Accounting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Actor</strong></td>
+<td>Software Provider (Superadmin)</td>
+<td>Clinic Staff (Doctor, Operator, Clinic Admin)</td>
+</tr>
+<tr>
+<td><strong>Authentication</strong></td>
+<td><code>developer</code> guard (<code>/superadmin/*</code>)</td>
+<td><code>web</code> guard (<code>/operator/*</code>, <code>/admin/*</code>)</td>
+</tr>
+<tr>
+<td><strong>Invoicing</strong></td>
+<td>Platform Sales Invoices (<code>INV-YYYY-XXXXX</code>)</td>
+<td>OPD Patient Bills &amp; Diagnostic Receipts</td>
+</tr>
+<tr>
+<td><strong>Revenue Stream</strong></td>
+<td>SaaS License Subscriptions &amp; Doctor Seats</td>
+<td>Patient Consultation Fees &amp; Pathology Tests</td>
+</tr>
+<tr>
+<td><strong>Expenses</strong></td>
+<td>Platform Cloud Hosting &amp; Dev Costs (<code>platform_expenses</code>)</td>
+<td>Clinic Counter Expenses (<code>expenses</code> table)</td>
+</tr>
+<tr>
+<td><strong>Ledgers</strong></td>
+<td>Single-source commercial reconciliation</td>
+<td>Double-entry journal accounting (<code>journal_entries</code>)</td>
+</tr>
+<tr>
+<td><strong>Cross-Posting</strong></td>
+<td><strong>STRICT ZERO CROSS-POSTING</strong></td>
+<td><strong>STRICT ZERO CROSS-POSTING</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>DxClinic Platform Administration Manual • Revision 42 Complete • Copyright © 2026 DxClinic</em></p>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="doc-footer">
+            <p>&copy; 2026 Nexora Solutions &bull; DxClinic Platform Developed by Kundan Kumar.</p>
+            <p>Confidential & Authoritative Clinical Management Documentation. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

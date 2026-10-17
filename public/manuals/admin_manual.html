@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DxClinic Administrator & Clinical Practice Manual — DxClinic Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --teal: #0d9488;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            font-size: 14.5px;
+        }
+
+        /* Top Action Bar (Screen Only) */
+        .top-toolbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border-bottom: 1px solid #1e293b;
+        }
+        .toolbar-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: #fff; }
+        .toolbar-brand .logo {
+            background: var(--teal);
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.1rem;
+        }
+        .toolbar-brand .title { font-weight: 800; font-size: 1rem; letter-spacing: -0.02em; }
+        .toolbar-actions { display: flex; align-items: center; gap: 0.75rem; }
+        .btn-tool {
+            background: #1e293b;
+            color: #f1f5f9;
+            border: 1px solid #334155;
+            padding: 0.45rem 0.9rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s;
+        }
+        .btn-tool:hover { background: #334155; color: #fff; }
+        .btn-tool.primary { background: var(--teal); border-color: var(--teal); color: #fff; }
+        .btn-tool.primary:hover { background: #0f766e; }
+        .doc-select {
+            background: #1e293b;
+            color: #f1f5f9;
+            border: 1px solid #334155;
+            padding: 0.45rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Container Layout */
+        .container {
+            max-width: 1040px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header Card */
+        .doc-header {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2.25rem 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .doc-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--teal), var(--primary));
+        }
+        .badge-role {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #0369a1;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.2rem 0.65rem;
+            border-radius: 9999px;
+            margin-bottom: 0.75rem;
+            border: 1px solid #bae6fd;
+        }
+        .doc-title { font-size: 2rem; font-weight: 900; letter-spacing: -0.03em; color: #0f172a; line-height: 1.25; margin-bottom: 0.5rem; }
+        .doc-sub { font-size: 1rem; color: var(--text-muted); font-weight: 500; }
+        .doc-meta { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.8rem; color: var(--text-muted); }
+        .doc-meta strong { color: var(--text-main); }
+
+        /* Document Body & Typography */
+        .doc-body {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2.5rem 3rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        h1, h2, h3, h4 { color: #0f172a; font-weight: 800; letter-spacing: -0.02em; margin-top: 2rem; margin-bottom: 0.75rem; }
+        h1 { font-size: 1.75rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 0.5rem; margin-top: 2.5rem; }
+        h2 { font-size: 1.4rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.4rem; }
+        h3 { font-size: 1.15rem; }
+        h4 { font-size: 1rem; }
+        p { margin-bottom: 1rem; color: #334155; }
+        ul, ol { margin-bottom: 1.25rem; padding-left: 1.75rem; color: #334155; }
+        li { margin-bottom: 0.4rem; }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        th {
+            background: #0f172a;
+            color: #f8fafc;
+            text-align: left;
+            padding: 0.75rem 1rem;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            color: #334155;
+            vertical-align: top;
+        }
+        tr:nth-child(even) td { background: #f8fafc; }
+        tr:hover td { background: #f1f5f9; }
+
+        /* Code & Pre */
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: #f1f5f9;
+            color: #0f172a;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.3rem;
+            font-size: 0.825em;
+            font-weight: 600;
+            border: 1px solid #e2e8f0;
+        }
+        pre {
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 1.25rem 1.5rem;
+            border-radius: 0.75rem;
+            overflow-x: auto;
+            margin: 1.25rem 0;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        pre code { background: transparent; color: inherit; border: none; padding: 0; font-weight: normal; }
+
+        /* Callout / Alert Boxes */
+        blockquote, .alert-box {
+            margin: 1.5rem 0;
+            padding: 1rem 1.25rem;
+            border-left: 4px solid var(--teal);
+            background: #f0fdfa;
+            border-radius: 0 0.5rem 0.5rem 0;
+            color: #134e4a;
+        }
+        blockquote p { margin: 0; color: inherit; }
+        .alert-warning { border-left-color: #f59e0b; background: #fffbeb; color: #92400e; }
+        .alert-note { border-left-color: var(--primary); background: #f0f9ff; color: #075985; }
+        .alert-important { border-left-color: #ef4444; background: #fef2f2; color: #991b1b; }
+        .alert-rule { border-left-color: #8b5cf6; background: #f5f3ff; color: #5b21b6; }
+
+        /* Badges */
+        kbd {
+            font-family: 'JetBrains Mono', monospace;
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 2px 0 #94a3b8;
+            color: #0f172a;
+            padding: 0.15rem 0.45rem;
+            border-radius: 0.3rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* Footer */
+        .doc-footer {
+            margin-top: 3rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* PRINT / PDF FORMATTING (CSS @page & @media print) */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 15mm 15mm 15mm 15mm;
+            }
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                font-size: 10pt;
+                line-height: 1.45;
+            }
+            .no-print, .top-toolbar { display: none !important; }
+            .container { max-width: 100% !important; margin: 0 !important; padding: 0 !important; }
+            .doc-header, .doc-body {
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin-bottom: 1.5rem !important;
+            }
+            .doc-header::before { display: none; }
+            .doc-title { font-size: 18pt !important; margin-bottom: 0.25rem !important; }
+            .doc-sub { font-size: 11pt !important; }
+            h1 { font-size: 14pt !important; margin-top: 1.5rem !important; page-break-after: avoid; }
+            h2 { font-size: 12pt !important; margin-top: 1.25rem !important; page-break-after: avoid; }
+            h3 { font-size: 11pt !important; margin-top: 1rem !important; page-break-after: avoid; }
+            table { page-break-inside: avoid; font-size: 8.5pt !important; }
+            th { background: #334155 !important; color: #fff !important; }
+            pre { page-break-inside: avoid; background: #f8fafc !important; color: #000 !important; border: 1px solid #cbd5e1 !important; }
+            blockquote { page-break-inside: avoid; }
+            .page-break { page-break-before: always; }
+            .avoid-break { page-break-inside: avoid; }
+            a { text-decoration: none !important; color: #000 !important; }
+            a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; color: #64748b; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Toolbar (Screen only) -->
+    <div class="top-toolbar no-print">
+        <a href="/dashboard" class="toolbar-brand">
+            <div class="logo">+</div>
+            <div class="title">DxClinic Clinical Manuals</div>
+        </a>
+        <div class="toolbar-actions">
+            <select class="doc-select" onchange="window.location.href=this.value">
+                <option value="admin_manual.html" selected>Admin: DxClinic Administrator & Clinical Practice Manual</option>
+<option value="admin_quick_card.html" >Quick Card: DxClinic Administrator Quick Reference Card</option>
+<option value="doctor_manual.html" >Doctor: DxClinic Attending Doctor Clinical Manual</option>
+<option value="doctor_quick_card.html" >Quick Card: DxClinic Attending Doctor Quick Reference Card</option>
+<option value="operator_manual.html" >Operator: DxClinic Reception & Front Desk Operator Manual</option>
+<option value="operator_quick_card.html" >Quick Card: DxClinic Reception & Front Desk Operator Quick Reference Card</option>
+<option value="superadmin_manual.html" >Superadmin: DxClinic Superadmin Fleet Platform Governance Manual</option>
+<option value="superadmin_quick_card.html" >Quick Card: DxClinic Superadmin Fleet Quick Reference Card</option>
+<option value="faq.html" >FAQ (136 Q&A): DxClinic Comprehensive FAQ Knowledge Base</option>
+
+            </select>
+            <button type="button" class="btn-tool primary" onclick="window.print()">
+                <span>🖨 Print / Save as PDF</span>
+            </button>
+            <a href="/manuals/index.html" class="btn-tool">
+                <span>📚 All Manuals Hub</span>
+            </a>
+            <a href="/dashboard" class="btn-tool">
+                <span>&larr; Back to Dashboard</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="doc-header">
+            <span class="badge-role">Administrator &bull; Admin</span>
+            <h1 class="doc-title">DxClinic Administrator & Clinical Practice Manual</h1>
+            <p class="doc-sub">Comprehensive Practice Management, Multi-Doctor Capacity, Financial Controls & System Governance</p>
+            <div class="doc-meta">
+                <div><strong>Platform:</strong> DxClinic Practice Suite (Revision 39)</div>
+                <div><strong>Standard:</strong> NABH / ISO-Compliant OPD Workflow</div>
+                <div><strong>Published:</strong> 29 Sep 2026, 16:57 UTC</div>
+                <div><strong>Classification:</strong> Authoritative Clinical System Manual</div>
+            </div>
+        </header>
+
+        <!-- Markdown Converted Document Content -->
+        <main class="doc-body">
+            <h1>DxClinic Administrator Complete Setup &amp; Controls Manual</h1>
+<p><strong>DxClinic Clinical Management System — Revision 26</strong><br />
+<em>Manual Type: Full Admin Manual | Version: Revision 26 | Last Updated: September 2026 | Developer: Kundan Kumar | Copyright © 2026 DxClinic</em></p>
+<hr />
+<h2>1. System Architecture &amp; Administrative Scope</h2>
+<p>DxClinic Revision 26 provides full enterprise clinical control, multi-doctor scheduling, double-entry financial accounting, booking channel separation, historical billing management, and controlled financial modifications with immutable audit trails.</p>
+<p>Access URL: <code>http://192.168.1.2:8000/login</code><br />
+Default Admin: Full administrative privileges over clinical, financial, and system settings.</p>
+<hr />
+<h2>2. Settings Subsystem (Strict Order)</h2>
+<p>All administrative settings follow the standard 11-step configuration order:</p>
+<h3>2.1 Clinic &amp; Doctor Management (<code>/settings/clinic-doctor</code>)</h3>
+<ol>
+<li><strong>Clinic Profile</strong>: Define clinic legal entity name, address, city, phone, and official email.</li>
+<li><strong>Doctor Registry &amp; Capacity Entitlement (Revision 37)</strong>:
+<ul>
+<li>Register attending doctors with Name, Medical Qualifications, Registration Number, Specialization, and Contact Number.</li>
+<li>Doctor capacity is governed by the clinic's entitlement: Base Included Seat (1) plus any active Doctor Seat Add-Ons.</li>
+<li>If capacity is reached, creating an additional doctor profile is blocked until an additional doctor seat entitlement is purchased via Superadmin (₹2,999/year per doctor).</li>
+<li>Doctor names follow strict person name validation (Unicode alphabetic characters and single spaces). Professional degrees and registration numbers are stored separately.</li>
+</ul>
+</li>
+<li><strong>Default Booking Doctor</strong>:
+<ul>
+<li>When multiple active doctors exist, designate the default doctor preselected across Operator and Public booking desks.</li>
+<li>If only one doctor is active, the system automatically selects that doctor without prompting.</li>
+</ul>
+</li>
+</ol>
+<h3>2.2 Onboarding Wizard (<code>/settings/onboarding</code>)</h3>
+<ul>
+<li>Step-by-step initial deployment wizard configuring clinic profile, initial doctor, opening cash, opening bank balances, and operator accounts.</li>
+</ul>
+<h3>2.3 Users &amp; Operator Credentials (<code>/settings/users</code>)</h3>
+<ul>
+<li>Role-Based Access Control (RBAC):
+<ul>
+<li><code>ADMIN</code>: Full master authority over financial refunds, adjustments, audit trails, and user accounts.</li>
+<li><code>OPERATOR</code>: Desk registration, queue, vitals, billing, cash sessions, refund requests, and daily reports.</li>
+<li><code>DOCTOR</code>: Clinical consultation, historical encounter review, doctor pad reprinting, and discount/refund recommendations.</li>
+</ul>
+</li>
+<li>Secure password hashing with PBKDF2/Bcrypt and audit logging.</li>
+</ul>
+<h3>2.4 Expense Categories (<code>/settings/expense-categories</code>)</h3>
+<ul>
+<li>Standardized operational expense codes (Rent, Electricity, Tea/Coffee <code>EXP-TEA</code>, Printing/Stationery, Staff, Medical Supplies).</li>
+</ul>
+<h3>2.5 Fee Master (<code>/settings/fee-master</code>) (Revision 45 Hardened)</h3>
+<ul>
+<li>Authoritative doctor + booking type pricing engine:
+<ul>
+<li>Select Attending Doctor to load only the booking types explicitly mapped to that physician.</li>
+<li>Configure individual tariff rates for each mapped type (e.g. Dr. Rajesh Sharma: Clinic = ₹600.00, Online = ₹700.00, Emergency = ₹1,500.00; Dr. Amit Verma: Clinic = ₹800.00, Emergency = ₹2,000.00).</li>
+<li><strong>Anti-Fallback Rule</strong>: If a booking type is mapped but lacks a configured active fee, it is strictly excluded from booking. A doctor cannot borrow another physician's fee or silently fallback to generic rates. Missing fee != zero fee (explicit ₹0.00 is supported).</li>
+<li>Effective dating (<code>effective_from</code>, <code>effective_to</code>) ensures new rates take effect for future bookings while all past appointment financial snapshots remain immutable.</li>
+</ul>
+</li>
+</ul>
+<h3>2.5b Extensible Booking Types &amp; Doctor Availability Matrix (<code>/settings/booking-types</code>) (Revision 44/45)</h3>
+<ul>
+<li><strong>Clinic-Owned Booking Types</strong>: Create custom clinic consultancy offerings (e.g., <em>Home Healthcare Visit</em>, <em>Pediatric Consultation</em>, <em>Diet Counseling</em>) alongside platform system types (<em>Clinic Consultancy</em>, <em>Online Consultancy</em>, <em>Emergency Consultancy</em>).</li>
+<li><strong>Per-Doctor Availability Matrix</strong>: Enable or disable each booking type on a doctor-by-doctor basis. Doctor A and Doctor B have completely independent availability matrices.</li>
+<li><strong>Tenant Isolation</strong>: Booking types belong strictly to <code>booking_types.clinic_id</code>. Clinic A's types never appear for Clinic B.</li>
+<li><strong>Separation of Four Concepts</strong>:
+<ol>
+<li><em>Booking Source</em>: Where the booking originated (<code>CLINIC</code>, <code>ONLINE</code>, <code>TELEPHONIC</code>).</li>
+<li><em>Consultation Mode</em>: How care is delivered (<code>CLINIC_PHYSICAL</code>, <code>ONLINE</code>, <code>VISITING_CONSULTANCY</code>).</li>
+<li><em>Booking Type</em>: Specific clinical service package booked (<code>CLINIC_CONSULTANCY</code>, <code>ONLINE_CONSULTANCY</code>, <code>EMERGENCY_CONSULTANCY</code>, or Custom).</li>
+<li><em>Fee Mapping</em>: Exact tariff mapped to <code>(clinic_id, doctor_id, booking_type_id)</code>.</li>
+</ol>
+</li>
+</ul>
+<h3>2.6 Vital Master (<code>/settings/vital-master</code>)</h3>
+<ul>
+<li>Configure vital observation ranges: Weight (kg), Systolic/Diastolic BP (mmHg), Pulse (bpm), SpO2 (%), Temperature (°F).</li>
+</ul>
+<h3>2.7 Bank Accounts (<code>/settings/bank-accounts</code>)</h3>
+<ul>
+<li>Configure clinic bank accounts: Bank Name, Account Holder, Account Number, IFSC (standard 4-alpha + 0 + 6-alphanumeric), Branch, and UPI VPA ID.</li>
+</ul>
+<h3>2.8 Print &amp; Branding (<code>/settings/branding</code>)</h3>
+<ul>
+<li>Upload clinic logo (validated PNG/JPEG image signature, max 2MB).</li>
+<li>Print policies:
+<ul>
+<li>Financial Receipts are strictly <strong>A5</strong> (<code>148mm x 210mm</code>).</li>
+<li>Doctor prescription pad overlay strictly suppresses clinic logo when printed on pre-printed doctor letterheads.</li>
+</ul>
+</li>
+</ul>
+<h3>2.9 Online Booking &amp; Counter QR (<code>/settings/booking-qr</code>) (Revision 47 Hardened)</h3>
+<ul>
+<li>Canonical Per-Clinic Public PWA URL: <code>https://dxclinic.example.local/book/{public_slug}</code> (e.g. <code>/book/sharmacare</code>, <code>/book/arogya</code>, or <code>/book/democlinic</code>).</li>
+<li>Short Alias: <code>https://dxclinic.example.local/b/{public_slug}</code> (redirects automatically via HTTP 302 to canonical <code>/book/{public_slug}</code>).</li>
+<li>Dedicated isolated public booking layout with strict server-side tenant isolation: internal database IDs and clinic codes (e.g. <code>/book/NX0001</code>, <code>/book/1</code>) and unselected <code>/book</code> are strictly forbidden and return HTTP 404.</li>
+<li>Centralized <code>PublicSlugService</code> ensures unique, human-friendly public locators without exposing internal clinic codes.</li>
+<li>Download counter QR standee posters (PNG, SVG, or printable A4 PDF) embedding the clinic's dedicated <code>public_slug</code> booking URL.</li>
+<li>Operator Arrival Queue is accessed via tenant-scoped <code>/clinic/{public_slug}/operator/queue</code> with strict authentication and cross-tenant barrier enforcement.</li>
+</ul>
+<h3>2.10 Backup &amp; Disaster Recovery (<code>/settings/backup</code>)</h3>
+<ul>
+<li>Automated daily backup triggered after evening closing.</li>
+<li>Encrypted with AES-256-GCM + PBKDF2 key derivation into <code>.ncbk</code> format.</li>
+<li>Restore protocol: Pre-restore snapshot, maintenance mode, checksum validation, and schema integrity rollback.</li>
+</ul>
+<h3>2.11 Help Center &amp; Manuals (<code>/settings/help</code>)</h3>
+<ul>
+<li>Full documentation suite, 1-page quick cards, PDF downloads, and RAG knowledge base.</li>
+</ul>
+<hr />
+<h2>3. Historical Billing Architecture &amp; Immutability Rules</h2>
+<p><em>Core Principle: Settled financial facts are strictly immutable.</em></p>
+<ol>
+<li><strong>Immutable Entities</strong>:
+<ul>
+<li>Original <code>payments</code> records (amounts, methods, dates).</li>
+<li>Original <code>receipts</code> records (receipt numbers, settled totals).</li>
+<li>Original <code>journals</code> and <code>journal_entries</code> (settled debit/credit lines).</li>
+<li>Settled <code>consultation_bills</code> and <code>diagnostic_bills</code> gross, net, and paid amounts.</li>
+</ul>
+</li>
+<li><strong>Representation of Financial Changes</strong>:
+<ul>
+<li><strong>Refunds</strong>: Created in the dedicated <code>refunds</code> table with lifecycle status (<code>REQUESTED</code> -&gt; <code>APPROVED</code> -&gt; <code>PROCESSED</code> or <code>VOIDED</code>).</li>
+<li><strong>Receipt Revisions</strong>: Stored in <code>receipt_revisions</code> capturing old values, new values, financial impact, and reason.</li>
+<li><strong>Supplementary Bills</strong>: Created for diagnostic additions as separate linked bills (<code>{bill_number}-SUPP-{n}</code>) rather than overwriting historical bills.</li>
+<li><strong>Audit Logs</strong>: Created in <code>audit_logs</code> capturing reason (min 10 chars), change category, financial impact, and linked refund ID.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>4. Refund Processing &amp; Double-Entry Accounting</h2>
+<h3>4.1 Refund Calculation</h3>
+<p>Refundable amount is derived dynamically from:
+$$\text{Remaining Refundable Amount} = \text{Original Settled Payment} - \sum \text{PROCESSED Refunds}$$
+<em>Note: No mutable <code>refunded_amount</code> column exists on <code>payments</code>.</em></p>
+<h3>4.2 Refund Settlement Rules</h3>
+<ul>
+<li><strong>Cash Refund</strong>:
+<ul>
+<li><code>refund_method = 'CASH'</code></li>
+<li>Requires active <code>cash_session_id</code>.</li>
+<li>Accounting Entry:
+<ul>
+<li><strong>Dr Consultation Revenue (4001) / Diagnostic Revenue (4002)</strong></li>
+<li><strong>Cr Cash on Hand (1001)</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>UPI Refund</strong>:
+<ul>
+<li><code>refund_method = 'UPI'</code></li>
+<li>Requires clinic <code>bank_account_id</code> and bank transaction <code>reference_number</code>.</li>
+<li>Accounting Entry:
+<ul>
+<li><strong>Dr Consultation Revenue (4001) / Diagnostic Revenue (4002)</strong></li>
+<li><strong>Cr Bank Ledger (1002)</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Actual Settlement Method</strong>: The refund method is the actual method used to return funds. If an original payment was made via UPI but cash is refunded, Cash on Hand is credited.</li>
+</ul>
+<h3>4.3 Full vs Partial Refunds</h3>
+<ul>
+<li><strong>Partial Refund</strong>: Bill status remains <code>PAID</code>. Retained revenue is displayed as <code>Original Paid - Refunds</code>.</li>
+<li><strong>Full Refund</strong>: Bill status transitions to <code>REFUNDED</code> only when 100% of the settled amount has been processed as a refund.</li>
+</ul>
+<hr />
+<h2>5. Controlled Bill Modification &amp; Supplementary Billing</h2>
+<h3>5.1 Pending (Unsettled) Bills</h3>
+<ul>
+<li>If a bill is still <code>PENDING</code>, items or discounts may be adjusted.</li>
+<li>Requires server-side reason validation ($\ge 10$ characters, non-generic) and an audit log entry.</li>
+<li>No accounting entries are generated until actual settlement.</li>
+</ul>
+<h3>5.2 Diagnostic Bill Reductions &amp; Additions</h3>
+<ul>
+<li><strong>Reduction</strong>: Removing a test or reducing quantity triggers a controlled refund of the difference. The original bill remains intact.</li>
+<li><strong>Addition</strong>: Adding an additional test to a settled diagnostic bill creates a new <strong>Supplementary Diagnostic Bill</strong> linked to the original bill. The supplementary bill has its own payment workflow, receipt, and journal.</li>
+</ul>
+<h3>5.3 Doctor Recommendations</h3>
+<ul>
+<li>A doctor may recommend a discount or refund (stored with <code>doctor_instruction_by</code>, timestamp, and rationale).</li>
+<li>The recommendation is informational and does NOT settle money directly.</li>
+<li>Final financial settlement requires authorized processing by Admin or authorized desk staff.</li>
+</ul>
+<hr />
+<h2>6. Doctor Pad History &amp; Reprint Idempotency</h2>
+<ul>
+<li>Doctor Pad History displays all historical clinical encounters.</li>
+<li>Reprinting an old Doctor Pad generates:
+<ul>
+<li><strong>Zero payment records</strong></li>
+<li><strong>Zero journal entries</strong></li>
+<li><strong>Zero refunds</strong></li>
+<li><strong>Zero appointment/token increments</strong></li>
+<li><strong>Zero duplicate visits</strong></li>
+</ul>
+</li>
+<li>Pre-printed stationery overlay calibration is strictly respected.</li>
+</ul>
+<hr />
+<h2>7. Financial Reconciliation Formulas</h2>
+<h3>7.1 Physical Cash Reconciliation</h3>
+<p>$$\text{Expected Closing Cash} = \text{Opening Cash} + \text{Cash Collections} - \text{Cash Expenses} - \text{Cash Deposits} - \text{Cash Refunds Paid in Cash}$$</p>
+<h3>7.2 Book Bank Reconciliation</h3>
+<p>$$\text{Book Bank Balance} = \text{Opening Bank} + \text{UPI Collections} + \text{Cash Deposits} - \text{Bank Expenses} - \text{Bank Refunds Paid from Bank}$$</p>
+<h3>7.3 General Ledger Equilibrium</h3>
+<p>$$\sum \text{Debits} == \sum \text{Credits} \quad (\text{Discrepancy} = ₹0.00)$$</p>
+<hr />
+<h2>8. Role Permissions &amp; Security Matrix</h2>
+<table>
+<thead>
+<tr>
+<th align="left">Permission / Capability</th>
+<th align="center">ADMIN</th>
+<th align="center">OPERATOR</th>
+<th align="center">DOCTOR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">View Historical Consultation &amp; Diagnostic Bills</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="center">Yes (Clinical context)</td>
+</tr>
+<tr>
+<td align="left">Reprint Receipts, Doctor Pads, Lab Slips</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="center">Doctor Pad only</td>
+</tr>
+<tr>
+<td align="left">Submit Refund / Modification Request</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="center">Recommendation only</td>
+</tr>
+<tr>
+<td align="left">Approve / Process Financial Refunds</td>
+<td align="center">Yes</td>
+<td align="center">Desk Cash Limit</td>
+<td align="center">No</td>
+</tr>
+<tr>
+<td align="left">Create Supplementary Diagnostic Bills</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="center">No</td>
+</tr>
+<tr>
+<td align="left">View Receipt Revision History &amp; Audit Trails</td>
+<td align="center">Yes</td>
+<td align="center">Yes (Read-only)</td>
+<td align="center">No</td>
+</tr>
+<tr>
+<td align="left">Edit System Settings &amp; User Roles</td>
+<td align="center">Yes</td>
+<td align="center">No</td>
+<td align="center">No</td>
+</tr>
+<tr>
+<td align="left">Overwrite Historical Settled Facts</td>
+<td align="center"><strong>BLOCKED</strong></td>
+<td align="center"><strong>BLOCKED</strong></td>
+<td align="center"><strong>BLOCKED</strong></td>
+</tr>
+<tr>
+<td align="left">Manage Prescription Pad Templates &amp; Calibration</td>
+<td align="center">Yes</td>
+<td align="center">No</td>
+<td align="center">No</td>
+</tr>
+<tr>
+<td align="left">Activate / Archive Prescription Templates</td>
+<td align="center">Yes</td>
+<td align="center">No</td>
+<td align="center">No</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>9. Prescription Pad Template Designer (Revision 27)</h2>
+<h3>9.1 Overview &amp; Architecture</h3>
+<p>The Prescription Pad Template Designer allows administrators to design, calibrate, and version multi-doctor physical prescription stationery layouts.</p>
+<ul>
+<li><strong>Physical Millimeter Units</strong>: Field coordinates (<code>x_mm</code>, <code>y_mm</code>, <code>width_mm</code>, <code>height_mm</code>) are persisted strictly in physical millimeters, ensuring 100% faithful print reproduction regardless of designer zoom or device DPI.</li>
+<li><strong>Doctor-Specific Profiles</strong>: Different doctors can have different templates, different paper dimensions, and different selected clinical fields.</li>
+<li><strong>Scanned Reference Background</strong>: Administrators can upload a high-resolution PNG/JPG scan of pre-printed stationery. It displays as an alignment reference during design and in <strong>Proof Mode</strong>, but is omitted during <strong>Production Mode</strong>.</li>
+<li><strong>Interactive SVG Vector Canvas</strong>: Features real-time millimeter rulers, customizable 5mm/10mm grids, snap-to-grid alignment, keyboard nudge precision (Arrow = 0.5 mm, Shift + Arrow = 0.1 mm), and numeric X/Y property panels.</li>
+<li><strong>Safe Template Versioning</strong>: Active templates are immutable. Editing an active template automatically creates a new <code>DRAFT</code> version (e.g. v2). Activating a new draft safely marks the previous active version as <code>ARCHIVED</code>.</li>
+<li><strong>Legacy Fallback Guarantee</strong>: Doctors without an active template automatically continue using the legacy Doctor Pad renderer. The legacy configuration and templates are never overwritten or deleted.</li>
+<li><strong>Printer Calibration</strong>: Global physical offsets (<code>offset_x_mm</code>, <code>offset_y_mm</code>) and scaling factors (<code>scale_x</code>, <code>scale_y</code>) can be configured per clinic hardware printer without altering individual template coordinates.</li>
+</ul>
+<h3>9.2 Step-by-Step Template Creation Workflow</h3>
+<ol>
+<li>Navigate to <strong>Settings &gt; Prescription Pad Designer</strong> (<code>/settings/prescription-pad-templates</code>).</li>
+<li>Click <strong>[New Template]</strong> to create a fresh draft, or <strong>[Import From Legacy]</strong> to copy legacy coordinates into a draft.</li>
+<li>Choose the target doctor, select paper size (<strong>A4</strong>, <strong>A5</strong>, <strong>Letter</strong>, <strong>Half Letter</strong>, or <strong>Custom mm</strong>), and orientation.</li>
+<li>Click <strong>[Open Designer]</strong> to access the SVG workspace.</li>
+<li>In the <strong>Pad Scan</strong> card, upload the doctor's scanned pre-printed pad.</li>
+<li>From the <strong>Field Toolbox</strong>, click fields to add them (e.g. Patient Name, Age/Sex, Blood Pressure, Pulse, Token, Date).</li>
+<li>Drag fields on canvas or adjust <strong>X (mm)</strong> and <strong>Y (mm)</strong> in the right <strong>Properties Panel</strong>.</li>
+<li>Click <strong>[Test Print ▾] &gt; Proof PDF</strong> to inspect alignment with the scan.</li>
+<li>Click <strong>[Save Draft]</strong> to persist elements.</li>
+<li>Click <strong>[Activate]</strong> to make the template live for the doctor's OPD consultations.</li>
+</ol>
+<hr />
+<h2>10. Billing History &amp; Controlled Workflow Updates</h2>
+<h3>10.1 Consultation Billing History Edit Placement</h3>
+<p>In <code>/operator/consultation</code>, the <strong>Consultation Billing History</strong> table renders an <strong>[Edit]</strong> button immediately before the <strong>[Pad]</strong> reprint button on every eligible row.</p>
+<ul>
+<li>Clicking <strong>[Edit]</strong> opens the existing <code>BillModificationService</code> modal.</li>
+<li>Paid bills trigger the controlled refund/discount workflow with mandatory reason tracking.</li>
+</ul>
+<h3>10.2 Diagnostic Billing History Column Layout</h3>
+<p>In <code>/operator/diagnostics</code>, the <strong>Diagnostic Billing History</strong> table physically arranges columns in the exact sequence:
+$$\text{Status} \quad|\quad \textbf{Edit} \quad|\quad \text{Method}$$
+The <strong>[Edit]</strong> action button is positioned in its own dedicated column between Status and Payment Method for instant operational access.</p>
+<h2>11. Historical Prescription Template Immutability &amp; Calibration</h2>
+<h3>11.1 Immutable Template Version Binding</h3>
+<p>When a Doctor Pad is first generated or printed for a patient encounter, the system permanently records the exact active template version (<code>prescription_pad_template_id</code>) onto the appointment record.</p>
+<ul>
+<li><strong>Subsequent Reprints:</strong> Any future reprint or PDF download of that historical encounter will retrieve and render the exact template version that was in effect at the time of print.</li>
+<li><strong>Future Template Activations:</strong> Activating a new template version (e.g. V2 or V3) will ONLY apply to newly created clinical encounters. Past historical records are never retroactively rebound or altered.</li>
+</ul>
+<h3>11.2 Historical Printing of Archived Templates</h3>
+<p>When Template V1 is superseded by activating Template V2, V1 transitions to <code>ARCHIVED</code> status.</p>
+<ul>
+<li>Archived templates cannot be assigned to new appointments.</li>
+<li>Archived templates remain 100% active and printable in read-only mode for historical encounters that reference them.</li>
+</ul>
+<h3>11.3 Legacy Historical Record Fallback</h3>
+<p>All clinical appointments created prior to the introduction of custom templates (or with <code>is_legacy_pad = true</code>) automatically resolve to the legacy Doctor Pad renderer (<code>print.doctor-pad</code>). The legacy Blade view and its millimeter layout remain fully operational and preserved.</p>
+<h3>11.4 Hardware Deletion Protection</h3>
+<p>Database foreign key constraints (<code>RESTRICT</code>) prevent the deletion of any template version that is referenced by clinical appointments. If an administrator wishes to retire a template, they must use the <strong>Archive</strong> action.</p>
+<h3>11.5 Physical Printer Operational Calibration Protocol</h3>
+<ol>
+<li><strong>Mathematical Verification:</strong> Offsets ($X, Y$) and scale ($X, Y$) are mathematically applied during rendering.</li>
+<li><strong>On-Site Physical Sheet Calibration:</strong> Because physical printer rollers and browser margins vary, administrators must perform on-site alignment:
+<ul>
+<li>In the browser print dialog, always select <strong>Margins: None</strong> (or <strong>Minimum</strong>).</li>
+<li>Set <strong>Scale: 100%</strong> (do NOT use &quot;Fit to Printable Area&quot;).</li>
+<li>Print a test sheet on physical pre-printed stationery.</li>
+<li>If printed text is displaced (e.g. 3 mm too low or 2 mm too far right), open <strong>Settings &gt; Prescription Pad Templates &gt; Printer Calibration</strong> and enter the exact compensation offset ($X = -2.0\text{ mm}$, $Y = -3.0\text{ mm}$).</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>12. Multi-Tenant Architecture, Licensing &amp; Security (Revision 34 Hardening)</h2>
+<h3>12.1 Triple-Identifier Tenant Security Model</h3>
+<p>DxClinic enforces strict tenant isolation using three decoupled, specialized credentials:</p>
+<ol>
+<li><strong>Clinic ID (<code>clinic_code</code>):</strong> The facility's unique tenant identifier (e.g., <code>NX0001</code>, <code>NX0002</code>).</li>
+<li><strong>User Login ID (<code>login_id</code>):</strong> The user's role-scoped identity within their clinic (e.g., <code>ADM0001</code>, <code>OPR0001</code>). User IDs are unique <em>per clinic</em>, allowing different clinics to have identical internal login IDs without collisions.</li>
+<li><strong>Password:</strong> Secret credential controlling authentication.</li>
+</ol>
+<h3>12.2 License Key vs Activation Code Separation</h3>
+<ul>
+<li><strong>License Key (<code>NXCL-XXXX-XXXX-XXXX-XXXX</code>):</strong> Cryptographically stored entitlement token representing the clinic's active subscription period, duration, and doctor capacity.</li>
+<li><strong>Activation Code (<code>NXA-XXXX-XXXX</code>):</strong> A <strong>one-time, single-use</strong> cryptographic code issued only to the initial Clinic Administrator. It binds the initial admin, marks the clinic <code>ACTIVATED</code>, and initiates onboarding. It is immediately consumed and cannot be reused. Subsequent renewals <strong>never</strong> require an activation code.</li>
+</ul>
+<h3>12.3 Authoritative Tenant Context Rule</h3>
+<p>For all authenticated tenant staff (Admin, Operator, Doctor):
+$$\text{authenticated_user.clinic_id} \implies \text{TenantContext}$$</p>
+<ul>
+<li>Request headers (<code>X-Clinic-ID</code>, <code>X-Clinic-Code</code>), route parameters, and session values can <strong>NEVER</strong> override the authenticated user's clinic.</li>
+<li>Any attempt to access cross-tenant patients, appointments, templates, fees, or settings results in an immediate <strong>403 Forbidden</strong> security block.</li>
+</ul>
+<h3>12.4 Onboarding State Management</h3>
+<p>Clinic lifecycle tracks three independent states:</p>
+<ol>
+<li><strong>License State:</strong> <code>TRIAL</code>, <code>ACTIVE</code>, <code>EXPIRED</code>, <code>SUSPENDED</code>, <code>REVOKED</code>, <code>RENEWED</code>.</li>
+<li><strong>Activation State:</strong> <code>PENDING_ACTIVATION</code>, <code>ACTIVATED</code>.</li>
+<li><strong>Onboarding Status:</strong> <code>NOT_STARTED</code> $\implies$ <code>IN_PROGRESS</code> $\implies$ <code>COMPLETED</code>.</li>
+</ol>
+<p>A clinic is authorized upon activation, but remains in onboarding configuration until the Administrator finishes the setup wizard at <code>/settings/onboarding</code>.</p>
+<h3>12.5 Doctor Seat Capacity &amp; Add-on Licensing</h3>
+<ul>
+<li><strong>Base Plan Capacity:</strong> Standard subscription includes <strong>1 Doctor Seat</strong> (or plan-defined seats).</li>
+<li><strong>Additional Doctor Add-on:</strong> Additional doctor seats are priced at <strong>₹2,999 / doctor / year</strong> (configurable by Superadmin).</li>
+<li><strong>Transactional Enforcement:</strong> The backend strictly verifies:
+$$\text{active_doctor_count} &lt; \text{subscribed_doctor_capacity}$$
+If the limit is reached, doctor creation or activation is blocked with the message:
+<blockquote>
+<p><em>&quot;You have reached the maximum number of doctor seats included in your license. Please contact the application provider to purchase an additional doctor seat.&quot;</em></p>
+</blockquote>
+</li>
+<li><strong>Doctor Deactivation/Deletion:</strong> Deactivating or deleting a doctor frees up capacity for another doctor, but never alters historical subscription billing or event audit logs.</li>
+</ul>
+<h3>12.6 Clinic-Specific Public Booking &amp; Short URL</h3>
+<ul>
+<li><strong>Canonical Public Booking:</strong> <code>https://yourdomain.com/book/{clinic_code}</code> (e.g., <code>/book/NX0001</code>). Resolves strictly that clinic's branding, active doctors, schedules, consultation modes, and fee structure.</li>
+<li><strong>Short QR URL:</strong> <code>https://yourdomain.com/b/{clinic_code}</code> (e.g., <code>/b/NX0001</code>). Redirects instantly to the canonical booking page.</li>
+<li><strong>Legacy Fallback:</strong> Accessing unparameterized <code>/book</code> gracefully redirects to default tenant <code>NX0001</code>.</li>
+<li><strong>Invalid Clinic Code:</strong> Requesting an unknown clinic code yields a safe <strong>404 Not Found</strong> and never falls back to arbitrary clinic data.</li>
+</ul>
+<hr />
+<h2>13. Clinic Subscription Renewal &amp; Zero-Disruption Workflow (Revision 35)</h2>
+<h3>13.1 License &amp; Subscription Status Panel (<code>/settings/subscription</code>)</h3>
+<p>Clinic Administrators have real-time visibility into their subscription health via the <strong>License &amp; Subscription</strong> management screen:</p>
+<ul>
+<li><strong>Current Plan &amp; Duration:</strong> Displays active plan tier (e.g., Yearly Plan, 12 Months Coverage).</li>
+<li><strong>Masked License Key:</strong> Displays tenant license key formatted as <code>NXCL-••••-••••-••••-••••</code> for security.</li>
+<li><strong>Authoritative Validity Period:</strong> Start Date and Expiry Date with precise Remaining Days countdown calculated in <code>Asia/Kolkata</code> (IST) timezone.</li>
+<li><strong>Doctor Seat Capacity &amp; Allocation Table:</strong> Shows total licensed doctor seats (Base Included + Paid Add-ons), current utilization, and each registered doctor's assigned seat type.</li>
+</ul>
+<h3>13.2 Zero-Disruption Paid Renewal Policy</h3>
+<p>DxClinic establishes a zero-disruption renewal model for clinic owners:</p>
+<ol>
+<li><strong>External Payment:</strong> Subscription renewals and doctor seat expansions are paid outside the application directly to the software provider (via UPI, Bank Transfer, Cheque, or Cash).</li>
+<li><strong>Superadmin Atomic Renewal:</strong> Upon payment verification, the platform Superadmin confirms and activates the renewal inside DxClinic with one click.</li>
+<li><strong>Zero Tenant Actions Required:</strong>
+<ul>
+<li>Clinic Administrators do <strong>NOT</strong> enter any new license key or activation code.</li>
+<li>The clinic does <strong>NOT</strong> undergo reactivation or re-onboarding.</li>
+<li>Staff login IDs and passwords remain completely unchanged.</li>
+<li>Active clinical queues, patient records, bills, and accounting ledgers continue without any pause or reset.</li>
+</ul>
+</li>
+<li><strong>Instant Synchronization:</strong> The moment Superadmin submits the renewal, the clinic's validity date and doctor seats update instantaneously in the database and appear in <code>/settings/subscription</code>.</li>
+</ol>
+<hr />
+<h2>14. Revision 38 Platform Hardening &amp; Multi-Tenant Data Isolation</h2>
+<h3>14.1 Centralized Doctor Name Normalization</h3>
+<ul>
+<li>Doctor records in the database store clean canonical names without title prefixes (e.g., <code>Rajesh Sharma</code>, <code>Amit Verma</code>).</li>
+<li>The system automatically strips any entered prefixes (<code>Dr.</code>, <code>Dr </code>, <code>Doctor </code>) and formats all customer-facing displays via <code>DoctorNamePresenter::format($doctor)</code> as <code>Dr. Firstname Lastname</code>.</li>
+<li>Eliminates duplicate prefixes such as &quot;Dr. Dr.&quot; across all patient portals, reports, receipts, and print templates.</li>
+</ul>
+<h3>14.2 Standardized Customer-Facing Terminology</h3>
+<ul>
+<li>All customer-facing screens and receipts use <code>Clinic Consultancy</code>, <code>Online Consultancy</code>, and <code>Visiting Consultancy</code>.</li>
+<li>Internal configuration and database enums (<code>CLINIC_PHYSICAL</code>, <code>ONLINE</code>, <code>VISITING</code>) remain unchanged.</li>
+</ul>
+<h3>14.3 Strict Multi-Tenant Fee Isolation</h3>
+<ul>
+<li>Fee resolution strictly validates that doctor-specific fee overrides only apply when the doctor belongs to the target clinic (<code>$doctor-&gt;clinic_id === $clinicId</code>).</li>
+<li>Baseline clinic-wide rates ensure fallback stability across all booking channels.</li>
+</ul>
+<hr />
+<h2>15. Revision 46: Database Integrity Hardening &amp; Versioned Doctor Fee Architecture</h2>
+<h3>15.1 The Authoritative Relationship</h3>
+<p>DxClinic Revision 46 enforces an unyielding architectural relationship from UI down to raw MySQL InnoDB constraints:</p>
+<pre><code>CLINIC
+  │
+  └── DOCTOR (clinic_id verified)
+        │
+        └── MAPPED BOOKING TYPE (is_enabled = true for doctor)
+              │
+              └── EXACT DOCTOR + CLINIC FEE (active on appointment date)
+                    │
+                    └── IMMUTABLE APPOINTMENT SNAPSHOT (fee_amount permanently frozen)
+</code></pre>
+<h3>15.2 Database-Level Composite Foreign Keys</h3>
+<p>Even if an application bug or regressed code attempts an invalid combination, the MySQL InnoDB database physically rejects the transaction:</p>
+<ol>
+<li><strong>Parent Tables</strong>:
+<ul>
+<li><code>doctors</code>: Enforces <code>UNIQUE(id, clinic_id)</code>.</li>
+<li><code>booking_types</code>: Enforces <code>UNIQUE(id, clinic_id)</code>.</li>
+</ul>
+</li>
+<li><strong>Child Constraints</strong>:
+<ul>
+<li><code>doctor_booking_type_availability</code>: Both <code>(doctor_id, clinic_id)</code> and <code>(booking_type_id, clinic_id)</code> are composite foreign keys.</li>
+<li><code>fee_masters</code>: Both <code>(doctor_id, clinic_id)</code> and <code>(booking_type_id, clinic_id)</code> are composite foreign keys.</li>
+<li><code>appointments</code>: Both <code>(doctor_id, clinic_id)</code> and <code>(booking_type_id, clinic_id)</code> are composite foreign keys (<code>ON DELETE RESTRICT</code> to protect clinical records).</li>
+</ul>
+</li>
+</ol>
+<h3>15.3 Versioned Fee Master &amp; Non-Overlapping Dates</h3>
+<p>Fee Master supports scheduling future fee changes without altering past appointments:</p>
+<ul>
+<li><strong>Composite Version Key</strong>: <code>UNIQUE(clinic_id, doctor_id, booking_type_id, effective_from)</code>.</li>
+<li><strong>Non-Overlapping Ranges</strong>: Active fee versions for the same doctor and booking type must not have overlapping dates. Adding an open-ended fee automatically caps the prior open-ended fee on the preceding day.</li>
+<li><strong>Date-Specific Snapshot</strong>: New bookings look up the fee active on <code>appointment_date</code> and freeze it into <code>appointments.fee_amount</code>. Later tariff adjustments never mutate past bills, appointments, or receipts.</li>
+</ul>
+<h3>15.4 Separation of Four Core Booking Dimensions</h3>
+<ol>
+<li><strong>Booking Source</strong>: Where the booking originated (<code>CLINIC</code>, <code>ONLINE</code>, <code>TELEPHONIC</code>).</li>
+<li><strong>Consultation Mode</strong>: Delivery method (<code>CLINIC_PHYSICAL</code>, <code>ONLINE</code>, <code>VISITING_CONSULTANCY</code>).</li>
+<li><strong>Booking Type</strong>: Service package (<code>CLINIC_CONSULTANCY</code>, <code>ONLINE_CONSULTANCY</code>, <code>EMERGENCY_CONSULTANCY</code>, or custom).</li>
+<li><strong>Fee Master</strong>: Doctor-specific tariff for <code>(clinic_id, doctor_id, booking_type_id, effective_from)</code>.</li>
+</ol>
+<hr />
+<p><em>DxClinic Platform Administration Manual • Revision 46 Verified • Copyright © 2026 DxClinic</em></p>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="doc-footer">
+            <p>&copy; 2026 Nexora Solutions &bull; DxClinic Platform Developed by Kundan Kumar.</p>
+            <p>Confidential & Authoritative Clinical Management Documentation. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
