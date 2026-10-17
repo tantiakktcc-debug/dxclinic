@@ -234,5 +234,5 @@ Detailed architectural and operational documentation is located in:
 - **Developer:** Kundan Kumar
 - **Engineering Company:** Nexora Solution, Varanasi, Uttar Pradesh, India
 - **Canonical Website:** [https://nexorasolutionsind.co.in/](https://nexorasolutionsind.co.in/)
-- **Contact:** `+91 98765 43210` | `contact@nexorasolutionsind.co.in`
+- **Contact:** `+91 94507 76000` | `contact@nexorasolutionsind.co.in`
 - **License:** Distributed under the **GNU Affero General Public License v3.0 (GNU AGPL-3.0, SPDX: AGPL-3.0-only)**. See the [`LICENSE`](LICENSE) file for the complete terms and conditions. All modified or network-accessible deployments must provide corresponding source code under the terms of the GNU AGPL-3.0.
